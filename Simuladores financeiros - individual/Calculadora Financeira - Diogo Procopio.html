@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Financeira</title>
+</head>
+<body>
+    
+    <h2>Economia em gastos com tratamentos veterinários e medicamentos</h2>
+
+    Nome da empresa:
+    <input type="text" id="input_empresa"> <br>
+
+    Custo mensal com tratamentos:
+    <input type="text" id="input_tratamento"> <br>
+
+    Custo mensal com medicamentos:
+    <input type="text" id="input_medicamento"> <br>
+
+    <button onclick="economia()">Ver economia</button>
+
+    <div id="div_mensagem"></div>
+
+</body>
+</html>
+
+<script>
+
+    function economia () {
+        var empresa = input_empresa.value;
+        var tratamento = Number (input_tratamento.value);
+        var medicamento = Number (input_medicamento.value);
+        var gastos = tratamento + medicamento;
+        var economia = gastos * 0.40;
+        var total = gastos * 0.60;
+
+        div_mensagem.innerHTML = `<br>Com os dados fornecidos por nossos sensores, a ${empresa} poderá economizar até R$${economia}`;
+        div_mensagem.innerHTML += `<br>Reduzindo os gastos de R$${gastos} para R$${total} mensais`;
+    }
+
+</script>
