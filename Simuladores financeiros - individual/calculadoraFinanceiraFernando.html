@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Financeiro</title>
+</head>
+
+<body>
+    <h1>Simulador de Prejuízo Financeiro e Ambiental na Mortalidade de Répteis</h1>
+
+    <div>
+        <h3>- Dados Geral do Réptil</h3>
+        <div>
+            Informe o Tipo da Espécie de Reptil (ex: Geeko, Cobra): <br>
+            <input type="text" id="input_especie">
+            <br><br>
+
+            Informe o Número Total de Animais da Espécie na Instituição: <br>
+            <input type="number" id="input_totalEspecie">
+            <br><br>
+
+            Informe a Idade do Animal (em Anos): <br>
+            <input type="number" id="input_idadeAnimal">
+            <br><br>
+
+            Informe o Custo Mensal de Manutenção por Animal (comida, saúde, energia, estrutura etc): <br>
+            <input type="number" id="input_custoMensal">
+        </div>
+
+        <br>
+
+        <h3>- Parâmetros Reprodutivos</h3>
+        <div>
+            Informe o tipo de reprodução da espécie ('Assexuado' ou 'Sexual'): <br>
+            <input type="text" id="input_tipoReproducao">
+            <br><br>
+
+            Informe quantos ciclos reprodutivos ocorrem por ano na espécie: <br>
+            <input type="number" id="input_cicloReproducao">
+            <br><br>
+
+            Informe a quantidade aproximada de ovos que essa espécie costuma botar: <br>
+            <input type="text" id="input_qtdOvos">
+        </div>
+
+        <br>
+
+        <h3>- Parametros do Recinto</h3>
+        <div>
+            Informe a Temperatura Atual do Recinto:
+            <input type="number" id="input_tempAtual">
+            <br><br>
+
+            Informe a Temperatura Ideal do Recinto:
+            <input type="number" id="input_tempIdeal">
+            <br><br><br>
+
+            Informe a Umidade Atual do Recinto:
+            <input type="number" id="input_umidAtual">
+            <br><br>
+
+            Informe a Umidade Ideal do Recinto:
+            <input type="number" id="input_umidIdeal">
+        </div>
+    </div>
+
+    <br>
+
+    <button onclick="simularPreju()">Simular Prejuízo</button>
+
+    <br><br>
+
+    <div id="div_mensagem"></div>
+</body>
+
+</html>
+
+<script>
+    function simularPreju() {
+        //VARIAVEIS GERAIS DO ANIMAL 
+        var especie = input_especie.value;
+        var totalEspecie = Number(input_totalEspecie.value);
+        var idadeAnimal = Number(input_idadeAnimal.value) * 12;
+        var custoMensal = Number(input_custoMensal.value);
+
+        //VARIAVEIS DOS PARAMETROS REPRODUTIVOS
+        var tipoReproducao = Number(input_tipoReproducao.value);
+        var cicloRepro = Number(input_cicloReproducao.value);
+        var qtdOvosEspecie = Number(input_qtdOvos.value);
+
+        //VARIAVEIS DOS PARAMETROS 
+        var tempAtual = Number(input_tempAtual.value);
+        var tempIdeal = Number(input_tempIdeal.value);
+        var umidAtual = Number(input_umidAtual.value);
+        var umidIdeal = Number(input_umidIdeal.value);
+
+
+        //VARIAVEIS QUE COM BASE NO IF RESULTAM VALORES 
+        var percentualMortalidade = 0;
+
+
+        //CALCULANDO DIFERENÇA DA TEMP E UMID EM RELAÇÃO AOS PARAMETROS IDEIAS 
+        var diferTemp = tempIdeal - tempAtual;
+        if (diferTemp < 0) {
+            diferTemp = diferTemp * -1;
+        }
+
+        var diferUmid = umidIdeal - umidAtual;
+        if (diferUmid < 0) {
+            diferUmid = diferUmid * -1;
+        }
+
+        //CALCULANDO QUANTO SERÁ A TAXA DE MORTALIDADE COM BASE NA DIFERENÇA DA TEMPERATURA E UMIDADE
+        if (diferTemp == 0) {
+            percentualMortalidade += 0;
+        } else if (diferTemp <= 3) {
+            percentualMortalidade += 0.10;
+        } else if (diferTemp <= 6) {
+            percentualMortalidade += 0.20;
+        } else {
+            percentualMortalidade += 0.40;
+        }
+
+        if (diferUmid == 0) {
+            percentualMortalidade += 0;
+        } else if (diferUmid <= 10) {
+            percentualMortalidade += 0.10;
+        } else if (diferUmid <= 20) {
+            percentualMortalidade += 0.20;
+        } else {
+            percentualMortalidade += 0.40;
+        }
+
+        console.log(percentualMortalidade)
+
+        //CALCULANDO A ESTIMATIVA DA QUANTIDADE DE AFETADOS DA ESPECIE DEVIDO A VARIAÇÃO DA TEMP E UMID
+        var qtdDaEspecieAfetados = totalEspecie * percentualMortalidade;
+
+
+        //CALCULAR PREJUIZO FINANCEIRO
+        if (percentualMortalidade == 0) {
+            div_mensagem.innerHTML += 'Recinto na Medida Ideal <br>';
+        }
+
+        var prejuizoFinanceiro = (qtdDaEspecieAfetados * idadeAnimal) * qtdDaEspecieAfetados;
+
+        //ARREDONDANDO VALOR DA ESTIMATIVA DE AFETADOS DA ESPECIE
+        var qtdDaEspecieAfetadosArredondado = (qtdDaEspecieAfetados + 0.5) - (qtdDaEspecieAfetados + 0.5) % 1;
+
+
+        //EXIBINDO MENSAGEM DO PREJUIZO FINANCEIRO
+        div_mensagem.innerHTML = `
+            <h2>Estimativa de Impacto Financeiro</h2>
+            O prejuízo financeiro estimado é de R$${prejuizoFinanceiro}. <br>
+            Durante ${idadeAnimal / 12} anos, cada animal exigiu um custo mensal de manutenção de R$${custoMensal} , totalizando R$${custoMensal * idadeAnimal} por indivíduo nesse período. <br>
+            A taxa de mortalidade projetada foi de ${percentualMortalidade * 100}% , resultando em um número estimado de ${qtdDaEspecieAfetadosArredondado} animais da espécie ${especie} afetados, devido à variação de temperatura e umidade fora dos parâmetros ideais.
+        `;
+
+
+        //CALCULANDO PREJUIZO AMBIENTAL
+        //PERDA DA ESPECIE EM PERCENTUAL
+        var percentualPerdaEspecie = qtdDaEspecieAfetadosArredondado / 1000 * 100;
+
+        //VERIFICANDO SE O REPTIL É ASSEXUADO OU SEXUAL, RESULTANDO QUANTOS FAZEM A REPRODUÇÃO
+        var qtdReproDaEspecie = 0;
+
+        if (tipoReproducao == 'Assexuada') {
+            qtdReproDaEspecie = totalEspecie;
+        } else {
+            if (totalEspecie % 2 == 1) {
+                qtdReproDaEspecie = (totalEspecie / 2) - 1;
+            } else {
+                qtdReproDaEspecie = totalEspecie / 2;
+            }
+        }
+
+        //CALCULANDO QUANTOS NOVOS REPTEIS FORAM GERADOS POR ANO
+        var qtdNovosRepAnual = qtdReproDaEspecie * qtdOvosEspecie * cicloRepro;
+
+        //CALCULANDO QUANTOS NOVOS REPTEIS FORAM PERDIDOS DEVIDO A MORTALIDADE
+        var qtdPerdaRepAnual = (qtdDaEspecieAfetados / totalEspecie) * qtdNovosRepAnual;
+
+        //ARREDONDANDO
+        qtdPerdaRepAnual = (qtdPerdaRepAnual + 0.5) - (qtdPerdaRepAnual + 0.5) % 1;
+
+        //CALCULANDO O TEMPO DE RECUPERAÇÃO DESSES REPTEIS PERDIDOS EM ANOS
+        var tempoRecuperacao = 5 / (qtdNovosRepAnual - qtdPerdaRepAnual);
+
+        //CALCULANDO ESTIMATIVA DE FILHOTES QUE DEIXARAM DE NASCER DEVIDO A MORTALIDADE
+        var qtdFilhotesDeixaramDeNascer = qtdOvosEspecie * qtdDaEspecieAfetadosArredondado * cicloRepro;
+
+
+        //EXIBINDO MENSAGEM DO PREJUIZO AMBIENTAL
+        div_mensagem.innerHTML += `
+            <br>
+            <h2>Estimativa do Impacto Ambiental</h2>
+            Considerando uma população total de 1000 indivíduos da espécie, essa estimativa representa uma perda de aproximadamente ${percentualPerdaEspecie}% do total. <br>
+            Caso a mortalidade tenha efeitos sobre a reprodução de casais ou de espécies assexuados, estima-se que ${qtdFilhotesDeixaramDeNascer} filhotes deixaram de nascer, impactando ainda mais a conservação da espécie. <br>
+            Com a estimativa de ${qtdDaEspecieAfetadosArredondado} répteis afetados pela mortalidade, a população terá uma perda de aproximadamente ${qtdPerdaRepAnual} novos répteis por ano. <br>
+            No entanto, considerando a taxa de reprodução dos répteis restantes, será necessário cerca de ${tempoRecuperacao} anos para relatar ${qtdDaEspecieAfetadosArredondado} dos répteis afetados e estabilizar a população novamente.
+        `;
+
+    }
+
+</script>
