@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador financeiro</title>
+</head>
+
+<body>
+
+    <h1>Calculadora de custos com doenças evitáveis</h1>
+
+    Insira o total de répteis do criadouro ao ano:
+    <input type="text" id="input_totalRepteisAno">
+    <br><br>
+
+    Insira a porcentagem média de répteis que adoecem ao ano por questões de temperatura e umidade:
+    <input type="text" id="input_porcentagemRepteisAdoecem">%
+    <br><br>
+
+    Insira o custo médio de tratamento do réptil que adoece:
+    <input type="text" id="input_custoTratamento">
+    <br><br>
+
+    Insira a porcentagem de répteis que ficam inaptos/morrem por questões de temperatura e umidade:
+    <input type="text" id="input_porcentagemRepteisInaptos">%
+    <br><br>
+
+    Insira a porcentagem estimada de redução das doenças após o monitoramento:
+    <input type="text" id="input_porcentagemAposMonitoramento" value="30">%
+    <br><br>
+
+    <button onclick="calcular()">Calcular</button>
+    <div id="div_mensagem"></div>
+
+</body>
+
+</html>
+
+<script>
+
+    function calcular() {
+
+        //declaração de variáveis
+        var totalRepteis = Number(input_totalRepteisAno.value);
+        var porcentagemRepteisAdoecem = Number(input_porcentagemRepteisAdoecem.value);
+        var custoTratamento = Number(input_custoTratamento.value);
+        var porcentagemRepteisInaptos = Number(input_porcentagemRepteisInaptos.value);
+        var porcentagemAposMonitoramento = Number(input_porcentagemAposMonitoramento.value);
+
+        // Cálculos sem monitoramento
+        var totalRepteisDoentes = (totalRepteis * porcentagemRepteisAdoecem) / 100;
+        var totalGastoTratamento = totalRepteisDoentes * custoTratamento;
+        var totalRepteisInaptos = (totalRepteisDoentes * porcentagemRepteisInaptos) / 100;
+
+        // Cálculos com monitoramento
+        var repteisDoentesComMonitoramento = totalRepteisDoentes * ((100 - porcentagemAposMonitoramento) / 100);
+        var totalGastoTratamentoComMonitoramento = repteisDoentesComMonitoramento * custoTratamento;
+        var repteisInaptosComMonitoramento = (repteisDoentesComMonitoramento * porcentagemRepteisInaptos) / 100;
+
+        var economiaPorAno = totalGastoTratamento - totalGastoTratamentoComMonitoramento;
+
+        div_mensagem.innerHTML = `
+        
+        <h1>Custo sem o monitoramento</h1>
+
+        Calculando a porcentagem inserida de répteis doentes multiplicado pelo custo do tratamento, o total gasto em tratamento é ${totalGastoTratamento} reais ao ano; <br>
+        Calculando a porcentagem inserida de répteis inaptos/morreram multiplicado pelo total de répteis doentes e depois dividido por 100, o total de répteis inaptos
+        ou que morreram é ${totalRepteisInaptos}
+
+        <h1>Custos com o monitoramento:</h1>
+
+        Multiplicando o total de réptéis com a porcentagem de redução após o monitoramento dividido por 100 e multiplicando pelo custo do tratamento é ${totalGastoTratamentoComMonitoramento} reais ao ano<br>
+        Calculando a porcentagem inserida de répteis inaptos/morreram multiplicado pelo total de répteis doentes após o monitoramento e depois dividido por 100, o total de répteis inaptos
+        ou que morreram é ${repteisInaptosComMonitoramento}<br>
+        A economia por ano é ${economiaPorAno} reais que é o total gasto sem o monitoramento subtraído pelo total gasto com o monitoramento.
+        `
+    }
+</script>
