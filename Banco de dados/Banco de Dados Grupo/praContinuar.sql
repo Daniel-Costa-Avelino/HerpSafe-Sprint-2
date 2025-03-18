@@ -3,18 +3,18 @@ USE HerpSafe;
 
 -- --------------------------------------------------------------------------------------------------------------------------------------------------------
 
-CREATE TABLE Empresa (
+CREATE TABLE empresa (
 idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
-Razao_Social VARCHAR(255) NOT NULL,
-Fantasia VARCHAR(255) NOT NULL,
-CNPJ CHAR(18) NOT NULL UNIQUE,
-Porte VARCHAR(8) NOT NULL,
+razao_social VARCHAR(255) NOT NULL,
+fantasia VARCHAR(255) NOT NULL,
+cnpj VARCHAR(18) NOT NULL UNIQUE,
+porte VARCHAR(8) NOT NULL,
   CONSTRAINT chk_Porte
-      CHECK (Porte IN('Grande', 'Medio', 'Pequeno', 'Micro')),
-StatusCliente TINYINT NOT NULL
+      CHECK (porte IN('Grande', 'Medio', 'Pequeno', 'Micro')),
+statusCliente TINYINT NOT NULL
 ) AUTO_INCREMENT = 1000;
 
-INSERT INTO Empresa(Razao_Social, Fantasia, CNPJ, Porte, StatusCliente) VALUES
+INSERT INTO empresa(razao_social, fantasia, cnpj, porte, statuscliente) VALUES
 ('Jiboias Brasil Ltda', 'Animais Brasil', '15.251.660/0001-12', 'Pequeno', 1),
 ('I Azeredo Souza Criação de Répteis LTDA', 'Criatório Brasil Répteis', '30.683.842/0001-56', 'Micro', 1),
 ('CRIADOURO RECANTO DA JIBOIA LTDA', 'Recanto da Jiboia', '34.108.953/0001-90', 'Micro', 1),
@@ -25,19 +25,19 @@ INSERT INTO Empresa(Razao_Social, Fantasia, CNPJ, Porte, StatusCliente) VALUES
 
 -- -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-CREATE TABLE Endereco (
+CREATE TABLE endereco (
 idEndereco INT PRIMARY KEY AUTO_INCREMENT,
-Rua VARCHAR(255) NOT NULL,
-Numero VARCHAR(10) NOT NULL,
-Bairro VARCHAR(255) NOT NULL,
-Cidade VARCHAR(100) NOT NULL,
-Estado CHAR(2) NOT NULL,
-CEP CHAR(8) NOT NULL,
-idEmpresa INT UNIQUE -- Retirar o Unique
+rua VARCHAR(255) NOT NULL,
+numero VARCHAR(10) NOT NULL,
+bairro VARCHAR(255) NOT NULL,
+cidade VARCHAR(100) NOT NULL,
+estado CHAR(2) NOT NULL,
+cep VARCHAR(9) NOT NULL,
+idEmpresa INT 
 ) AUTO_INCREMENT = 1000;
 
 
-INSERT INTO Endereco (Rua, Numero, Bairro, Cidade, Estado, CEP, idEmpresa) VALUES
+INSERT INTO endereco (rua, numero, bairro, cidade, estado, cep, idEmpresa) VALUES
 ('Rua Contagem', '20', 'Betim Industrial', 'Betim', 'MG', '32670402', 1000),
 ('Rua Nova Iguaçu', '207', 'Jardim Marilea', 'Rio das Ostras', 'RJ', '28895880', 1001),
 ('Rua Gilson Carlos Mantello', '962', 'Sarandi', 'Sarandi', 'PR', '87111675', 1002), 
@@ -50,21 +50,21 @@ INSERT INTO Endereco (Rua, Numero, Bairro, Cidade, Estado, CEP, idEmpresa) VALUE
 
 -- -------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-CREATE TABLE Funcionario (
+CREATE TABLE funcionario (
 idFuncionario INT PRIMARY KEY AUTO_INCREMENT,
-Nome VARCHAR(255) NOT NULL,
-Email VARCHAR(254)NOT NULL UNIQUE,
-CPF CHAR(14) NOT NULL,
-Cargo VARCHAR(15) NOT NULL,
+nome VARCHAR(80) NOT NULL,
+email VARCHAR(200)NOT NULL UNIQUE,
+cpf VARCHAR(14) NOT NULL,
+cargo VARCHAR(15) NOT NULL,
     CONSTRAINT chk_Cargo
-        CHECK (Cargo IN('Gerencial' , 'Operacional')),
-Senha VARCHAR(20) NOT NULL,
+        CHECK (cargo IN('Gerencial' , 'Operacional')),
+senha VARCHAR(20) NOT NULL,
 hora_inicio_trabalho TIME,
 hora_fim_trabalho TIME,
-idEmpresa INT UNIQUE -- Retirar o unique
+idEmpresa INT
 ) AUTO_INCREMENT = 1000;
 
-INSERT INTO Funcionario (Nome, Email, CPF, Cargo, Senha, hora_inicio_trabalho, hora_fim_trabalho, idEmpresa) VALUES
+INSERT INTO funcionario (nome, email, cpf, cargo, senha, hora_inicio_trabalho, hora_fim_trabalho, idEmpresa) VALUES
 ('Carlos Silva', 'carlos.silva@animaisbrasil.com', '111.111.111-11', 'Gerencial', 'senha123', '07:00:00', '17:00:00', 1000),
 ('Mariana Souza', 'mariana.souza@animaisbrasil.com', '222.222.222-22', 'Operacional', 'senha123', '08:00:00', '18:00:00', 1000),
 ('Roberto Lima', 'roberto.lima@animaisbrasil.com', '333.333.333-33', 'Operacional', 'senha123', '09:00:00', '19:00:00', 1000),
@@ -89,23 +89,23 @@ INSERT INTO Funcionario (Nome, Email, CPF, Cargo, Senha, hora_inicio_trabalho, h
 
 -- --------------------------------------------------------------------------------------------------------------------------------------
 
-CREATE TABLE Sensor (
+CREATE TABLE sensor (
 idSensor INT PRIMARY KEY AUTO_INCREMENT,
-Numero_Serie CHAR(8) NOT NULL,
-Codigo_Interno CHAR(8) NOT NULL,
-Status_Sensor VARCHAR(10) NOT NULL,
+numero_Serie CHAR(8) NOT NULL,
+codigo_Interno CHAR(8) NOT NULL,
+status_Sensor VARCHAR(10) NOT NULL,
       CONSTRAINT chk_StatusSensor
              CHECK (Status_Sensor IN('Ativo', 'Manutenção', 'Inativo')),
-Tipo VARCHAR(5) NOT NULL,
+tipo VARCHAR(5) NOT NULL,
       CONSTRAINT chk_Tipo
-           CHECK (Tipo IN('DHT11', 'LM35')),
-Tipo_leitura VARCHAR(11) NOT NULL,
+           CHECK (tipo IN('DHT11', 'LM35')),
+tipo_leitura VARCHAR(11) NOT NULL,
      CONSTRAINT chk_TipoLeitura
-           CHECK (Tipo_leitura IN('Temperatura', 'Umidade')),
-idEmpresa  INT  UNIQUE -- Retirar o unique
+           CHECK (tipo_leitura IN('Temperatura', 'Umidade')),
+idEmpresa  INT
 );
 
-INSERT INTO Sensor (Numero_Serie, Codigo_Interno, Status_Sensor, Tipo, Tipo_leitura, idEmpresa) VALUES
+INSERT INTO sensor (numero_Serie, codigo_Interno, status_Sensor, tipo, tipo_leitura, idEmpresa) VALUES
 ('SN100000', 'CI000001', 'Ativo', 'DHT11', 'Umidade', 1000),
 ('SN100001', 'CI000002', 'Ativo', 'LM35', 'Temperatura', 1000),
 ('SN100002', 'CI000003', 'Inativo', 'DHT11', 'Umidade', 1000),
@@ -151,20 +151,20 @@ INSERT INTO Sensor (Numero_Serie, Codigo_Interno, Status_Sensor, Tipo, Tipo_leit
 
 -- ----------------------------------------------------------------------------------------------------------------------------------------------
 
-CREATE TABLE Local_instalaçao(
-idLocal_instalaçao INT PRIMARY KEY AUTO_INCREMENT,
-Recinto VARCHAR(10) NOT NULL,
+CREATE TABLE local_instalacao(
+idLocal_instalacao INT PRIMARY KEY AUTO_INCREMENT,
+recinto VARCHAR(10) NOT NULL,
          CONSTRAINT chk_Recinto
-            CHECK (Recinto IN('Terrário', 'Paludário', 'Tanque', 'Lago')),
-Tamanho_Recinto VARCHAR (12) NOT NULL,
+            CHECK (recinto IN('Terrário', 'Paludário', 'Tanque', 'Lago')),
+tamanho_Recinto VARCHAR (12) NOT NULL,
          CONSTRAINT chk_TamanhoRecinto
-             CHECK (Tamanho_Recinto IN('Pequeno', 'Médio', 'Grande', 'Extra Grande', 'Gigante')),
-Reptil VARCHAR(254) NOT NULL,
-Dt_Instalacao DATE NOT NULL,
-Dt_Manutencao DATE,
+             CHECK (tamanho_Recinto IN('Pequeno', 'Médio', 'Grande', 'Extra Grande', 'Gigante')),
+reptil VARCHAR(254) NOT NULL,
+dt_Instalacao DATE NOT NULL,
+dt_Manutencao DATE,
 idSensor_Temp INT UNIQUE,
 idSensor_Umid INT UNIQUE,
-idEmpresa INT UNIQUE -- Retirar o Unique
+idEmpresa INT
 ) AUTO_INCREMENT = 1000;
 
 INSERT INTO Local_instalaçao (Recinto, Tamanho_Recinto, Reptil, Dt_Instalacao, Dt_Manutencao, idSensor_Umid, idSensor_Temp, idEmpresa)
