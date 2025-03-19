@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Financeiro - </title>
+</head>
+
+<body>
+    <h1>Simulador Financeiro - </h1>
+
+    <div>
+        <h2 style="color: rgb(159, 25, 189);">➤ Custos Operacionais</h2>
+        <div>
+            <h3>■ Custo Geral:</h3>
+            Insira o custo mensal com alimentação:
+            <input type="text" id="input_alimentacao">
+            <br>
+
+            Insira o custo mensal de manutenção por terrário:
+            <input type="text" id="input_manutencao">
+            <br>
+
+            Insira o custo de equipamentos e instalação:
+            <input type="text" id="input_equipInstala">
+            <br>
+
+            Insira o custo mensal com tratamento dos animais:
+            <input type="text" id="input_tratamento">
+
+            <h3>■ Energia:</h3>
+            <!--Insira o custo mensal da tarifa de energia:
+            <input type="text" id="input_tarifaEnergia">
+            <br>-->
+
+            Insira a bandeira tarifária de energia ('vermelha', 'amarela' e 'verde'):
+            <input type="text" id="input_bandeira">
+            <br><br>
+
+            Insira qual o seu tipo de lâmpada? (Incandescente, Halógena, Cerâmica, Vapor de Mercúrio, Tapete Térmico)
+            <input type="text" id="input_tipoLampada" />
+            <br>
+
+            Insira a potência da lâmpada do recinto (W):
+            <input type="text" id="input_potenciaLamp">
+            <br>
+
+            Insira quantas horas de uso? (0-24):
+            <input type="number" id="input_horasUso" />
+            <br>
+
+            Insira quantos dias ficarão ligadas as lampadas:
+            <input type="number" id="input_dias">
+        </div>
+
+        <h2 style="color: rgb(159, 25, 189);">➤ Dados do Réptil</h2>
+        <div>
+            <h3>■ Dados Gerais</h3>
+            Insira o Tipo da Espécie de Reptil (ex: Geeko):
+            <input type="text" id="input_especie">
+            <br>
+
+            Insira o Número Total de Animais da Espécie na Instituição:
+            <input type="number" id="input_totalEspecie">
+            <br>
+
+            Insira a Idade do Animal (em Anos):
+            <input type="number" id="input_idadeAnimal">
+
+            <h3>■ Dados Reprodutivos</h3>
+            Insira o tipo de reprodução da espécie ('Assexuado' ou 'Sexual'):
+            <input type="text" id="input_tipoReproducao">
+            <br>
+
+            Insira quantos ciclos reprodutivos ocorrem por ano na espécie:
+            <input type="number" id="input_cicloReproducao">
+            <br>
+
+            Insira a quantidade aproximada de ovos que essa espécie costuma botar:
+            <input type="text" id="input_qtdOvos">
+        </div>
+
+        <h2 style="color: rgb(159, 25, 189);">➤ Parâmetros do Recinto</h2>
+        <div>
+            <h3>■ Temperatura</h3>
+            Informe a Temperatura Atual do Recinto:
+            <input type="number" id="input_tempAtual">
+            <br>
+
+            Informe a Temperatura Ideal do Recinto:
+            <input type="number" id="input_tempIdeal">
+
+            <h3>■ Umidade</h3>
+            Informe a Umidade Atual do Recinto:
+            <input type="number" id="input_umidAtual">
+            <br>
+
+            Informe a Umidade Ideal do Recinto:
+            <input type="number" id="input_umidIdeal">
+        </div>
+    </div>
+
+    <br>
+
+    <button onclick="simular()">Simular ...</button>
+    <br><br>
+
+    <hr>
+
+    <br>
+    <div id="div_mensagem"></div>
+
+
+
+    <!-- CALCULADORA:
+
+    O que vamos Pedir ao Usuário:
+
+    O que vamos exibir de Resultado:
+    - Texto:
+          Exibir
+
+    - Exibir Gastos Financeiros:
+          Gasto com Comida - Input Unico
+          Gasto Manutenção de Recinto
+          Gasto de Equipamento e Instalação
+          Gasto de Energia de Lampada - Exibir melhor opção
+          Tratos Veterinarios
+          Gastos Totais anual
+    - Exibir o Prejuizo Ambiental:
+              Prejuizo Financeiro na Perda dos Répteis Afetados
+          Quantos animais morreram devido a variação de temp e umid
+          Tempo para restaurar o estrago da Perda
+          Percentual de Perda da Espécie
+
+    - Pós HerbSafe:
+          Todos os dados Comparativos
+
+    PARAMETROS FIXOS:
+    - Média de 25% após Herbsafe
+    - Média de Percentual de Mortalidade:
+          3 graus de diferença = 10%
+          6 graus de diferença = 20%
+          Mais de 6 de diferença = 35%
+-->
+</body>
+
+</html>
+
+<script>
+    function simular() {
+        // CUSTO OPERACIONAIS
+        var alimentacao = Number(input_alimentacao.value);
+        var manutencao = Number(input_manutencao.value);
+        var equipInstala = Number(input_equipInstala.value);
+        var tratamento = Number(input_tratamento.value);
+
+        // ENERGIA
+        //var tarifaEnergia = Number(input_tarifaEnergia.value);
+        var bandeira = input_bandeira.value;
+
+        var tipoLampada = input_tipoLampada.value;
+        var potenciaLamp = Number(input_potenciaLamp.value);
+        var horasUso = Number(input_horasUso.value);
+        var diasLigada = Number(input_dias.value);
+
+
+        // DADOS DO REPTIL - DADOS GERAIS
+        var especie = input_especie.value;
+        var totalEspecie = Number(input_totalEspecie.value);
+        var idadeAnimal = Number(input_idadeAnimal.value);
+
+        // DADOS DO REPTIL - REPRODUTIVOS
+        var tipoReproducao = input_tipoReproducao.value;
+        var cicloReproducao = Number(input_cicloReproducao.value);
+        var qtdOvos = Number(input_qtdOvos.value);
+
+        // PARÂMETROS DO RECINTO - TEMPERATURA
+        var tempAtual = Number(input_tempAtual.value);
+        var tempIdeal = Number(input_tempIdeal.value);
+
+        // PARÂMETROS DO RECINTO - UMIDADE
+        var umidAtual = Number(input_umidAtual.value);
+        var umidIdeal = Number(input_umidIdeal.value);
+
+
+        //IMPACTO FINANCEIRO
+        //---------------------------------------------------------------------
+        // CALCULO DA ENERGIA
+        var tarifa;
+        if (bandeira == 'verde') {
+            tarifa = 0.75;
+        } else if (bandeira == 'amarela') {
+            tarifa = 0.90;
+        } else if (bandeira == 'vermelha') {
+            tarifa = 1;
+        }
+
+        // CALCULANDO O CONSUMO EM KWH
+        var consumoDiario = (potenciaLamp * horasUso) / 1000;
+        var consumoTotal = consumoDiario * diasLigada;
+
+        var custoFinal = consumoTotal * tarifa;
+
+        // CALCULANDO CUSTO PARA CADA LÂMPADA
+        var custoIncandescente = (60 / 1000) * horasUso * tarifa;
+        var custoHalogena = (50 / 1000) * horasUso * tarifa;
+        var custoCeramica = (150 / 1000) * horasUso * tarifa;
+        var custoVaporMercurio = (200 / 1000) * horasUso * tarifa;
+        var custoTapeteTermico = (40 / 1000) * horasUso * tarifa;
+
+        // DETERMINANDO LÂMPADA MAIS VANTAJOSA
+        var melhorLampada = "";
+        var menorCusto = 0;
+
+        if (custoHalogena < custoFinal) {
+            melhorLampada = "Halógena";
+            menorCusto = custoHalogena;
+        } else if (custoCeramica < custoFinal) {
+            melhorLampada = "Cerâmica";
+            menorCusto = custoCeramica;
+        } else if (custoVaporMercurio < custoFinal) {
+            melhorLampada = "Vapor de Mercúrio";
+            menorCusto = custoVaporMercurio;
+        } else if (custoTapeteTermico < custoFinal) {
+            melhorLampada = "Tapete Térmico";
+            menorCusto = custoTapeteTermico;
+        } else {
+            melhorLampada = "Incandescente";
+            menorCusto = custoIncandescente;
+        }
+
+        //CALCULO DE GASTOS ANUAL
+        var gastoAnual = equipInstala + (alimentacao + manutencao + tratamento) * 12
+
+        //IMPACTO AMBIENTAL
+        //------------------------------------------------------------------------------
+        //VARIAVEIS QUE COM BASE NO IF RESULTAM VALORES 
+        var percentualMortalidade = 0;
+
+
+        //CALCULANDO DIFERENÇA DA TEMP E UMID EM RELAÇÃO AOS PARAMETROS IDEIAS 
+        var diferTemp = tempIdeal - tempAtual;
+        if (diferTemp < 0) {
+            diferTemp = diferTemp * -1;
+        }
+
+        var diferUmid = umidIdeal - umidAtual;
+        if (diferUmid < 0) {
+            diferUmid = diferUmid * -1;
+        }
+
+        //CALCULANDO QUANTO SERÁ A TAXA DE MORTALIDADE COM BASE NA DIFERENÇA DA TEMPERATURA E UMIDADE
+        if (diferTemp == 0) {
+            percentualMortalidade += 0;
+        } else if (diferTemp <= 3) {
+            percentualMortalidade += 0.10;
+        } else if (diferTemp <= 6) {
+            percentualMortalidade += 0.20;
+        } else {
+            percentualMortalidade += 0.35;
+        }
+
+        if (diferUmid == 0) {
+            percentualMortalidade += 0;
+        } else if (diferUmid <= 10) {
+            percentualMortalidade += 0.10;
+        } else if (diferUmid <= 20) {
+            percentualMortalidade += 0.20;
+        } else {
+            percentualMortalidade += 0.35;
+        }
+
+        //CALCULANDO A ESTIMATIVA DA QUANTIDADE DE AFETADOS DA ESPECIE DEVIDO A VARIAÇÃO DA TEMP E UMID
+        var qtdDaEspecieAfetados = totalEspecie * percentualMortalidade;
+
+        var prejuizoFinanceiroMultaMin = 500 * qtdDaEspecieAfetados;
+        var prejuizoFinanceiroMultaMax = 5000 * qtdDaEspecieAfetados;
+
+
+        //ARREDONDANDO VALOR DA ESTIMATIVA DE AFETADOS DA ESPECIE
+        var qtdDaEspecieAfetadosArredondado = (qtdDaEspecieAfetados + 0.5) - (qtdDaEspecieAfetados + 0.5) % 1;
+
+        //PERDA DA ESPECIE EM PERCENTUAL
+        var percentualPerdaEspecie = qtdDaEspecieAfetadosArredondado / 1000 * 100;
+
+        //VERIFICANDO SE O REPTIL É ASSEXUADO OU SEXUAL, RESULTANDO QUANTOS FAZEM A REPRODUÇÃO
+        var qtdReproDaEspecie = 0;
+
+        if (tipoReproducao == 'Assexuada') {
+            qtdReproDaEspecie = totalEspecie;
+        } else {
+            if (totalEspecie % 2 == 1) {
+                qtdReproDaEspecie = (totalEspecie / 2) - 1;
+            } else {
+                qtdReproDaEspecie = totalEspecie / 2;
+            }
+        }
+
+        //CALCULANDO QUANTOS NOVOS REPTEIS FORAM GERADOS POR ANO
+        var qtdNovosRepAnual = qtdReproDaEspecie * qtdOvos * cicloReproducao;
+
+        //CALCULANDO QUANTOS NOVOS REPTEIS FORAM PERDIDOS DEVIDO A MORTALIDADE
+        var qtdPerdaRepAnual = (qtdDaEspecieAfetados / totalEspecie) * qtdNovosRepAnual;
+
+        //ARREDONDANDO
+        qtdPerdaRepAnual = (qtdPerdaRepAnual + 0.5) - (qtdPerdaRepAnual + 0.5) % 1;
+
+        //CALCULANDO O TEMPO DE RECUPERAÇÃO DESSES REPTEIS PERDIDOS EM ANOS
+        var tempoRecuperacao = 5 / (qtdNovosRepAnual - qtdPerdaRepAnual);
+
+        //CALCULANDO ESTIMATIVA DE FILHOTES QUE DEIXARAM DE NASCER DEVIDO A MORTALIDADE
+        var qtdFilhotesDeixaramDeNascer = qtdOvos * qtdDaEspecieAfetadosArredondado * cicloReproducao;
+
+        div_mensagem.innerHTML = `
+        Resultado da Simulação para a empresa<br><br>
+
+        Custos operacionais atuais:<br>
+        Atualmente, sua empresa, gasta aproximadamente R$ ${(alimentacao + manutencao + tratamento + equipInstala)} por mês, totalizando um custo anual de R$ ${gastoAnual}.<br>
+        Estudos indicam que um monitoramento eficiente da temperatura e umidade pode reduzir esses custos em média de 25%, evitando desperdícios de energia e reduzindo gastos com tratamentos veterinários.<br><br>
+
+        Consumo e custo de energia:<br>
+        A energia elétrica representa um fator importante nos custos operacionais. O consumo total estimado é de ${consumoTotal.toFixed(2)} kWh por mês, o que gera um custo mensal de R$ ${custoFinal.toFixed(2)}.<br>
+        Uma escolha estratégica na iluminação pode ajudar a reduzir esses gastos. No seu caso, a lâmpada mais econômica seria ${melhorLampada}, permitindo um custo mensal estimado de R$ ${menorCusto.toFixed(2)}.<br><br>
+
+        Impacto na espécie ${especie}:<br>
+        A manutenção do ambiente adequado é essencial para garantir a saúde dos animais. Atualmente, existem ${totalEspecie} indivíduos dessa espécie no recinto, mas as variações de temperatura e umidade podem gerar uma taxa de mortalidade estimada de ${(percentualMortalidade * 100).toFixed(2)}%.<br>
+        Isso significa que aproximadamente ${qtdDaEspecieAfetadosArredondado} indivíduos podem ser afetados, resultando não apenas em um impacto biológico significativo, mas também em um prejuízo financeiro entre R$ ${prejuizoFinanceiroMultaMin.toFixed(2)} e R$ ${prejuizoFinanceiroMultaMax.toFixed(2)}, devido a multas.<br><br>
+
+        Reprodução e recuperação da população:<br>
+        A reprodução é um fator essencial para a manutenção da população da espécie ${especie}.<br>
+        Com as condições atuais, estima-se que ${qtdNovosRepAnual} novos indivíduos sejam gerados anualmente.<br>
+        Porém, devido à taxa de mortalidade, ${qtdPerdaRepAnual} desses animais podem ser afetados, comprometendo o equilíbrio da população.<br>
+        Assim, o tempo necessário para recuperação completa desses indivíduos pode chegar a ${tempoRecuperacao.toFixed(2)} anos.<br>
+        Além disso, a mortalidade pode impactar o potencial reprodutivo, resultando em ${qtdFilhotesDeixaramDeNascer} filhotes que deixariam de nascer.<br><br>
+
+        A implementação de um sistema de monitoramento eficiente pode trazer inúmeros benefícios para sua empresa.<br>
+        A redução dos custos operacionais, a otimização do consumo energético e a melhoria da taxa de estabilidade da espécie ${especie} são fatores que podem contribuir para um ambiente mais sustentável e economicamente viável.<br>
+        O monitoramento adequado pode ajudar a garantir um habitat mais estável, evitando impactos negativos e garantindo melhores condições de manejo para os animais.<br>
+
+        <hr>
+
+        Resultado da Simulação após a Implementação do Monitoramento<br><br>
+
+        Com a adoção do monitoramento eficiente, a empresa já percebe uma redução significativa nos custos operacionais.<br>
+        Os gastos mensais com alimentação, manutenção, tratamento e equipamentos foram reduzidos para aproximadamente R$ ${(alimentacao + manutencao + tratamento + equipInstala) * 0.75}, refletindo um custo anual otimizado de R$ ${(gastoAnual * 0.75)}.<br>
+        Essa economia permite um planejamento mais estratégico, direcionando recursos para melhorias na infraestrutura e no bem-estar dos animais.<br><br>
+
+        Otimização do Consumo de Energia:<br>
+        A escolha da iluminação mais eficiente reduziu o consumo mensal de energia para ${consumoTotal.toFixed(2)} kWh, resultando em um custo revisado de R$ ${menorCusto.toFixed(2)} por mês.<br>
+        A substituição da iluminação anterior por ${melhorLampada} foi fundamental para essa economia, garantindo um uso mais sustentável dos recursos energéticos.<br><br>
+
+        Melhoria nas Condições para a Espécie ${especie}:<br>
+        A estabilidade no ambiente reduziu os impactos negativos sobre os animais. Antes, aproximadamente ${qtdDaEspecieAfetadosArredondado} indivíduos poderiam ser afetados pelas oscilações ambientais. Com o controle adequado da temperatura e umidade, esse número tende a diminuir, preservando melhor a população.<br>
+        Além disso, a redução dos impactos ambientais minimiza possíveis prejuízos financeiros, que antes poderiam variar entre R$ ${prejuizoFinanceiroMultaMin.toFixed(2)} e R$ ${prejuizoFinanceiroMultaMax.toFixed(2)}.<br><br>
+
+        Aumento na Eficiência Reprodutiva:<br>
+        Com as melhorias no ambiente, a reprodução da espécie ${especie} pode se tornar mais eficiente. Estima-se que o número de novos indivíduos gerados anualmente se mantenha em ${qtdNovosRepAnual}, porém com menores perdas.<br>
+        A necessidade de tempo para recuperação da população reduzida pode ser otimizada, evitando períodos prolongados de reposição.<br><br>
+
+        A implementação do monitoramento trouxe benefícios diretos para a empresa, reduzindo custos operacionais e energéticos, além de favorecer a preservação da espécie ${especie}.<br>
+        Com um ambiente mais estável, os impactos negativos foram minimizados, garantindo um manejo mais sustentável e eficiente.<br>
+
+        `
+    }
+
+</script>
