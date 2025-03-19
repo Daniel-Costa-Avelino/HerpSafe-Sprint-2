@@ -8,10 +8,19 @@
 </head>
 
 <body>
-    <h1>Simulador Financeiro - </h1>
+    <h1 style="color: rgb(0, 68, 0);">Simulador Financeiro - Análise Financeira de Custos e Parâmetros Ambientais</h1>
 
     <div>
-        <h2 style="color: rgb(159, 25, 189);">➤ Custos Operacionais</h2>
+        <div>
+            Nome da Empresa:
+            <input type="text" id="input_nome">
+            <br>
+
+            Lucro Anual da Empresa:
+            <input type="text" id="input_lucroAnual">
+        </div>
+
+        <h2 style="color: rgb(0, 110, 9);">➤ Custos Operacionais</h2>
         <div>
             <h3>■ Custo Geral:</h3>
             Insira o custo mensal com alimentação:
@@ -34,12 +43,24 @@
             <input type="text" id="input_tarifaEnergia">
             <br>-->
 
-            Insira a bandeira tarifária de energia ('vermelha', 'amarela' e 'verde'):
-            <input type="text" id="input_bandeira">
+            Insira a bandeira tarifária de energia
+            <select id="select_bandeira">
+                <option>...</option>
+                <option>vermelha</option>
+                <option>amarela</option>
+                <option>verde</option>
+            </select>
             <br><br>
 
-            Insira qual o seu tipo de lâmpada? (Incandescente, Halógena, Cerâmica, Vapor de Mercúrio, Tapete Térmico)
-            <input type="text" id="input_tipoLampada" />
+            Insira qual o seu tipo de lâmpada?
+            <select id="select_lampada">
+                <option>...</option>
+                <option>Incandescente</option>
+                <option>Halógena</option>
+                <option>Cerâmica</option>
+                <option>Vapor de Mercúrio</option>
+                <option>Tapete Térmico</option>
+            </select>
             <br>
 
             Insira a potência da lâmpada do recinto (W):
@@ -54,7 +75,7 @@
             <input type="number" id="input_dias">
         </div>
 
-        <h2 style="color: rgb(159, 25, 189);">➤ Dados do Réptil</h2>
+        <h2 style="color: rgb(0, 110, 9);">➤ Dados do Réptil</h2>
         <div>
             <h3>■ Dados Gerais</h3>
             Insira o Tipo da Espécie de Reptil (ex: Geeko):
@@ -69,8 +90,12 @@
             <input type="number" id="input_idadeAnimal">
 
             <h3>■ Dados Reprodutivos</h3>
-            Insira o tipo de reprodução da espécie ('Assexuado' ou 'Sexual'):
-            <input type="text" id="input_tipoReproducao">
+            Insira o tipo de reprodução da espécie:
+            <select id="select_tipoReproducao">
+                <option>...</option>
+                <option>Assexuado</option>
+                <option>Sexual</option>
+            </select>
             <br>
 
             Insira quantos ciclos reprodutivos ocorrem por ano na espécie:
@@ -81,7 +106,7 @@
             <input type="text" id="input_qtdOvos">
         </div>
 
-        <h2 style="color: rgb(159, 25, 189);">➤ Parâmetros do Recinto</h2>
+        <h2 style="color: rgb(0, 110, 9);">➤ Parâmetros do Recinto</h2>
         <div>
             <h3>■ Temperatura</h3>
             Informe a Temperatura Atual do Recinto:
@@ -110,40 +135,6 @@
 
     <br>
     <div id="div_mensagem"></div>
-
-
-
-    <!-- CALCULADORA:
-
-    O que vamos Pedir ao Usuário:
-
-    O que vamos exibir de Resultado:
-    - Texto:
-          Exibir
-
-    - Exibir Gastos Financeiros:
-          Gasto com Comida - Input Unico
-          Gasto Manutenção de Recinto
-          Gasto de Equipamento e Instalação
-          Gasto de Energia de Lampada - Exibir melhor opção
-          Tratos Veterinarios
-          Gastos Totais anual
-    - Exibir o Prejuizo Ambiental:
-              Prejuizo Financeiro na Perda dos Répteis Afetados
-          Quantos animais morreram devido a variação de temp e umid
-          Tempo para restaurar o estrago da Perda
-          Percentual de Perda da Espécie
-
-    - Pós HerbSafe:
-          Todos os dados Comparativos
-
-    PARAMETROS FIXOS:
-    - Média de 25% após Herbsafe
-    - Média de Percentual de Mortalidade:
-          3 graus de diferença = 10%
-          6 graus de diferença = 20%
-          Mais de 6 de diferença = 35%
--->
 </body>
 
 </html>
@@ -158,9 +149,8 @@
 
         // ENERGIA
         //var tarifaEnergia = Number(input_tarifaEnergia.value);
-        var bandeira = input_bandeira.value;
-
-        var tipoLampada = input_tipoLampada.value;
+        var bandeira = select_bandeira.value;
+        var tipoLampada = select_lampada.value;
         var potenciaLamp = Number(input_potenciaLamp.value);
         var horasUso = Number(input_horasUso.value);
         var diasLigada = Number(input_dias.value);
@@ -172,7 +162,7 @@
         var idadeAnimal = Number(input_idadeAnimal.value);
 
         // DADOS DO REPTIL - REPRODUTIVOS
-        var tipoReproducao = input_tipoReproducao.value;
+        var tipoReproducao = select_tipoReproducao.value;
         var cicloReproducao = Number(input_cicloReproducao.value);
         var qtdOvos = Number(input_qtdOvos.value);
 
@@ -204,11 +194,11 @@
         var custoFinal = consumoTotal * tarifa;
 
         // CALCULANDO CUSTO PARA CADA LÂMPADA
-        var custoIncandescente = (60 / 1000) * horasUso * tarifa;
-        var custoHalogena = (50 / 1000) * horasUso * tarifa;
-        var custoCeramica = (150 / 1000) * horasUso * tarifa;
-        var custoVaporMercurio = (200 / 1000) * horasUso * tarifa;
-        var custoTapeteTermico = (40 / 1000) * horasUso * tarifa;
+        var custoIncandescente = ((60 * horasUso) / 1000) * tarifa * diasLigada;
+        var custoHalogena = ((50 * horasUso) / 1000) * tarifa * diasLigada;
+        var custoCeramica = ((150 * horasUso) / 1000) * tarifa * diasLigada;
+        var custoVaporMercurio = ((200 * horasUso) / 1000) * tarifa * diasLigada;
+        var custoTapeteTermico = ((40 * horasUso) / 1000) * tarifa * diasLigada;
 
         // DETERMINANDO LÂMPADA MAIS VANTAJOSA
         var melhorLampada = "";
@@ -236,11 +226,11 @@
 
         //IMPACTO AMBIENTAL
         //------------------------------------------------------------------------------
-        //VARIAVEIS QUE COM BASE NO IF RESULTAM VALORES 
+        //VARIAVEIS QUE COM BASE NO IF RESULTAM VALORES
         var percentualMortalidade = 0;
 
 
-        //CALCULANDO DIFERENÇA DA TEMP E UMID EM RELAÇÃO AOS PARAMETROS IDEIAS 
+        //CALCULANDO DIFERENÇA DA TEMP E UMID EM RELAÇÃO AOS PARAMETROS IDEIAS
         var diferTemp = tempIdeal - tempAtual;
         if (diferTemp < 0) {
             diferTemp = diferTemp * -1;
@@ -314,55 +304,70 @@
         var qtdFilhotesDeixaramDeNascer = qtdOvos * qtdDaEspecieAfetadosArredondado * cicloReproducao;
 
         div_mensagem.innerHTML = `
-        Resultado da Simulação para a empresa<br><br>
+    <h2 style="color: rgb(168, 48, 0);">Resultado da Simulação para a empresa ${input_nome.value}</h2>
 
-        Custos operacionais atuais:<br>
-        Atualmente, sua empresa, gasta aproximadamente R$ ${(alimentacao + manutencao + tratamento + equipInstala)} por mês, totalizando um custo anual de R$ ${gastoAnual}.<br>
-        Estudos indicam que um monitoramento eficiente da temperatura e umidade pode reduzir esses custos em média de 25%, evitando desperdícios de energia e reduzindo gastos com tratamentos veterinários.<br><br>
+    <h3 style="color: rgb(223, 63, 0);">➲ Custos operacionais atuais:</h3>
+    Atualmente, sua empresa ${input_nome.value}, gasta aproximadamente <b style="color: red;">R$ ${(alimentacao + manutencao + tratamento + equipInstala)}</b> por mês, totalizando um custo anual de <b style="color: red;">R$ ${gastoAnual}</b>.<br>
+    Estudos indicam que um monitoramento eficiente da temperatura e umidade pode reduzir esses custos em média de 25%, <br>
+    evitando desperdícios de energia e reduzindo gastos com tratamentos veterinários.<br>
 
-        Consumo e custo de energia:<br>
-        A energia elétrica representa um fator importante nos custos operacionais. O consumo total estimado é de ${consumoTotal.toFixed(2)} kWh por mês, o que gera um custo mensal de R$ ${custoFinal.toFixed(2)}.<br>
-        Uma escolha estratégica na iluminação pode ajudar a reduzir esses gastos. No seu caso, a lâmpada mais econômica seria ${melhorLampada}, permitindo um custo mensal estimado de R$ ${menorCusto.toFixed(2)}.<br><br>
+    <h3 style="color: rgb(223, 63, 0);">➲ Consumo e custo de energia:</h3>
+    A energia elétrica representa um fator importante nos custos operacionais. O consumo total estimado é de ${consumoTotal.toFixed(2)} kWh por <br>
+    mês, o que gera um custo mensal de <b style="color: red;">R$ ${custoFinal.toFixed(2)}</b>.<br>
+    Uma escolha estratégica na iluminação pode ajudar a reduzir esses gastos. No seu caso, a lâmpada mais econômica seria <br>
+    ${melhorLampada}, permitindo um custo mensal estimado de <b style="color: #008000;">R$ ${menorCusto.toFixed(2)}</b>.<br>
 
-        Impacto na espécie ${especie}:<br>
-        A manutenção do ambiente adequado é essencial para garantir a saúde dos animais. Atualmente, existem ${totalEspecie} indivíduos dessa espécie no recinto, mas as variações de temperatura e umidade podem gerar uma taxa de mortalidade estimada de ${(percentualMortalidade * 100).toFixed(2)}%.<br>
-        Isso significa que aproximadamente ${qtdDaEspecieAfetadosArredondado} indivíduos podem ser afetados, resultando não apenas em um impacto biológico significativo, mas também em um prejuízo financeiro entre R$ ${prejuizoFinanceiroMultaMin.toFixed(2)} e R$ ${prejuizoFinanceiroMultaMax.toFixed(2)}, devido a multas.<br><br>
+    <h3 style="color: rgb(223, 63, 0);">➲ Impacto na espécie ${especie}:</h3>
+    A manutenção do ambiente adequado é essencial para garantir a saúde dos animais. Atualmente, existem ${totalEspecie} indivíduos <br>
+    dessa espécie no recinto, mas as variações de temperatura e umidade podem gerar uma taxa de mortalidade estimada de <br>
+    ${(percentualMortalidade * 100).toFixed(2)}%.
+    Isso significa que aproximadamente <b style="color: red;">${qtdDaEspecieAfetadosArredondado}</b> indivíduos podem ser afetados, resultando não apenas em um impacto <br>
+    biológico significativo, mas também em um prejuízo financeiro entre <b style="color: red;">R$ ${prejuizoFinanceiroMultaMin.toFixed(2)}</b> e <b style="color: red;">R$ ${prejuizoFinanceiroMultaMax.toFixed(2)}</b>, devido a multas.<br>
 
-        Reprodução e recuperação da população:<br>
-        A reprodução é um fator essencial para a manutenção da população da espécie ${especie}.<br>
-        Com as condições atuais, estima-se que ${qtdNovosRepAnual} novos indivíduos sejam gerados anualmente.<br>
-        Porém, devido à taxa de mortalidade, ${qtdPerdaRepAnual} desses animais podem ser afetados, comprometendo o equilíbrio da população.<br>
-        Assim, o tempo necessário para recuperação completa desses indivíduos pode chegar a ${tempoRecuperacao.toFixed(2)} anos.<br>
-        Além disso, a mortalidade pode impactar o potencial reprodutivo, resultando em ${qtdFilhotesDeixaramDeNascer} filhotes que deixariam de nascer.<br><br>
+    <h3 style="color: rgb(223, 63, 0);">➲ Reprodução e recuperação da população:</h3>
+    A reprodução é um fator essencial para a manutenção da população da espécie ${especie}.<br>
+    Com as condições atuais, estima-se que ${qtdNovosRepAnual} novos indivíduos sejam gerados anualmente.<br>
+    Porém, devido à taxa de mortalidade, ${qtdPerdaRepAnual} desses animais podem ser afetados, comprometendo o equilíbrio da população.<br>
+    Assim, o tempo necessário para recuperação completa desses indivíduos pode chegar a ${tempoRecuperacao.toFixed(2)} anos.<br>
+    Além disso, a mortalidade pode impactar o potencial reprodutivo, resultando em ${qtdFilhotesDeixaramDeNascer} filhotes que deixariam de nascer.<br><br>
 
-        A implementação de um sistema de monitoramento eficiente pode trazer inúmeros benefícios para sua empresa.<br>
-        A redução dos custos operacionais, a otimização do consumo energético e a melhoria da taxa de estabilidade da espécie ${especie} são fatores que podem contribuir para um ambiente mais sustentável e economicamente viável.<br>
-        O monitoramento adequado pode ajudar a garantir um habitat mais estável, evitando impactos negativos e garantindo melhores condições de manejo para os animais.<br>
+    <h2 style="color: #008000;">Lucro Estimado: R$${input_lucroAnual.value}</h2>
 
-        <hr>
+    <br>
+    <hr>
 
-        Resultado da Simulação após a Implementação do Monitoramento<br><br>
+    <h2 style="color: rgb(0, 79, 110);">Resultado da Simulação após a Implementação do Monitoramento</h2>
 
-        Com a adoção do monitoramento eficiente, a empresa já percebe uma redução significativa nos custos operacionais.<br>
-        Os gastos mensais com alimentação, manutenção, tratamento e equipamentos foram reduzidos para aproximadamente R$ ${(alimentacao + manutencao + tratamento + equipInstala) * 0.75}, refletindo um custo anual otimizado de R$ ${(gastoAnual * 0.75)}.<br>
-        Essa economia permite um planejamento mais estratégico, direcionando recursos para melhorias na infraestrutura e no bem-estar dos animais.<br><br>
+    Com a adoção do monitoramento eficiente, a empresa ${input_nome.value} já percebe uma redução significativa nos custos operacionais.<br>
+    Os gastos mensais com alimentação, manutenção, tratamento e equipamentos foram reduzidos para aproximadamente <br>
+    <b style="color: #008000;">R$ ${(alimentacao + manutencao + tratamento + equipInstala) * 0.75}</b>, refletindo um custo anual otimizado de <b style="color: #008000;">R$ ${(gastoAnual * 0.75)}</b>.<br>
+    Essa economia permite um planejamento mais estratégico, direcionando recursos para melhorias na infraestrutura e no <br>
+    bem-estar dos animais.<br><br>
 
-        Otimização do Consumo de Energia:<br>
-        A escolha da iluminação mais eficiente reduziu o consumo mensal de energia para ${consumoTotal.toFixed(2)} kWh, resultando em um custo revisado de R$ ${menorCusto.toFixed(2)} por mês.<br>
-        A substituição da iluminação anterior por ${melhorLampada} foi fundamental para essa economia, garantindo um uso mais sustentável dos recursos energéticos.<br><br>
+    <h3 style="color: rgb(0, 146, 204);">➲ Otimização do Consumo de Energia:</h3>
+    A escolha da iluminação mais eficiente reduziu o consumo mensal de energia para ${consumoTotal.toFixed(2)} kWh, resultando em um custo <br>
+    revisado de <b style="color: #008000;">R$ ${menorCusto.toFixed(2)}</b> por mês.<br>
+    A substituição da iluminação anterior por ${melhorLampada} foi fundamental para essa economia, garantindo um uso mais <br>
+    sustentável dos recursos energéticos.<br><br>
 
-        Melhoria nas Condições para a Espécie ${especie}:<br>
-        A estabilidade no ambiente reduziu os impactos negativos sobre os animais. Antes, aproximadamente ${qtdDaEspecieAfetadosArredondado} indivíduos poderiam ser afetados pelas oscilações ambientais. Com o controle adequado da temperatura e umidade, esse número tende a diminuir, preservando melhor a população.<br>
-        Além disso, a redução dos impactos ambientais minimiza possíveis prejuízos financeiros, que antes poderiam variar entre R$ ${prejuizoFinanceiroMultaMin.toFixed(2)} e R$ ${prejuizoFinanceiroMultaMax.toFixed(2)}.<br><br>
+    <h3 style="color: rgb(0, 146, 204);">➲ Melhoria nas Condições para a Espécie ${especie}:</h3>
+    A estabilidade no ambiente reduziu os impactos negativos sobre os animais. Antes, aproximadamente <b style="color: red;">${qtdDaEspecieAfetadosArredondado}</b> indivíduos <br>
+    poderiam ser afetados pelas oscilações ambientais. Com o controle adequado da temperatura e umidade, esse número <br>
+    tende a diminuir, preservando melhor a população.<br>
+    Além disso, a redução dos impactos ambientais minimiza possíveis prejuízos financeiros, que antes poderiam variar <br>
+    entre <b style="color: #008000;">R$ ${prejuizoFinanceiroMultaMin.toFixed(2)}</b> e <b style="color: #008000;">R$ ${prejuizoFinanceiroMultaMax.toFixed(2)}</b>.<br><br>
 
-        Aumento na Eficiência Reprodutiva:<br>
-        Com as melhorias no ambiente, a reprodução da espécie ${especie} pode se tornar mais eficiente. Estima-se que o número de novos indivíduos gerados anualmente se mantenha em ${qtdNovosRepAnual}, porém com menores perdas.<br>
-        A necessidade de tempo para recuperação da população reduzida pode ser otimizada, evitando períodos prolongados de reposição.<br><br>
+    <h3 style="color: rgb(0, 146, 204);">➲ Aumento na Eficiência Reprodutiva:</h3>
+    Com as melhorias no ambiente, a reprodução da espécie ${especie} pode se tornar mais eficiente. Estima-se que o número de novos <br>
+    indivíduos gerados anualmente se mantenha em ${qtdNovosRepAnual}, porém com menores perdas.<br>
+    A necessidade de tempo para recuperação da população reduzida pode ser otimizada, evitando períodos prolongados <br>
+    de reposição.<br><br>
 
-        A implementação do monitoramento trouxe benefícios diretos para a empresa, reduzindo custos operacionais e energéticos, além de favorecer a preservação da espécie ${especie}.<br>
-        Com um ambiente mais estável, os impactos negativos foram minimizados, garantindo um manejo mais sustentável e eficiente.<br>
+    <h2 style="color: #008000;">Lucro Estimado: R$${Number(input_lucroAnual.value) + gastoAnual * 0.25}</h2>
+`
 
-        `
     }
 
 </script>
+
+
