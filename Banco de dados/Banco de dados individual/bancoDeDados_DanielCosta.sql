@@ -1,6 +1,6 @@
-CREATE DATABASE sprint1_HerbSafe;
+CREATE DATABASE sprint1_HerpSafe;
 
-USE sprint1_HerbSafe;
+USE sprint1_HerpSafe;
 
 CREATE TABLE funcionario(
 idFuncionario INT PRIMARY KEY AUTO_INCREMENT,
