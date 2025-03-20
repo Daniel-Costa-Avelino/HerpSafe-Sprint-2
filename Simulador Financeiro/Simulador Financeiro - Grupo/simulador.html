@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador Financeiro - </title>
+    <title>Simulador Financeiro</title>
 </head>
 
 <body>
@@ -304,70 +304,60 @@
         var qtdFilhotesDeixaramDeNascer = qtdOvos * qtdDaEspecieAfetadosArredondado * cicloReproducao;
 
         div_mensagem.innerHTML = `
-    <h2 style="color: rgb(168, 48, 0);">Resultado da Simulação para a empresa ${input_nome.value}</h2>
+        <h2 style="color: rgb(168, 48, 0);">Simulação para ${input_nome.value}</h2>
 
-    <h3 style="color: rgb(223, 63, 0);">➲ Custos operacionais atuais:</h3>
-    Atualmente, sua empresa ${input_nome.value}, gasta aproximadamente <b style="color: red;">R$ ${(alimentacao + manutencao + tratamento + equipInstala)}</b> por mês, totalizando um custo anual de <b style="color: red;">R$ ${gastoAnual}</b>.<br>
-    Estudos indicam que um monitoramento eficiente da temperatura e umidade pode reduzir esses custos em média de 25%, <br>
-    evitando desperdícios de energia e reduzindo gastos com tratamentos veterinários.<br>
+        <h3 style="color: rgb(223, 63, 0);">➲ Custos Operacionais</h3>
+        - Gasto mensal: <b style="color: red;">R$ ${(alimentacao + manutencao + tratamento + equipInstala)}</b><br>
+        - Gasto anual: <b style="color: red;">R$ ${gastoAnual}</b><br>
+        - Monitoramento pode reduzir custos em até <b style="color: #008000;">25%</b>, evitando desperdícios.<br>
 
-    <h3 style="color: rgb(223, 63, 0);">➲ Consumo e custo de energia:</h3>
-    A energia elétrica representa um fator importante nos custos operacionais. O consumo total estimado é de ${consumoTotal.toFixed(2)} kWh por <br>
-    mês, o que gera um custo mensal de <b style="color: red;">R$ ${custoFinal.toFixed(2)}</b>.<br>
-    Uma escolha estratégica na iluminação pode ajudar a reduzir esses gastos. No seu caso, a lâmpada mais econômica seria <br>
-    ${melhorLampada}, permitindo um custo mensal estimado de <b style="color: #008000;">R$ ${menorCusto.toFixed(2)}</b>.<br>
+        <h3 style="color: rgb(223, 63, 0);">➲ Consumo e Custo de Energia</h3>
+        - Consumo total: <b>${consumoTotal} kWh/mês</b><br>
+        - Custo atual: <b style="color: red;">R$ ${custoFinal}</b><br>
+        - Melhor lâmpada: <b>${melhorLampada}</b><br>
+        - Novo custo: <b style="color: #008000;">R$ ${menorCusto}</b> (economia significativa)<br>
 
-    <h3 style="color: rgb(223, 63, 0);">➲ Impacto na espécie ${especie}:</h3>
-    A manutenção do ambiente adequado é essencial para garantir a saúde dos animais. Atualmente, existem ${totalEspecie} indivíduos <br>
-    dessa espécie no recinto, mas as variações de temperatura e umidade podem gerar uma taxa de mortalidade estimada de <br>
-    ${(percentualMortalidade * 100).toFixed(2)}%.
-    Isso significa que aproximadamente <b style="color: red;">${qtdDaEspecieAfetadosArredondado}</b> indivíduos podem ser afetados, resultando não apenas em um impacto <br>
-    biológico significativo, mas também em um prejuízo financeiro entre <b style="color: red;">R$ ${prejuizoFinanceiroMultaMin.toFixed(2)}</b> e <b style="color: red;">R$ ${prejuizoFinanceiroMultaMax.toFixed(2)}</b>, devido a multas.<br>
+        <h3 style="color: rgb(223, 63, 0);">➲ Impacto na Espécie ${especie}</h3>
+        - Indivíduos no recinto: <b>${totalEspecie}</b><br>
+        - Mortalidade: <b style="color: red;">${(percentualMortalidade * 100)}%</b> (<b style="color: red;">${qtdDaEspecieAfetadosArredondado}</b> afetados)<br>
+        - Prejuízo: <b style="color: red;">R$ ${prejuizoFinanceiroMultaMin}</b> – <b style="color: red;">R$ ${prejuizoFinanceiroMultaMax}</b><br>
+        - Multas aplicáveis por não conformidade.<br>
 
-    <h3 style="color: rgb(223, 63, 0);">➲ Reprodução e recuperação da população:</h3>
-    A reprodução é um fator essencial para a manutenção da população da espécie ${especie}.<br>
-    Com as condições atuais, estima-se que ${qtdNovosRepAnual} novos indivíduos sejam gerados anualmente.<br>
-    Porém, devido à taxa de mortalidade, ${qtdPerdaRepAnual} desses animais podem ser afetados, comprometendo o equilíbrio da população.<br>
-    Assim, o tempo necessário para recuperação completa desses indivíduos pode chegar a ${tempoRecuperacao.toFixed(2)} anos.<br>
-    Além disso, a mortalidade pode impactar o potencial reprodutivo, resultando em ${qtdFilhotesDeixaramDeNascer} filhotes que deixariam de nascer.<br><br>
+        <h3 style="color: rgb(223, 63, 0);">➲ Reprodução e Recuperação</h3>
+        - Novos indivíduos por ano: <b>${qtdNovosRepAnual}</b><br>
+        - Perdas esperadas: <b style="color: red;">${qtdPerdaRepAnual}</b><br>
+        - Tempo de recuperação: <b>${tempoRecuperacao} anos</b><br>
+        - Filhotes que deixariam de nascer: <b style="color: red;">${qtdFilhotesDeixaramDeNascer}</b><br>
 
-    <h2 style="color: #008000;">Lucro Estimado: R$${input_lucroAnual.value}</h2>
+        <h2 style="color: #008000;">Lucro Atual: <b>R$ ${input_lucroAnual.value}</b></h2>
 
-    <br>
-    <hr>
+        <br>
+        <hr>
 
-    <h2 style="color: rgb(0, 79, 110);">Resultado da Simulação após a Implementação do Monitoramento</h2>
+        <h2 style="color: rgb(0, 79, 110);">Resultado da Simulação após Implementação do Monitoramento</h2>
 
-    Com a adoção do monitoramento eficiente, a empresa ${input_nome.value} já percebe uma redução significativa nos custos operacionais.<br>
-    Os gastos mensais com alimentação, manutenção, tratamento e equipamentos foram reduzidos para aproximadamente <br>
-    <b style="color: #008000;">R$ ${(alimentacao + manutencao + tratamento + equipInstala) * 0.75}</b>, refletindo um custo anual otimizado de <b style="color: #008000;">R$ ${(gastoAnual * 0.75)}</b>.<br>
-    Essa economia permite um planejamento mais estratégico, direcionando recursos para melhorias na infraestrutura e no <br>
-    bem-estar dos animais.<br><br>
+        <h3 style="color: rgb(0, 146, 204);">➲ Redução de Custos Operacionais</h3>
+        - Novo gasto mensal: <b style="color: #008000;">R$ ${(alimentacao + manutencao + tratamento + equipInstala) * 0.75}</b><br>
+        - Gasto anual otimizado: <b style="color: #008000;">R$ ${(gastoAnual * 0.75)}</b><br>
+        - Economia direcionada para melhorias na infraestrutura e bem-estar animal.<br>
 
-    <h3 style="color: rgb(0, 146, 204);">➲ Otimização do Consumo de Energia:</h3>
-    A escolha da iluminação mais eficiente reduziu o consumo mensal de energia para ${consumoTotal.toFixed(2)} kWh, resultando em um custo <br>
-    revisado de <b style="color: #008000;">R$ ${menorCusto.toFixed(2)}</b> por mês.<br>
-    A substituição da iluminação anterior por ${melhorLampada} foi fundamental para essa economia, garantindo um uso mais <br>
-    sustentável dos recursos energéticos.<br><br>
+        <h3 style="color: rgb(0, 146, 204);">➲ Otimização do Consumo de Energia</h3>
+        - Consumo ajustado: <b>${consumoTotal} kWh/mês</b><br>
+        - Novo custo de energia: <b style="color: #008000;">R$ ${menorCusto}</b><br>
+        - Lâmpada mais eficiente: <b>${melhorLampada}</b>, garantindo economia sustentável.<br>
 
-    <h3 style="color: rgb(0, 146, 204);">➲ Melhoria nas Condições para a Espécie ${especie}:</h3>
-    A estabilidade no ambiente reduziu os impactos negativos sobre os animais. Antes, aproximadamente <b style="color: red;">${qtdDaEspecieAfetadosArredondado}</b> indivíduos <br>
-    poderiam ser afetados pelas oscilações ambientais. Com o controle adequado da temperatura e umidade, esse número <br>
-    tende a diminuir, preservando melhor a população.<br>
-    Além disso, a redução dos impactos ambientais minimiza possíveis prejuízos financeiros, que antes poderiam variar <br>
-    entre <b style="color: #008000;">R$ ${prejuizoFinanceiroMultaMin.toFixed(2)}</b> e <b style="color: #008000;">R$ ${prejuizoFinanceiroMultaMax.toFixed(2)}</b>.<br><br>
+        <h3 style="color: rgb(0, 146, 204);">➲ Impacto na Espécie ${especie}</h3>
+        - Indivíduos antes afetados: <b style="color: red;">${qtdDaEspecieAfetadosArredondado}</b><br>
+        - Monitoramento reduz oscilações ambientais, melhorando a taxa de sobrevivência.<br>
+        - Redução de prejuízos financeiros antes estimados entre <b style="color: #008000;">R$ ${prejuizoFinanceiroMultaMin}</b> e <b style="color: #008000;">R$ ${prejuizoFinanceiroMultaMax}</b>.<br>
 
-    <h3 style="color: rgb(0, 146, 204);">➲ Aumento na Eficiência Reprodutiva:</h3>
-    Com as melhorias no ambiente, a reprodução da espécie ${especie} pode se tornar mais eficiente. Estima-se que o número de novos <br>
-    indivíduos gerados anualmente se mantenha em ${qtdNovosRepAnual}, porém com menores perdas.<br>
-    A necessidade de tempo para recuperação da população reduzida pode ser otimizada, evitando períodos prolongados <br>
-    de reposição.<br><br>
+        <h3 style="color: rgb(0, 146, 204);">➲ Aumento na Eficiência Reprodutiva</h3>
+        - Novos indivíduos/ano: <b>${qtdNovosRepAnual}</b><br>
+        - Redução das perdas melhora a recuperação populacional.<br>
+        - Tempo de reposição otimizado, garantindo estabilidade a longo prazo.<br>
 
-    <h2 style="color: #008000;">Lucro Estimado: R$${Number(input_lucroAnual.value) + gastoAnual * 0.25}</h2>
-`
-
+        <h2 style="color: #008000;">Lucro Estimado: <b>R$ ${Number(input_lucroAnual.value) + gastoAnual * 0.25}</b></h2>
+        `
     }
 
 </script>
-
-
