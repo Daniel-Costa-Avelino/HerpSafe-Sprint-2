@@ -6,18 +6,25 @@
   <title>Calculadora de Custo Operacional</title>
 </head>
 <body>
-  Insira quanto de energia é consumida mensalmente em kWh:
+  Informe quantos répteis você tem:
+  <input type="text" id="input_qtdRepteis">
+  <br><br>
+  Informe qual o gasto total de alimentação de cada réptil mensalmente:
+  <input type="text" id="input_alimentacao">
+  <br><br>
+  Informe quanto é gasto por mês aproximadamente com o tratamento de cada réptil:
+  <input type="text" id="input_tratamento">
+  <br><br>
+  Informe quanto de energia é pago mensalmente:
   <input type="number" id="input_energiaConsumida">
-  <br><br>
-  Informe qual a bandeira tarifária da energia:
-  <input type="text" id="input_bandeira">
-  <br><br>
-  Informe qual o custo de manutenção mensal para cada terrário:
-  <input type="number" id="input_manutencao">
   <br><br>
   Informe a quantidade de terrários que você tem:
   <input type="number" id="input_qtdTerrario">
   <br><br>
+  Informe qual o custo de manutenção mensal para cada terrário:
+  <input type="number" id="input_manutencao">
+  <br><br>
+  
   <button onclick="calcularDespesas()">Calcular Despesas</button>
   <br><br>
   <div id="div_mensagem"></div>
@@ -27,28 +34,29 @@
 <script>
   function calcularDespesas() {
     var energiaConsumida = Number(input_energiaConsumida.value)
-    var bandeira = input_bandeira.value
     var manutencao = Number(input_manutencao.value)
     var qtdTerrario = Number(input_qtdTerrario.value)
-    var valorTotalEnergia = 0
-    
-    if(bandeira == "vermelha") {
-       valorTotalEnergia = energiaConsumida * 1
-    }
-    else if(bandeira == "amarela") {
-       valorTotalEnergia = energiaConsumida * 0.90
-    }
-    else if(bandeira == "verde") {
-       valorTotalEnergia = energiaConsumida * 0.75
-    }
+    var qtdRepteis = Number(input_qtdRepteis.value)
+    var alimentacao = Number(input_alimentacao.value)
+    var tratamento = Number(input_tratamento.value)
 
+    var gastoReptil = (qtdRepteis * alimentacao) + (qtdRepteis * tratamento);
     var valorTotalManutencao = manutencao * qtdTerrario;
 
-    var gastoTotal = valorTotalManutencao + valorTotalEnergia;
+    var gastoTotal = valorTotalManutencao + energiaConsumida + gastoReptil;
+    var gastoFinal = gastoTotal - (gastoTotal * 0.25)
+    var diferenca = gastoTotal - gastoFinal
 
     div_mensagem.innerHTML = 
-    `Com o consumo de ${energiaConsumida} kWh na bandeira ${bandeira}, a conta de energia totaliza R$ ${valorTotalEnergia}. <br>
-    Com o gasto de ${manutencao} reais de manutenção por terrário, com ${qtdTerrario} terrários, o valor total pago para manutenção é de R$ ${valorTotalManutencao}. <br>
-    Gasto total de despesas mensais relativo a energia e manutenção dos terrários: R$ ${gastoTotal}. `
+    `Quantidade de répteis: ${qtdRepteis}. <br>
+    Quantidade de terrários: ${qtdTerrario}. <br>
+    Energia consumida mensal: R$${energiaConsumida}. <br>
+    Gasto de manutenção total dos terrários: R$${valorTotalManutencao}. <br>
+    Gasto com tratamento e alimentação: R$${gastoReptil}. <br>
+    Gasto total sem implementação de sistema de monitoramento: R$${gastoTotal}.<br>
+    <br>
+    Gasto total mensal com implementação de sistema de monitoramento: R$${gastoFinal}.<br>
+    Lucro: R$${diferenca}`
+    
   }
 </script>
