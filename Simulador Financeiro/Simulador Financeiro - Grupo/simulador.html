@@ -93,7 +93,7 @@
             Insira o tipo de reprodução da espécie:
             <select id="select_tipoReproducao">
                 <option>...</option>
-                <option>Assexuado</option>
+                <option>Assexuada</option>
                 <option>Sexual</option>
             </select>
             <br>
@@ -224,6 +224,8 @@
         //CALCULO DE GASTOS ANUAL
         var gastoAnual = equipInstala + (alimentacao + manutencao + tratamento) * 12
 
+
+
         //IMPACTO AMBIENTAL
         //------------------------------------------------------------------------------
         //VARIAVEIS QUE COM BASE NO IF RESULTAM VALORES
@@ -292,7 +294,7 @@
         var qtdNovosRepAnual = qtdReproDaEspecie * qtdOvos * cicloReproducao;
 
         //CALCULANDO QUANTOS NOVOS REPTEIS FORAM PERDIDOS DEVIDO A MORTALIDADE
-        var qtdPerdaRepAnual = (qtdDaEspecieAfetados / totalEspecie) * qtdNovosRepAnual;
+        var qtdPerdaRepAnual = (qtdDaEspecieAfetadosArredondado / totalEspecie) * qtdNovosRepAnual;
 
         //ARREDONDANDO
         qtdPerdaRepAnual = (qtdPerdaRepAnual + 0.5) - (qtdPerdaRepAnual + 0.5) % 1;
@@ -302,9 +304,14 @@
 
         //CALCULANDO ESTIMATIVA DE FILHOTES QUE DEIXARAM DE NASCER DEVIDO A MORTALIDADE
         var qtdFilhotesDeixaramDeNascer = qtdOvos * qtdDaEspecieAfetadosArredondado * cicloReproducao;
+        
+        //CALCULANDO ESTIMATIVA DE FILHOTES QUE VÃO NASCER APÓS MONITORAMENTO
+        var qtdFilhotesQueVaoNascer = qtdOvos * qtdReproDaEspecie * cicloReproducao;
 
+
+        //EXIBINDO MENSAGEM
         div_mensagem.innerHTML = `
-        <h2 style="color: rgb(168, 48, 0);">Simulação para ${input_nome.value}</h2>
+        <h2 style="color: rgb(168, 48, 0);">Resultado da Simulação da Condição Atual da Empresa ${input_nome.value}</h2>
 
         <h3 style="color: rgb(223, 63, 0);">➲ Custos Operacionais</h3>
         - Gasto mensal: <b style="color: red;">R$ ${(alimentacao + manutencao + tratamento + equipInstala)}</b><br>
@@ -319,13 +326,12 @@
 
         <h3 style="color: rgb(223, 63, 0);">➲ Impacto na Espécie ${especie}</h3>
         - Indivíduos no recinto: <b>${totalEspecie}</b><br>
-        - Mortalidade: <b style="color: red;">${(percentualMortalidade * 100)}%</b> (<b style="color: red;">${qtdDaEspecieAfetadosArredondado}</b> afetados)<br>
-        - Prejuízo: <b style="color: red;">R$ ${prejuizoFinanceiroMultaMin}</b> – <b style="color: red;">R$ ${prejuizoFinanceiroMultaMax}</b><br>
-        - Multas aplicáveis por não conformidade.<br>
+        - Estimativa de Mortalidade: <b style="color: red;">${(percentualMortalidade * 100)}%</b> (<b style="color: red;">${qtdDaEspecieAfetadosArredondado}</b> animais afetados)<br>
+        - Prejuízo por multas ambientais: <b style="color: red;">R$ ${prejuizoFinanceiroMultaMin}</b> até <b style="color: red;">R$ ${prejuizoFinanceiroMultaMax}</b><br>
 
         <h3 style="color: rgb(223, 63, 0);">➲ Reprodução e Recuperação</h3>
-        - Novos indivíduos por ano: <b>${qtdNovosRepAnual}</b><br>
-        - Perdas esperadas: <b style="color: red;">${qtdPerdaRepAnual}</b><br>
+        - Novos indivíduos por ano: <b>${qtdNovosRepAnual - qtdPerdaRepAnual}</b><br>
+        - Estimativa de Perdas esperadas: <b style="color: red;">${qtdPerdaRepAnual}</b><br>
         - Tempo de recuperação: <b>${tempoRecuperacao} anos</b><br>
         - Filhotes que deixariam de nascer: <b style="color: red;">${qtdFilhotesDeixaramDeNascer}</b><br>
 
@@ -334,12 +340,12 @@
         <br>
         <hr>
 
-        <h2 style="color: rgb(0, 79, 110);">Resultado da Simulação após Implementação do Monitoramento</h2>
+        <h2 style="color: rgb(0, 79, 110);">Resultado da Simulação após Monitoramento - Redução de 25%</h2>
 
         <h3 style="color: rgb(0, 146, 204);">➲ Redução de Custos Operacionais</h3>
         - Novo gasto mensal: <b style="color: #008000;">R$ ${(alimentacao + manutencao + tratamento + equipInstala) * 0.75}</b><br>
+        - Redução total de gastos: <b style="color: #008000;">R$ ${(gastoAnual - (gastoAnual * 0.75))}</b><br>
         - Gasto anual otimizado: <b style="color: #008000;">R$ ${(gastoAnual * 0.75)}</b><br>
-        - Economia direcionada para melhorias na infraestrutura e bem-estar animal.<br>
 
         <h3 style="color: rgb(0, 146, 204);">➲ Otimização do Consumo de Energia</h3>
         - Consumo ajustado: <b>${consumoTotal} kWh/mês</b><br>
@@ -349,10 +355,11 @@
         <h3 style="color: rgb(0, 146, 204);">➲ Impacto na Espécie ${especie}</h3>
         - Indivíduos antes afetados: <b style="color: red;">${qtdDaEspecieAfetadosArredondado}</b><br>
         - Monitoramento reduz oscilações ambientais, melhorando a taxa de sobrevivência.<br>
-        - Redução de prejuízos financeiros antes estimados entre <b style="color: #008000;">R$ ${prejuizoFinanceiroMultaMin}</b> e <b style="color: #008000;">R$ ${prejuizoFinanceiroMultaMax}</b>.<br>
+        - Redução de prejuízos por multas ambientais antes estimados entre <b style="color: red;">R$ ${prejuizoFinanceiroMultaMin}</b> até <b style="color: red;">R$ ${prejuizoFinanceiroMultaMax}</b>.<br>
 
         <h3 style="color: rgb(0, 146, 204);">➲ Aumento na Eficiência Reprodutiva</h3>
-        - Novos indivíduos/ano: <b>${qtdNovosRepAnual}</b><br>
+        - Estimativa de Novos indivíduos/ano: <b>${qtdNovosRepAnual}</b><br>
+        - Estimativa dos Filhotes que Nasceram anualmente: <b>${qtdFilhotesQueVaoNascer}</b><br>
         - Redução das perdas melhora a recuperação populacional.<br>
         - Tempo de reposição otimizado, garantindo estabilidade a longo prazo.<br>
 
