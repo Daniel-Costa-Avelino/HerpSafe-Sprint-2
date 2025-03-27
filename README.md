@@ -44,16 +44,13 @@ O **HerpSafe** surge como uma solução para **automatizar o monitoramento** e g
 
 ## 👥 Equipe Responsável
 
-| Nome                             | RA       |
-| -------------------------------- | -------- |
-| Daniel Costa Avelino             | 01251113 |
-| Diogo Gabriell Procopio da Silva | 01251130 |
-| Felipe Marcos Bastos Pena        | 01251021 |
-| Fernando Ramirez Gutierrez       | 01251023 |
-| Filipe da Silva Santana          | 01251075 |
-| Guilherme Faria de Mira          | 01251038 |
-| Igor Samuel Silva de Oliveira    | 01242085 |
-| Julia Estelina Gomes             | 01251025 |
-| Vinicius Ventura Cavalcante      | 01251138 |
+| Nomes                          
+| -------------------------------- |
+| Daniel Costa Avelino             | 
+| Ezequiel Ferreira Cardoso        | 
+| Camila Vitória Osório Sara       |
+| João Victor Dorl Rossi           |
+| Matheus Zorzete Pereira          |
+| Guilherme Toledo                 |
 
 ---
