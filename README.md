@@ -38,7 +38,7 @@ O **HerpSafe** surge como uma solução para **automatizar o monitoramento** e g
 
 - **Hardware:** Arduino Uno R3, Sensor DHT11.
 - **Softwares:** HTML, CSS, JavaScript, MySQL.
-- **Ferramentas:** Linux (VM Oracle Virtual Box), Figma, Canva.
+- **Ferramentas:** Linux Lubuntu (VM Oracle Virtual Box), Figma, Canva.
 
 ---
 
