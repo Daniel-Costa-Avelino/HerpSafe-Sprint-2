@@ -10,7 +10,7 @@ const SERVIDOR_PORTA = 3300;
 
 // habilita ou desabilita a inserção de dados no banco de dados (Deve 
 // ficar desbilitado até termos o banco de dados)
-const HABILITAR_OPERACAO_INSERIR = false;
+const HABILITAR_OPERACAO_INSERIR = true;
 
 // função para comunicação serial, que busca funções criadas mais pra 
 // frente no código
@@ -23,11 +23,11 @@ const serial = async (
     // correta do banco (Ainda não funciona devido a não ter o Banco de dados)
     let poolBancoDados = mysql.createPool(
         {
-            host: 'HOST_DO_BANCO', //Colocar o nome do host (Conexão) do banco de dados
-            user: 'USUARIO_DO_BANCO', //Colocar o usuário do banco de dados
-            password: 'SENHA_DO_BANCO', //Colocar a senha (Caso tenha) 
-            database: 'DATABASE_DO_BANCO', //Dizer qual é o banco de dados
-            port: 3306 //Porta do seu banco de dados
+            host: '127.0.0.1', //Colocar o nome do host (Conexão) do banco de dados
+            user: 'aluno', //Colocar o usuário do banco de dados
+            password: 'Sptech#2024', //Colocar a senha (Caso tenha) 
+            database: 'herpsafe', //Dizer qual é o banco de dados
+            port: 3307 //Porta do seu banco de dados
         }
     ).promise();
 
@@ -73,7 +73,7 @@ const serial = async (
             // este insert irá inserir os dados na tabela "medida"
             // É um código de mysql para insersão de dados
             await poolBancoDados.execute(
-                'INSERT INTO medida (sensor_analogico, sensor_digital) VALUES (?, ?)',
+                `INSERT INTO dados (umidade, temperatura) VALUES (?, ?)`,
                 [sensorAnalogico, sensorDigital]
             );
             // Dizendo o que vai mostrar no console caso os valores sejam inseridos
