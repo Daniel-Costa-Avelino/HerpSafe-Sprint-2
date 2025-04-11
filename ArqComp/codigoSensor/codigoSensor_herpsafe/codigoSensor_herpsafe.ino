@@ -1,8 +1,8 @@
 #include "DHT.h" // incluie uma biblioteca externa
 
-#define TIPO_SENSOR DHT11;// define o tipo de sensor
-const int PINO_SENSOR_DHT11 = A2; // define a entrada analogica
-const int PINO_SENSOR_TEMPERATURA = A1; // define a entrada analogica
+#define TIPO_SENSOR DHT11 // define o tipo de sensor
+const int PINO_SENSOR_DHT11 = A1; // define a entrada analogica
+const int PINO_SENSOR_TEMPERATURA = A2; // define a entrada analogica
 float temperaturaCelsius;
 
 //Paramentros de Maxima e Minimo de Umidade e Temeperatura
@@ -27,29 +27,29 @@ void loop() {
   if(isnan(umidade)) {
     Serial.println("Erro ao ler os dados sensor"); // Vai exibir a mensagem de erro caso não consiga ler os dados e umidade
   } else {
-    Serial.print("UmidadeMax:");
-    Serial.print(umidMax);
-    Serial.print(" ");
+    //Serial.print("UmidadeMax:");
+    //Serial.print(umidMax);
+    //Serial.print(" ");
 
-    Serial.print("Umidade:");
+    // Serial.print("Umidade:");
     Serial.print(umidade); // Vai exibir o valor da variável "umidade"
-    Serial.print(" ");
+    // Serial.print(" ");
 
-    Serial.print("UmidadeMin:");
-    Serial.print(umidMin);
-    Serial.print(" ");
+    // Serial.print("UmidadeMin:");
+    // Serial.print(umidMin);
+    // Serial.print(" ");
 
-    Serial.print("TemperaturaMax:");
-    Serial.print(tempMax);
-    Serial.print(" ");
+    // Serial.print("TemperaturaMax:");
+    // Serial.print(tempMax);
+    Serial.print(";");
 
-    Serial.print("Temperatura:");
-    Serial.print(temperaturaCelsius); // Vai exibir o valor da variáve temperaturaCelsius
-    Serial.print(" ");
+    // Serial.print("Temperatura:");
+    Serial.println(temperaturaCelsius); // Vai exibir o valor da variáve temperaturaCelsius
+    // Serial.print(" ");
 
-    Serial.print("TemperaturaMin:");
-    Serial.print(tempMin);
-    Serial.println(" ");
+    // Serial.print("TemperaturaMin:");
+    // Serial.print(tempMin);
+    // Serial.println(" ");
   }
 
   delay(1000); // Aplica um tempo antes de repetir o loop.
