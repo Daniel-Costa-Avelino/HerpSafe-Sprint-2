@@ -6,7 +6,7 @@ USE HerpSafe;
 CREATE TABLE empresa (
 idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
 razao_social VARCHAR(255) NOT NULL,
-fantasia VARCHAR(255) NOT NULL,
+nomeFantasia VARCHAR(255) NOT NULL,
 cnpj VARCHAR(18) NOT NULL UNIQUE,
 porte VARCHAR(8) NOT NULL,
   CONSTRAINT chk_Porte
@@ -14,7 +14,7 @@ porte VARCHAR(8) NOT NULL,
 statusCliente TINYINT NOT NULL
 ) AUTO_INCREMENT = 1000;
 
-INSERT INTO empresa(razao_social, fantasia, cnpj, porte, statuscliente) VALUES
+INSERT INTO empresa(razao_social, nomeFantasia, cnpj, porte, statuscliente) VALUES
 ('Jiboias Brasil Ltda', 'Animais Brasil', '15.251.660/0001-12', 'Pequeno', 1),
 ('I Azeredo Souza Criação de Répteis LTDA', 'Criatório Brasil Répteis', '30.683.842/0001-56', 'Micro', 1),
 ('CRIADOURO RECANTO DA JIBOIA LTDA', 'Recanto da Jiboia', '34.108.953/0001-90', 'Micro', 1),
@@ -33,11 +33,12 @@ bairro VARCHAR(255) NOT NULL,
 cidade VARCHAR(100) NOT NULL,
 estado CHAR(2) NOT NULL,
 cep VARCHAR(9) NOT NULL,
-idEmpresa INT 
+fkEmpresa INT NOT NULL,
+CONSTRAINT fkEmpresa_endereco FOREIGN KEY (fkEmpresa)
+    REFERENCES empresa(idEmpresa)
 ) AUTO_INCREMENT = 1000;
 
-
-INSERT INTO endereco (rua, numero, bairro, cidade, estado, cep, idEmpresa) VALUES
+INSERT INTO endereco (rua, numero, bairro, cidade, estado, cep, fkEmpresa) VALUES
 ('Rua Contagem', '20', 'Betim Industrial', 'Betim', 'MG', '32670402', 1000),
 ('Rua Nova Iguaçu', '207', 'Jardim Marilea', 'Rio das Ostras', 'RJ', '28895880', 1001),
 ('Rua Gilson Carlos Mantello', '962', 'Sarandi', 'Sarandi', 'PR', '87111675', 1002), 
@@ -45,8 +46,6 @@ INSERT INTO endereco (rua, numero, bairro, cidade, estado, cep, idEmpresa) VALUE
 ('Rodovia Tildo Mazzarino', 'SN', 'Km 43', 'Santa Mônica', 'PR', '87915000', 1004), 
 ('Avenida Arvelino Durante', '4728', 'Villagio das Palmeiras', 'Sabáudia', 'PR', '86720000', 1005),
 ('Avenida Arvelino Durante', '4728', 'Sabáudia', 'Sabáudia', 'PR', '86720000', 1006);
-
-
 
 -- -------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -61,10 +60,12 @@ cargo VARCHAR(15) NOT NULL,
 senha VARCHAR(20) NOT NULL,
 hora_inicio_trabalho TIME,
 hora_fim_trabalho TIME,
-idEmpresa INT
+fkEmpresa INT NOT NULL,
+CONSTRAINT fkEmpresa_funcionario FOREIGN KEY (fkEmpresa)
+    REFERENCES empresa(idEmpresa)
 ) AUTO_INCREMENT = 1000;
 
-INSERT INTO funcionario (nome, email, cpf, cargo, senha, hora_inicio_trabalho, hora_fim_trabalho, idEmpresa) VALUES
+INSERT INTO funcionario (nome, email, cpf, cargo, senha, hora_inicio_trabalho, hora_fim_trabalho, fkEmpresa) VALUES
 ('Carlos Silva', 'carlos.silva@animaisbrasil.com', '111.111.111-11', 'Gerencial', 'senha123', '07:00:00', '17:00:00', 1000),
 ('Mariana Souza', 'mariana.souza@animaisbrasil.com', '222.222.222-22', 'Operacional', 'senha123', '08:00:00', '18:00:00', 1000),
 ('Roberto Lima', 'roberto.lima@animaisbrasil.com', '333.333.333-33', 'Operacional', 'senha123', '09:00:00', '19:00:00', 1000),
@@ -89,6 +90,47 @@ INSERT INTO funcionario (nome, email, cpf, cargo, senha, hora_inicio_trabalho, h
 
 -- --------------------------------------------------------------------------------------------------------------------------------------
 
+CREATE TABLE local_instalacao(
+idLocal_instalacao INT PRIMARY KEY AUTO_INCREMENT,
+recinto VARCHAR(10) NOT NULL,
+         CONSTRAINT chk_Recinto
+            CHECK (recinto IN('Terrário', 'Paludário', 'Tanque', 'Lago')),
+tamanho_Recinto VARCHAR (12) NOT NULL,
+         CONSTRAINT chk_TamanhoRecinto
+             CHECK (tamanho_Recinto IN('Pequeno', 'Médio', 'Grande', 'Extra Grande', 'Gigante')),
+reptil VARCHAR(254) NOT NULL,
+dt_Instalacao DATE NOT NULL,
+dt_Manutencao DATE,
+fkEmpresa INT NOT NULL,
+CONSTRAINT fkEmpresa_local FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
+) AUTO_INCREMENT = 1000;
+
+INSERT INTO local_instalacao (recinto, tamanho_Recinto, reptil, dt_Instalacao, dt_Manutencao, fkEmpresa)
+VALUES 
+('Terrário', 'Médio', 'Gecko', '2025-03-15', '2025-05-15',1000),
+('Paludário', 'Grande', 'Anaconda', '2025-03-16', NULL, 1001),
+('Tanque', 'Gigante', 'Crocodilo', '2025-03-17', NULL, 1002),
+('Lago', 'Extra Grande', 'Iguana', '2025-03-18', NULL, 1003),
+('Terrário', 'Pequeno', 'Tartaruga', '2025-03-19', NULL, 1004),
+('Paludário', 'Médio', 'Camaleão', '2025-03-20', NULL, 1005),
+('Tanque', 'Grande', 'Jacaré', '2025-03-21', '2025-05-21', 1006),
+('Lago', 'Gigante', 'Piranha', '2025-03-22', NULL, 1006),
+('Terrário', 'Médio', 'Dragão barbudo', '2025-03-23', NULL, 1006),
+('Tanque', 'Extra Grande', 'Cobra', '2025-03-24', NULL, 1006),
+('Paludário', 'Grande', 'Cobra Jiboia', '2025-03-25', NULL, 1005),
+('Lago', 'Pequeno', 'Jacaré', '2025-03-26', NULL, 1005),
+('Paludário', 'Gigante', 'Jiboia', '2025-03-27', '2025-05-27', 1005),
+('Terrário', 'Pequeno', 'Camaleão', '2025-03-28', NULL, 1004),
+('Tanque', 'Médio', 'Tartaruga', '2025-03-29', NULL, 1003),
+('Lago', 'Médio', 'Peixe-boi', '2025-03-30', NULL, 1004),
+('Tanque', 'Gigante', 'Cobra d’água', '2025-03-31', NULL, 1005),
+('Paludário', 'Pequeno', 'Salamandra', '2025-04-01', NULL, 1006),
+('Terrário', 'Grande', 'Lagarto', '2025-04-02', NULL, 1006),
+('Tanque', 'Pequeno', 'Peixe elétrico', '2025-04-03', '2025-06-03', 1003),
+('Lago', 'Extra Grande', 'Cobra marinha', '2025-04-04', NULL, 1002);
+
+-- ----------------------------------------------------------------------------------------------------------------------------------------------
+
 CREATE TABLE sensor (
 idSensor INT PRIMARY KEY AUTO_INCREMENT,
 numero_Serie CHAR(8) NOT NULL,
@@ -102,10 +144,12 @@ tipo VARCHAR(5) NOT NULL,
 tipo_leitura VARCHAR(11) NOT NULL,
      CONSTRAINT chk_TipoLeitura
            CHECK (tipo_leitura IN('Temperatura', 'Umidade')),
-idEmpresa  INT
+fkLocalInstalacao INT NOT NULL,
+CONSTRAINT fkLocal_sensor FOREIGN KEY (fkLocalInstalacao)
+    REFERENCES local_instalacao(idLocal_instalacao)
 );
 
-INSERT INTO sensor (numero_Serie, codigo_Interno, status_Sensor, tipo, tipo_leitura, idEmpresa) VALUES
+INSERT INTO sensor (numero_Serie, codigo_Interno, status_Sensor, tipo, tipo_leitura, fkLocalInstalacao) VALUES
 ('SN100000', 'CI000001', 'Ativo', 'DHT11', 'Umidade', 1000),
 ('SN100001', 'CI000002', 'Ativo', 'LM35', 'Temperatura', 1000),
 ('SN100002', 'CI000003', 'Inativo', 'DHT11', 'Umidade', 1000),
@@ -148,48 +192,6 @@ INSERT INTO sensor (numero_Serie, codigo_Interno, status_Sensor, tipo, tipo_leit
 ('SN700003', 'CI600004', 'Manutenção', 'DHT11', 'Umidade', 1006),
 ('SN700004', 'CI600005', 'Ativo', 'LM35', 'Temperatura', 1006),
 ('SN700005', 'CI600006', 'Ativo', 'LM35', 'Temperatura', 1006);
-
--- ----------------------------------------------------------------------------------------------------------------------------------------------
-
-CREATE TABLE local_instalacao(
-idLocal_instalacao INT PRIMARY KEY AUTO_INCREMENT,
-recinto VARCHAR(10) NOT NULL,
-         CONSTRAINT chk_Recinto
-            CHECK (recinto IN('Terrário', 'Paludário', 'Tanque', 'Lago')),
-tamanho_Recinto VARCHAR (12) NOT NULL,
-         CONSTRAINT chk_TamanhoRecinto
-             CHECK (tamanho_Recinto IN('Pequeno', 'Médio', 'Grande', 'Extra Grande', 'Gigante')),
-reptil VARCHAR(254) NOT NULL,
-dt_Instalacao DATE NOT NULL,
-dt_Manutencao DATE,
-idSensor_Temp INT UNIQUE,
-idSensor_Umid INT UNIQUE,
-idEmpresa INT
-) AUTO_INCREMENT = 1000;
-
-INSERT INTO local_instalacao (recinto, tamanho_Recinto, reptil, dt_Instalacao, dt_Manutencao, idSensor_Umid, idSensor_Temp, idEmpresa)
-VALUES 
-('Terrário', 'Médio', 'Gecko', '2025-03-15', '2025-05-15', 1000, 1001, 1000),
-('Paludário', 'Grande', 'Anaconda', '2025-03-16', NULL, 1002, 1004, 1000),
-('Tanque', 'Gigante', 'Crocodilo', '2025-03-17', NULL, 1003, 1005, 1000),
-('Lago', 'Extra Grande', 'Iguana', '2025-03-18', NULL, 1006, 1007, 1001),
-('Terrário', 'Pequeno', 'Tartaruga', '2025-03-19', NULL, 1008, 1010, 1001),
-('Paludário', 'Médio', 'Camaleão', '2025-03-20', NULL, 1009, 1011, 1001),
-('Tanque', 'Grande', 'Jacaré', '2025-03-21', '2025-05-21', 1012, 1013, 1002),
-('Lago', 'Gigante', 'Piranha', '2025-03-22', NULL, 1014, 1016, 1002),
-('Terrário', 'Médio', 'Dragão barbudo', '2025-03-23', NULL, 1015, 1017, 1002),
-('Tanque', 'Extra Grande', 'Cobra', '2025-03-24', NULL, 1018, 1019, 1003),
-('Paludário', 'Grande', 'Cobra Jiboia', '2025-03-25', NULL, 1020, 1022, 1003),
-('Lago', 'Pequeno', 'Jacaré', '2025-03-26', NULL, 1021, 1023, 1003),
-('Paludário', 'Gigante', 'Jiboia', '2025-03-27', '2025-05-27', 1024, 1025, 1004),
-('Terrário', 'Pequeno', 'Camaleão', '2025-03-28', NULL, 1026, 1028, 1004),
-('Tanque', 'Médio', 'Tartaruga', '2025-03-29', NULL, 1027, 1029, 1004),
-('Lago', 'Médio', 'Peixe-boi', '2025-03-30', NULL, 1030, 1031, 1005),
-('Tanque', 'Gigante', 'Cobra d’água', '2025-03-31', NULL, 1032, 1034, 1005),
-('Paludário', 'Pequeno', 'Salamandra', '2025-04-01', NULL, 1034, 1035, 1005),
-('Terrário', 'Grande', 'Lagarto', '2025-04-02', NULL, 1036, 1037, 1006),
-('Tanque', 'Pequeno', 'Peixe elétrico', '2025-04-03', '2025-06-03', 1038, 1040, 1006),
-('Lago', 'Extra Grande', 'Cobra marinha', '2025-04-04', NULL, 1039, 1041, 1006);
 
 -- ---------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -236,21 +238,21 @@ alerta VARCHAR(100),
       CONSTRAINT chk_Alerta
            CHECK (alerta IN('Atenção', 'Cuidado', 'Perigo', 'Crítico', 'Extremo')),
 dt_Hr_Alerta DATETIME,
-idSensor INT UNIQUE,
-idLocal_instalacao INT UNIQUE
+fkSensor INT UNIQUE,
+CONSTRAINT fkSensor_alerta FOREIGN KEY (fkSensor) REFERENCES sensor(idSensor)
 ) AUTO_INCREMENT = 1000;
 
-INSERT INTO alertas (alerta, dt_Hr_Alerta, idSensor, idLocal_instalacao)  
+INSERT INTO alertas (alerta, dt_Hr_Alerta, fkSensor)  
 VALUES
-('Atenção', '2025-03-15 08:30:00', 1000, 1000),  
-('Cuidado', '2025-03-16 12:45:00', 1002, 1001),  
-('Perigo', '2025-03-17 15:20:00', 1003, 1002),  
-('Atenção', '2025-03-18 10:30:00', 1006, 1003),  
-('Cuidado', '2025-03-20 07:50:00', 1009, 1005),
-('Atenção', '2025-03-25 09:00:00', 1020, 1010),  
-('Perigo', '2025-03-27 14:50:00', 1024, 1012),  
-('Crítico', '2025-03-30 06:45:00', 1030, 1015),
-('Extremo', '2025-04-03 19:30:00', 1038, 1019);  
+('Atenção', '2025-03-15 08:30:00', 1),  
+('Cuidado', '2025-03-16 12:45:00', 2),  
+('Perigo', '2025-03-17 15:20:00', 3),  
+('Atenção', '2025-03-18 10:30:00', 6),  
+('Cuidado', '2025-03-20 07:50:00', 9),
+('Atenção', '2025-03-25 09:00:00', 4),  
+('Perigo', '2025-03-27 14:50:00', 5),  
+('Crítico', '2025-03-30 06:45:00', 7),
+('Extremo', '2025-04-03 19:30:00', 8);  
   
 -- -----------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -259,46 +261,47 @@ idCaptura INT PRIMARY KEY AUTO_INCREMENT,
 temperatura FLOAT NOT NULL,
 umidade FLOAT NOT NULL,
 dt_Hr_Alerta DATETIME NOT NULL,
-idSensor INT -- Retirar o Unique
+fkSensor INT NOT NULL,
+CONSTRAINT fkSensor_captura FOREIGN KEY (fkSensor) REFERENCES sensor(idSensor)
 ) AUTO_INCREMENT = 1000;
 
-INSERT INTO captura (temperatura, umidade, dt_Hr_Alerta, idSensor)
+INSERT INTO captura(temperatura, umidade, dt_Hr_Alerta, fkSensor)
 VALUES
-(28.5, 70.3, '2025-03-15 08:30:00', 1000),
-(28.7, 69.5, '2025-03-15 08:31:00', 1000),
-(28.9, 68.7, '2025-03-15 08:32:00', 1000),
-(29.0, 67.8, '2025-03-15 08:33:00', 1000),
-(29.2, 67.0, '2025-03-15 08:34:00', 1000),
-(27.0, 72.5, '2025-03-18 10:30:00', 1006),
-(27.2, 72.0, '2025-03-18 10:31:00', 1006),
-(27.4, 71.8, '2025-03-18 10:32:00', 1006),
-(27.5, 71.5, '2025-03-18 10:33:00', 1006),
-(27.7, 71.0, '2025-03-18 10:34:00', 1006),
-(32.0, 60.0, '2025-03-21 09:00:00', 1012),
-(32.2, 59.5, '2025-03-21 09:01:00', 1012),
-(32.3, 59.0, '2025-03-21 09:02:00', 1012),
-(32.5, 58.7, '2025-03-21 09:03:00', 1012),
-(32.7, 58.0, '2025-03-21 09:04:00', 1012),
-(31.2, 63.5, '2025-03-23 16:30:00', 1018),
-(31.3, 63.3, '2025-03-23 16:31:00', 1018),
-(31.5, 63.0, '2025-03-23 16:32:00', 1018),
-(31.7, 62.7, '2025-03-23 16:33:00', 1018),
-(31.8, 62.5, '2025-03-23 16:34:00', 1018),
-(30.0, 65.5, '2025-03-27 12:30:00', 1024),
-(30.2, 65.0, '2025-03-27 12:31:00', 1024),
-(30.3, 64.7, '2025-03-27 12:32:00', 1024),
-(30.5, 64.3, '2025-03-27 12:33:00', 1024),
-(30.7, 64.0, '2025-03-27 12:34:00', 1024),
-(29.8, 68.0, '2025-03-30 11:30:00', 1030),
-(30.0, 67.5, '2025-03-30 11:31:00', 1030),
-(30.1, 67.0, '2025-03-30 11:32:00', 1030),
-(30.3, 66.8, '2025-03-30 11:33:00', 1030),
-(30.5, 66.5, '2025-03-30 11:34:00', 1030),
-(28.0, 75.0, '2025-04-02 14:30:00', 1036),
-(28.2, 74.5, '2025-04-02 14:31:00', 1036),
-(28.4, 74.0, '2025-04-02 14:32:00', 1036),
-(28.6, 73.5, '2025-04-02 14:33:00', 1036),
-(28.8, 73.0, '2025-04-02 14:34:00', 1036);
+(28.5, 70.3, '2025-03-15 08:30:00', 1),
+(28.7, 69.5, '2025-03-15 08:31:00', 1),
+(28.9, 68.7, '2025-03-15 08:32:00', 1),
+(29.0, 67.8, '2025-03-15 08:33:00', 1),
+(29.2, 67.0, '2025-03-15 08:34:00', 1),
+(27.0, 72.5, '2025-03-18 10:30:00', 1),
+(27.2, 72.0, '2025-03-18 10:31:00', 1),
+(27.4, 71.8, '2025-03-18 10:32:00', 1),
+(27.5, 71.5, '2025-03-18 10:33:00', 1),
+(27.7, 71.0, '2025-03-18 10:34:00', 1),
+(32.0, 60.0, '2025-03-21 09:00:00', 2),
+(32.2, 59.5, '2025-03-21 09:01:00', 2),
+(32.3, 59.0, '2025-03-21 09:02:00', 2),
+(32.5, 58.7, '2025-03-21 09:03:00', 3),
+(32.7, 58.0, '2025-03-21 09:04:00', 4),
+(31.2, 63.5, '2025-03-23 16:30:00', 5),
+(31.3, 63.3, '2025-03-23 16:31:00', 6),
+(31.5, 63.0, '2025-03-23 16:32:00', 6),
+(31.7, 62.7, '2025-03-23 16:33:00', 6),
+(31.8, 62.5, '2025-03-23 16:34:00', 6),
+(30.0, 65.5, '2025-03-27 12:30:00', 6),
+(30.2, 65.0, '2025-03-27 12:31:00', 6),
+(30.3, 64.7, '2025-03-27 12:32:00', 7),
+(30.5, 64.3, '2025-03-27 12:33:00', 7),
+(30.7, 64.0, '2025-03-27 12:34:00', 7),
+(29.8, 68.0, '2025-03-30 11:30:00', 8),
+(30.0, 67.5, '2025-03-30 11:31:00', 8),
+(30.1, 67.0, '2025-03-30 11:32:00', 8),
+(30.3, 66.8, '2025-03-30 11:33:00', 9),
+(30.5, 66.5, '2025-03-30 11:34:00', 9),
+(28.0, 75.0, '2025-04-02 14:30:00', 9),
+(28.2, 74.5, '2025-04-02 14:31:00', 10),
+(28.4, 74.0, '2025-04-02 14:32:00', 10),
+(28.6, 73.5, '2025-04-02 14:33:00', 10),
+(28.8, 73.0, '2025-04-02 14:34:00', 10);
 
 -- ------------------------------------------------------------------------------------------------------------------------------------------------------
 UPDATE empresa set porte = 'Grande' WHERE idEmpresa = 2;
@@ -332,3 +335,12 @@ FROM captura;
 
 SELECT CONCAT(nome, ' - ', cargo) AS Cargo_Funcionario
 FROM funcionario;
+
+
+/* ------------------------------------------------------*/
+/*SELECT COM JOIN*/
+SELECT * FROM empresa JOIN endereco ON empresa.idEmpresa = endereco.fkEmpresa;
+SELECT * FROM funcionario JOIN empresa ON funcionario.fkEmpresa = empresa.idEmpresa;
+SELECT * FROM sensor JOIN local_instalacao ON sensor.fkLocalInstalacao = local_instalacao.idLocal_instalacao;
+SELECT * FROM alertas JOIN sensor ON sensor.idSensor = alertas.fkSensor;
+SELECT * FROM captura JOIN sensor ON captura.fkSensor = sensor.idSensor;

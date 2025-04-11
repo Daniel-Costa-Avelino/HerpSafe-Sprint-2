@@ -2,7 +2,7 @@
 
 ## 🌟 Sobre o Projeto
 
-**HerpSafe** é um sistema inteligente de monitoramento de temperatura e umidade desenvolvido especialmente para **recintos de répteis**. Ele utiliza sensores de alta precisão para coletar dados em **tempo real**, garantindo o bem-estar dos animais e promovendo um ambiente saudável nos criadouros. As informações são apresentadas de forma clara e dinâmica em **dashboards** no site institucional.
+**HerpSafe** é um sistema inteligente de monitoramento de temperatura e umidade desenvolvido especialmente para **recintos de serpentes**. Ele utiliza sensores de alta precisão para coletar dados em **tempo real**, garantindo o bem-estar dos animais e promovendo um ambiente saudável nos criadouros. As informações são apresentadas de forma clara e dinâmica em **dashboards** no site institucional.
 
 ---
 
@@ -16,7 +16,7 @@
 
 ## 🧐 Contexto
 
-Répteis, sendo **ectotérmicos**, dependem de fontes externas para regular sua temperatura corporal. **Condições inadequadas** de temperatura e umidade podem resultar em:
+Serpentes, sendo **ectotérmicos**, dependem de fontes externas para regular sua temperatura corporal. **Condições inadequadas** de temperatura e umidade podem resultar em:
 
 - Problemas metabólicos, digestivos e reprodutivos.
 - Doenças como infecções respiratórias e dificuldades na troca de pele (ecdise).
