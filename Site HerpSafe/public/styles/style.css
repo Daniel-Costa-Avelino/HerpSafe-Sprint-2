@@ -9,7 +9,7 @@
     font-family: Inter;
 }
 
-/* Header */
+/* Header */ 
 
 .cabecalho {
     border-top: 46px solid #0F4B2D;
@@ -62,6 +62,8 @@
     filter: brightness(60%);
 }
 
+
+
 /* Banner */
 
 .banner {
@@ -91,4 +93,173 @@
     height: 52px;
     box-shadow: 0px 5px 5px #272727
     
+}
+
+body .container{
+    color: aquamarine;
+    display: flex;
+    height: auto;
+
+}
+.servicos .titulo-servico{
+    text-align: center;
+    font-size: 28px;
+    color: #2d6949;
+    margin: 60px 0 30px 0;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #2d6949;
+    padding-bottom: 5px;
+}
+.caixas {
+    display: flex;
+    width: 100%;
+    
+  }
+  
+.caixas {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .box {
+    flex: 1;
+    width: 100%;
+    max-width: 450px;
+    padding: 40px;
+    border-radius: 8px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+  }
+  
+  .monitoramento {
+    background-color: #4b8d7c;
+  }
+  
+  .alertas {
+    background-color: #7aba7b;
+  }
+  
+  .icone-servico {
+    width: 60px;
+    margin-bottom: 30px;
+  }
+  
+  .box h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .box p {
+    font-size: 16px;
+    margin-bottom: 20px;
+    max-width: 300px;
+  }
+  
+  .box button {
+    padding: 10px 20px;
+    border: none;
+    background-color: white;
+    color: #2e7d32;
+    font-weight: bold;
+    border-radius: 6px;
+
+  }
+
+
+
+  .sobre {
+    text-align: center;
+    padding: 50px 20px;
+  }
+  
+  .titulo-sobre {
+    font-size: 28px;
+    color: #2e7d50;
+    border-bottom: 2px solid #2e7d50;
+    display: inline-block;
+    padding-bottom: 5px;
+    margin-bottom: 30px;
+    font-weight: bold;
+  }
+  
+  /* Card com fundo de folhas */
+  .card-sobre {
+    background: url(../assets/imgs/HerpSafe\ -\ home\ -\ banner.png);
+    background-size: cover;
+    background-position: center;
+    border-radius: 15px;
+    padding: 120px 80px;
+    width: 800px;
+    margin: 0 auto;
+    color: white;
+    font-size: 18px;
+    line-height: 1.6;
+   
+  }
+  
+  /* Botão */
+  .botao-sobre {
+    margin-top: 25px;
+    padding: 12px 30px;
+    background-color: white;
+    color: #2e7d50;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+  }
+
+
+
+
+.rodape {
+    background-color: #004d40;
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+}
+
+.footer-menu ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.footer-menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer-info p, .footer-info a {
+    color: white;
+    font-size: 0.9em;
+}
+
+.logo-footer {
+    width: 100px;
+    margin: 15px 0;
+}
+
+.social {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+ 
+}
+
+.social a {
+    color: white;
+    text-decoration: none;
+  
 }
