@@ -11,17 +11,19 @@ cnpj VARCHAR(18) NOT NULL UNIQUE,
 porte VARCHAR(8) NOT NULL,
   CONSTRAINT chk_Porte
       CHECK (porte IN('Grande', 'Medio', 'Pequeno', 'Micro')),
-statusCliente TINYINT NOT NULL
+statusCliente TINYINT NOT NULL,
+email VARCHAR(60) NOT NULL,
+senha VARCHAR(45) NOT NULL
 ) AUTO_INCREMENT = 1000;
 
-INSERT INTO empresa(razao_social, nomeFantasia, cnpj, porte, statuscliente) VALUES
-('Jiboias Brasil Ltda', 'Animais Brasil', '15.251.660/0001-12', 'Pequeno', 1),
-('I Azeredo Souza Criação de Répteis LTDA', 'Criatório Brasil Répteis', '30.683.842/0001-56', 'Micro', 1),
-('CRIADOURO RECANTO DA JIBOIA LTDA', 'Recanto da Jiboia', '34.108.953/0001-90', 'Micro', 1),
-('Fauna Criadouro LTDA', 'Fauna Criadouro', '27.764.846/0001-54', 'Micro', 1),
-('Criatório BR LTDA', 'Criatório BR', '44.944.479/0001-90', 'Micro', 1),
-('Fernando Vaz de Gouveia - Comercial', 'T-REX Pets', '22.212.737/0001-00', 'Micro', 1),
-('Fernando Vaz de Gouveia - Comercial', 'Criadouro Répteis', '22.213.737/0001-00', 'Micro', 1);
+INSERT INTO empresa(razao_social, nomeFantasia, cnpj, porte, statuscliente, email, senha) VALUES
+('Jiboias Brasil Ltda', 'Animais Brasil', '15.251.660/0001-12', 'Pequeno', 1, 'jiboias.brasil@gmail.com', 'jiboias123'),
+('I Azeredo Souza Criação de Répteis LTDA', 'Criatório Brasil Répteis', '30.683.842/0001-56', 'Micro', 1, 'criatorio.brasil@gmail.com', 'criatorio123'),
+('CRIADOURO RECANTO DA JIBOIA LTDA', 'Recanto da Jiboia', '34.108.953/0001-90', 'Micro', 1, 'recanto.jiboia@gmail.com', 'recanto123'),
+('Fauna Criadouro LTDA', 'Fauna Criadouro', '27.764.846/0001-54', 'Micro', 1, 'fauna.criadouro@gmail.com', 'fauna123'),
+('Criatório BR LTDA', 'Criatório BR', '44.944.479/0001-90', 'Micro', 1, 'criatorio.brasilLTDA@gmail.com', 'criatorioBR123'),
+('Fernando Vaz de Gouveia - Comercial', 'T-REX Pets', '22.212.737/0001-00', 'Micro', 1, 'ferVaz.gouveia@gmail.com', 'gouveia123'),
+('Fernando Vaz de Gouveia - Comercial', 'Criadouro Répteis', '22.213.737/0001-00', 'Micro', 1, 'fernando.vazGouveia@gmail.com', 'ferVaz123');
 
 -- -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
