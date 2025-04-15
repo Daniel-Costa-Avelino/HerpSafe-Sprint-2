@@ -104,32 +104,34 @@ reptil VARCHAR(254) NOT NULL,
 dt_Instalacao DATE NOT NULL,
 dt_Manutencao DATE,
 fkEmpresa INT NOT NULL,
-CONSTRAINT fkEmpresa_local FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
+CONSTRAINT fkEmpresa_local FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa),
+fkMetricas INT NOT NULL UNIQUE,
+CONSTRAINT fkMetricas_local FOREIGN KEY (fkMetricas) REFERENCES metricas(idMetricas)
 ) AUTO_INCREMENT = 1000;
 
-INSERT INTO local_instalacao (recinto, tamanho_Recinto, reptil, dt_Instalacao, dt_Manutencao, fkEmpresa)
+INSERT INTO local_instalacao (recinto, tamanho_Recinto, reptil, dt_Instalacao, dt_Manutencao, fkEmpresa,fkMetricas)
 VALUES 
-('Terrário', 'Médio', 'Gecko', '2025-03-15', '2025-05-15',1000),
-('Paludário', 'Grande', 'Anaconda', '2025-03-16', NULL, 1001),
-('Tanque', 'Gigante', 'Crocodilo', '2025-03-17', NULL, 1002),
-('Lago', 'Extra Grande', 'Iguana', '2025-03-18', NULL, 1003),
-('Terrário', 'Pequeno', 'Tartaruga', '2025-03-19', NULL, 1004),
-('Paludário', 'Médio', 'Camaleão', '2025-03-20', NULL, 1005),
-('Tanque', 'Grande', 'Jacaré', '2025-03-21', '2025-05-21', 1006),
-('Lago', 'Gigante', 'Piranha', '2025-03-22', NULL, 1006),
-('Terrário', 'Médio', 'Dragão barbudo', '2025-03-23', NULL, 1006),
-('Tanque', 'Extra Grande', 'Cobra', '2025-03-24', NULL, 1006),
-('Paludário', 'Grande', 'Cobra Jiboia', '2025-03-25', NULL, 1005),
-('Lago', 'Pequeno', 'Jacaré', '2025-03-26', NULL, 1005),
-('Paludário', 'Gigante', 'Jiboia', '2025-03-27', '2025-05-27', 1005),
-('Terrário', 'Pequeno', 'Camaleão', '2025-03-28', NULL, 1004),
-('Tanque', 'Médio', 'Tartaruga', '2025-03-29', NULL, 1003),
-('Lago', 'Médio', 'Peixe-boi', '2025-03-30', NULL, 1004),
-('Tanque', 'Gigante', 'Cobra d’água', '2025-03-31', NULL, 1005),
-('Paludário', 'Pequeno', 'Salamandra', '2025-04-01', NULL, 1006),
-('Terrário', 'Grande', 'Lagarto', '2025-04-02', NULL, 1006),
-('Tanque', 'Pequeno', 'Peixe elétrico', '2025-04-03', '2025-06-03', 1003),
-('Lago', 'Extra Grande', 'Cobra marinha', '2025-04-04', NULL, 1002);
+('Terrário', 'Médio', 'Gecko', '2025-03-15', '2025-05-15',1000, 1000),
+('Paludário', 'Grande', 'Anaconda', '2025-03-16', NULL, 1001, 1001),
+('Tanque', 'Gigante', 'Crocodilo', '2025-03-17', NULL, 1002, 1002),
+('Lago', 'Extra Grande', 'Iguana', '2025-03-18', NULL, 1003, 1003),
+('Terrário', 'Pequeno', 'Tartaruga', '2025-03-19', NULL, 1004, 1004),
+('Paludário', 'Médio', 'Camaleão', '2025-03-20', NULL, 1005, 1005),
+('Tanque', 'Grande', 'Jacaré', '2025-03-21', '2025-05-21', 1006, 1006),
+('Lago', 'Gigante', 'Piranha', '2025-03-22', NULL, 1006, 1007),
+('Terrário', 'Médio', 'Dragão barbudo', '2025-03-23', NULL, 1006, 1008),
+('Tanque', 'Extra Grande', 'Cobra', '2025-03-24', NULL, 1006, 1009),
+('Paludário', 'Grande', 'Cobra Jiboia', '2025-03-25', NULL, 1005, 1010),
+('Lago', 'Pequeno', 'Jacaré', '2025-03-26', NULL, 1005, 1011),
+('Paludário', 'Gigante', 'Jiboia', '2025-03-27', '2025-05-27', 1005, 1012),
+('Terrário', 'Pequeno', 'Camaleão', '2025-03-28', NULL, 1004, 1013),
+('Tanque', 'Médio', 'Tartaruga', '2025-03-29', NULL, 1003, 1014),
+('Lago', 'Médio', 'Peixe-boi', '2025-03-30', NULL, 1004, 1015),
+('Tanque', 'Gigante', 'Cobra d’água', '2025-03-31', NULL, 1005, 1016),
+('Paludário', 'Pequeno', 'Salamandra', '2025-04-01', NULL, 1006, 1017),
+('Terrário', 'Grande', 'Lagarto', '2025-04-02', NULL, 1006, 1018),
+('Tanque', 'Pequeno', 'Peixe elétrico', '2025-04-03', '2025-06-03', 1003, 1019),
+('Lago', 'Extra Grande', 'Cobra marinha', '2025-04-04', NULL, 1002, 1020);
 
 -- ----------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -202,35 +204,32 @@ idMetricas INT PRIMARY KEY AUTO_INCREMENT,
 max_Temp FLOAT NOT NULL,
 min_Temp FLOAT NOT NULL,
 max_Umid FLOAT NOT NULL,
-min_Umid FLOAT NOT NULL,
-idSensor_Umid INT UNIQUE,
-idSensor_Temp INT UNIQUE,
-idLocal_Instalacao INT UNIQUE
+min_Umid FLOAT NOT NULL
 ) AUTO_INCREMENT = 1000;
 
-INSERT INTO metricas (max_Temp, min_Temp, max_Umid, min_Umid, idSensor_Umid, idSensor_Temp, idLocal_Instalacao)  
+INSERT INTO metricas (max_Temp, min_Temp, max_Umid, min_Umid)  
 VALUES  
-(35.0, 20.0, 80.0, 40.0, 1000, 1001, 1000),  
-(38.5, 22.5, 85.0, 45.0, 1002, 1004, 1001),  
-(40.0, 25.0, 90.0, 50.0, 1003, 1005, 1002),  
-(30.5, 18.0, 75.0, 35.0, 1006, 1007, 1003),  
-(28.0, 16.5, 70.0, 30.0, 1008, 1010, 1004),  
-(33.5, 21.0, 78.0, 38.0, 1009, 1011, 1005),  
-(37.0, 23.0, 82.0, 42.0, 1012, 1013, 1006),  
-(36.5, 22.0, 80.5, 41.0, 1014, 1016, 1007),  
-(32.0, 19.0, 76.0, 36.0, 1015, 1017, 1008),  
-(39.0, 24.0, 88.0, 48.0, 1018, 1019, 1009),  
-(34.5, 20.5, 79.5, 39.5, 1020, 1022, 1010),  
-(31.0, 17.5, 72.0, 32.0, 1021, 1023, 1011),  
-(36.0, 21.5, 81.0, 41.5, 1024, 1025, 1012),  
-(29.5, 15.5, 68.0, 28.0, 1026, 1028, 1013),  
-(33.0, 20.0, 74.5, 34.5, 1027, 1029, 1014),  
-(37.5, 23.5, 83.5, 43.5, 1030, 1031, 1015),  
-(30.0, 18.5, 69.5, 29.5, 1032, 1034, 1016),  
-(35.0, 22.0, 77.5, 37.5, 1034, 1035, 1017),  
-(38.0, 24.5, 86.0, 46.0, 1036, 1037, 1018),  
-(32.5, 19.5, 73.5, 33.5, 1038, 1040, 1019),  
-(39.5, 25.5, 89.0, 49.0, 1039, 1041, 1020);  
+(35.0, 20.0, 80.0, 40.0),  
+(38.5, 22.5, 85.0, 45.0),  
+(40.0, 25.0, 90.0, 50.0),  
+(30.5, 18.0, 75.0, 35.0),  
+(28.0, 16.5, 70.0, 30.0),  
+(33.5, 21.0, 78.0, 38.0),  
+(37.0, 23.0, 82.0, 42.0),  
+(36.5, 22.0, 80.5, 41.0),  
+(32.0, 19.0, 76.0, 36.0),  
+(39.0, 24.0, 88.0, 48.0),  
+(34.5, 20.5, 79.5, 39.5),  
+(31.0, 17.5, 72.0, 32.0),  
+(36.0, 21.5, 81.0, 41.5),  
+(29.5, 15.5, 68.0, 28.0),  
+(33.0, 20.0, 74.5, 34.5),  
+(37.5, 23.5, 83.5, 43.5),  
+(30.0, 18.5, 69.5, 29.5),  
+(35.0, 22.0, 77.5, 37.5),  
+(38.0, 24.5, 86.0, 46.0),  
+(32.5, 19.5, 73.5, 33.5),  
+(39.5, 25.5, 89.0, 49.0);  
 
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -343,6 +342,8 @@ FROM funcionario;
 /*SELECT COM JOIN*/
 SELECT * FROM empresa JOIN endereco ON empresa.idEmpresa = endereco.fkEmpresa;
 SELECT * FROM funcionario JOIN empresa ON funcionario.fkEmpresa = empresa.idEmpresa;
-SELECT * FROM sensor JOIN local_instalacao ON sensor.fkLocalInstalacao = local_instalacao.idLocal_instalacao;
+SELECT * FROM sensor JOIN local_instalacao ON sensor.fkLocalInstalacao = local_instalacao.idLocal_instalacao
+JOIN metricas ON metricas.idMetricas = local_instalacao.fkMetricas;
+SELECT * FROM local_instalacao JOIN metricas ON metricas.idMetricas = local_instalacao.fkMetricas;
 SELECT * FROM alertas JOIN sensor ON sensor.idSensor = alertas.fkSensor;
 SELECT * FROM captura JOIN sensor ON captura.fkSensor = sensor.idSensor;
