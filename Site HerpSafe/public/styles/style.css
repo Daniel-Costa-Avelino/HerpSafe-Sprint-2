@@ -18,7 +18,7 @@
   margin-bottom: 1px;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
-  box-shadow: 0px 10px 10px #0F4B2D;
+  box-shadow: 0px 5px 5px #0F4B2D;
 }
 
 .cabecalho .logo img {
@@ -268,6 +268,66 @@ body .container {
 
 /* Sobre Nós */
 
+.section_sobreNos {
+  display: flex;
+  margin-top: 50px;
+  justify-content: space-around;
+}
+
+.div_sobreNos_div {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  gap: 15px;
+  justify-content: center;
+}
+
+.div_sobreNos_div h1 {
+  color: #20673E;
+  font-size: 36px;
+  font-weight: 800;
+}
+
+.div_sobreNos_div p {
+  font-size: 22px;
+  color: #044036;
+}
+
+.btn_saberMais {
+  background-color: #0a2e1c;
+  color: white;
+  padding: 12px 24px;
+  font-size: 18px;
+  font-weight: 800;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.div_cards_temperatura_umidade {
+  display: flex;
+  width: 40%;
+  justify-content: space-around;
+}
+
+.div_cards_temperatura_umidade img{
+  width: 200px;
+}
+
+.div_cards_temperatura_umidade p{
+  color: #044036;
+  font-size: 20px;
+  font-weight: 800;
+  text-align: center;
+}
+
+hr{
+  border: 3px solid #0B371F;
+  width: 60%;
+  margin: 60px auto;
+  border-radius: 8px;
+}
+
+
 .section_cards_sobreNos {
   display: flex;
   justify-content: space-evenly;
@@ -309,7 +369,7 @@ body .container {
 }
 
 .section_carrossel_sobreNos {
-  margin-top: 20px;
+  margin-top: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -318,7 +378,7 @@ body .container {
   color: white;
   height: 300px;
   padding-top: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 70px;
 }
 
 .div_titulo_carrossel {
@@ -335,10 +395,49 @@ body .container {
   justify-content: space-evenly;
 }
 
-.div_paragrafo_carrossel p{
+.div_paragrafo_carrossel p {
   width: 70%;
 }
 
-.div_paragrafo_carrossel img{
+.div_paragrafo_carrossel img {
   width: 40px;
 }
+
+.section_equipe_sobreNos {
+  margin-bottom: 60px;
+}
+
+.div_equipe {
+  display: flex;
+}
+
+.div_equipe_div {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 70%;
+  align-items: center;
+}
+
+.div_equipe_div h1 {
+  color: #20673E;
+  margin-bottom: 20px;
+  font-size: 30px;
+}
+
+.div_equipe_div img {
+  width: 70%;
+  margin-top: 10px;
+}
+
+.imgFolha1,
+.imgFolha2 {
+  height: 200px;
+  width: 15%;
+}
+
+.imgFolha2 {
+  align-self: flex-end;
+}
+
+/* Fim Sobre Nós */
