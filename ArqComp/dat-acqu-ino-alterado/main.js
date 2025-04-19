@@ -73,8 +73,13 @@ const serial = async (
             // este insert irá inserir os dados na tabela "medida"
             // É um código de mysql para insersão de dados
             await poolBancoDados.execute(
+<<<<<<< HEAD
+                'INSERT INTO dados (umidade, temperatura) VALUES (?, ?)',
+                [sensorDigital , sensorAnalogico]
+=======
                 `INSERT INTO dados (umidade, temperatura) VALUES (?, ?)`,
                 [sensorAnalogico, sensorDigital]
+>>>>>>> d655ee569de3f6850c8330f35eb18ee5940e804a
             );
             // Dizendo o que vai mostrar no console caso os valores sejam inseridos
             console.log("valores inseridos no banco: ", sensorAnalogico + ", " + sensorDigital);
