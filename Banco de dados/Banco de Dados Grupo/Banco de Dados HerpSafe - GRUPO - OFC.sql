@@ -11,19 +11,18 @@ cnpj VARCHAR(18) NOT NULL UNIQUE,
 porte VARCHAR(8) NOT NULL,
   CONSTRAINT chk_Porte
       CHECK (porte IN('Grande', 'Medio', 'Pequeno', 'Micro')),
-statusCliente TINYINT NOT NULL,
 email VARCHAR(60) NOT NULL,
 senha VARCHAR(45) NOT NULL
 ) AUTO_INCREMENT = 1000;
 
-INSERT INTO empresa(razao_social, nomeFantasia, cnpj, porte, statuscliente, email, senha) VALUES
-('Jiboias Brasil Ltda', 'Animais Brasil', '15.251.660/0001-12', 'Pequeno', 1, 'jiboias.brasil@gmail.com', 'jiboias123'),
-('I Azeredo Souza Criação de Répteis LTDA', 'Criatório Brasil Répteis', '30.683.842/0001-56', 'Micro', 1, 'criatorio.brasil@gmail.com', 'criatorio123'),
-('CRIADOURO RECANTO DA JIBOIA LTDA', 'Recanto da Jiboia', '34.108.953/0001-90', 'Micro', 1, 'recanto.jiboia@gmail.com', 'recanto123'),
-('Fauna Criadouro LTDA', 'Fauna Criadouro', '27.764.846/0001-54', 'Micro', 1, 'fauna.criadouro@gmail.com', 'fauna123'),
-('Criatório BR LTDA', 'Criatório BR', '44.944.479/0001-90', 'Micro', 1, 'criatorio.brasilLTDA@gmail.com', 'criatorioBR123'),
-('Fernando Vaz de Gouveia - Comercial', 'T-REX Pets', '22.212.737/0001-00', 'Micro', 1, 'ferVaz.gouveia@gmail.com', 'gouveia123'),
-('Fernando Vaz de Gouveia - Comercial', 'Criadouro Répteis', '22.213.737/0001-00', 'Micro', 1, 'fernando.vazGouveia@gmail.com', 'ferVaz123');
+INSERT INTO empresa(razao_social, nomeFantasia, cnpj, porte, email, senha) VALUES
+('Jiboias Brasil Ltda', 'Animais Brasil', '15.251.660/0001-12', 'Pequeno', 'jiboias.brasil@gmail.com', 'jiboias123'),
+('I Azeredo Souza Criação de Répteis LTDA', 'Criatório Brasil Répteis', '30.683.842/0001-56', 'Micro','criatorio.brasil@gmail.com', 'criatorio123'),
+('CRIADOURO RECANTO DA JIBOIA LTDA', 'Recanto da Jiboia', '34.108.953/0001-90', 'Micro','recanto.jiboia@gmail.com', 'recanto123'),
+('Fauna Criadouro LTDA', 'Fauna Criadouro', '27.764.846/0001-54', 'Micro','fauna.criadouro@gmail.com', 'fauna123'),
+('Criatório BR LTDA', 'Criatório BR', '44.944.479/0001-90', 'Micro','criatorio.brasilLTDA@gmail.com', 'criatorioBR123'),
+('Fernando Vaz de Gouveia - Comercial', 'T-REX Pets', '22.212.737/0001-00', 'Micro','ferVaz.gouveia@gmail.com', 'gouveia123'),
+('Fernando Vaz de Gouveia - Comercial', 'Criadouro Répteis', '22.213.737/0001-00', 'Micro','fernando.vazGouveia@gmail.com', 'ferVaz123');
 
 -- -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -60,35 +59,33 @@ cargo VARCHAR(15) NOT NULL,
     CONSTRAINT chk_Cargo
         CHECK (cargo IN('Gerencial' , 'Operacional')),
 senha VARCHAR(20) NOT NULL,
-hora_inicio_trabalho TIME,
-hora_fim_trabalho TIME,
 fkEmpresa INT NOT NULL,
 CONSTRAINT fkEmpresa_funcionario FOREIGN KEY (fkEmpresa)
     REFERENCES empresa(idEmpresa)
 ) AUTO_INCREMENT = 1000;
 
-INSERT INTO funcionario (nome, email, cpf, cargo, senha, hora_inicio_trabalho, hora_fim_trabalho, fkEmpresa) VALUES
-('Carlos Silva', 'carlos.silva@animaisbrasil.com', '111.111.111-11', 'Gerencial', 'senha123', '07:00:00', '17:00:00', 1000),
-('Mariana Souza', 'mariana.souza@animaisbrasil.com', '222.222.222-22', 'Operacional', 'senha123', '08:00:00', '18:00:00', 1000),
-('Roberto Lima', 'roberto.lima@animaisbrasil.com', '333.333.333-33', 'Operacional', 'senha123', '09:00:00', '19:00:00', 1000),
-('Fernanda Ribeiro', 'fernanda.ribeiro@criatoriobrasil.com', '444.444.444-44', 'Gerencial', 'senha123', '07:00:00', '17:00:00', 1001),
-('Lucas Mendes', 'lucas.mendes@criatoriobrasil.com', '555.555.555-55', 'Operacional', 'senha123', '08:00:00', '18:00:00', 1001),
-('Tatiane Rocha', 'tatiane.rocha@criatoriobrasil.com', '666.666.666-66', 'Operacional', 'senha123', '09:00:00', '19:00:00', 1001),
-('Paulo Castro', 'paulo.castro@recantojiboia.com', '777.777.777-77', 'Gerencial', 'senha123', '07:00:00', '17:00:00', 1002),
-('Julia Nunes', 'julia.nunes@recantojiboia.com', '888.888.888-88', 'Operacional', 'senha123', '08:00:00', '18:00:00', 1002),
-('Eduardo Martins', 'eduardo.martins@recantojiboia.com', '999.999.999-99', 'Operacional', 'senha123', '09:00:00', '19:00:00', 1002),
-('Clara Fernandes', 'clara.fernandes@faunacriadouro.com', '101.101.101-10', 'Gerencial', 'senha123', '07:00:00', '17:00:00', 1003),
-('Rafael Oliveira', 'rafael.oliveira@faunacriadouro.com', '202.202.202-20', 'Operacional', 'senha123', '08:00:00', '18:00:00', 1003),
-('Bianca Gomes', 'bianca.gomes@faunacriadouro.com', '303.303.303-30', 'Operacional', 'senha123', '09:00:00', '19:00:00', 1003),
-('Anderson Santos', 'anderson.santos@criatoriobr.com', '404.404.404-40', 'Gerencial', 'senha123', '07:00:00', '17:00:00', 1004),
-('Vanessa Lima', 'vanessa.lima@criatoriobr.com', '505.505.505-50', 'Operacional', 'senha123', '08:00:00', '18:00:00', 1004),
-('Rodrigo Almeida', 'rodrigo.almeida@criatoriobr.com', '606.606.606-60', 'Operacional', 'senha123', '09:00:00', '19:00:00', 1004),
-('Gabriel Ferreira', 'gabriel.ferreira@trexpets.com', '707.707.707-70', 'Gerencial', 'senha123', '07:00:00', '17:00:00', 1005),
-('Patrícia Xavier', 'patricia.xavier@trexpets.com', '808.808.808-80', 'Operacional', 'senha123', '08:00:00', '18:00:00', 1005),
-('Diego Moraes', 'diego.moraes@trexpets.com', '909.909.909-90', 'Operacional', 'senha123', '09:00:00', '19:00:00', 1005),
-('Ana Beatriz', 'ana.beatriz@criadouroreptil.com', '111.222.333-44', 'Gerencial', 'senha123', '07:00:00', '17:00:00', 1006),
-('Felipe Cardoso', 'felipe.cardoso@criadouroreptil.com', '555.666.777-88', 'Operacional', 'senha123', '08:00:00', '18:00:00', 1006),
-('Carla Moreira', 'carla.moreira@criadouroreptil.com', '999.888.777-66', 'Operacional', 'senha123', '09:00:00', '19:00:00', 1006);
+INSERT INTO funcionario (nome, email, cpf, cargo, senha,fkEmpresa) VALUES
+('Carlos Silva', 'carlos.silva@animaisbrasil.com', '111.111.111-11', 'Gerencial', 'senha123', 1000),
+('Mariana Souza', 'mariana.souza@animaisbrasil.com', '222.222.222-22', 'Operacional', 'senha123',1000),
+('Roberto Lima', 'roberto.lima@animaisbrasil.com', '333.333.333-33', 'Operacional', 'senha123',1000),
+('Fernanda Ribeiro', 'fernanda.ribeiro@criatoriobrasil.com', '444.444.444-44', 'Gerencial', 'senha123',1001),
+('Lucas Mendes', 'lucas.mendes@criatoriobrasil.com', '555.555.555-55', 'Operacional', 'senha123',1001),
+('Tatiane Rocha', 'tatiane.rocha@criatoriobrasil.com', '666.666.666-66', 'Operacional', 'senha123',1001),
+('Paulo Castro', 'paulo.castro@recantojiboia.com', '777.777.777-77', 'Gerencial', 'senha123',1002),
+('Julia Nunes', 'julia.nunes@recantojiboia.com', '888.888.888-88', 'Operacional', 'senha123',1002),
+('Eduardo Martins', 'eduardo.martins@recantojiboia.com', '999.999.999-99', 'Operacional', 'senha123',1002),
+('Clara Fernandes', 'clara.fernandes@faunacriadouro.com', '101.101.101-10', 'Gerencial', 'senha123',1003),
+('Rafael Oliveira', 'rafael.oliveira@faunacriadouro.com', '202.202.202-20', 'Operacional', 'senha123',1003),
+('Bianca Gomes', 'bianca.gomes@faunacriadouro.com', '303.303.303-30', 'Operacional', 'senha123',1003),
+('Anderson Santos', 'anderson.santos@criatoriobr.com', '404.404.404-40', 'Gerencial', 'senha123',1004),
+('Vanessa Lima', 'vanessa.lima@criatoriobr.com', '505.505.505-50', 'Operacional', 'senha123',1004),
+('Rodrigo Almeida', 'rodrigo.almeida@criatoriobr.com', '606.606.606-60', 'Operacional', 'senha123',1004),
+('Gabriel Ferreira', 'gabriel.ferreira@trexpets.com', '707.707.707-70', 'Gerencial', 'senha123',1005),
+('Patrícia Xavier', 'patricia.xavier@trexpets.com', '808.808.808-80', 'Operacional', 'senha123',1005),
+('Diego Moraes', 'diego.moraes@trexpets.com', '909.909.909-90', 'Operacional', 'senha123',1005),
+('Ana Beatriz', 'ana.beatriz@criadouroreptil.com', '111.222.333-44', 'Gerencial', 'senha123',1006),
+('Felipe Cardoso', 'felipe.cardoso@criadouroreptil.com', '555.666.777-88', 'Operacional', 'senha123',1006),
+('Carla Moreira', 'carla.moreira@criadouroreptil.com', '999.888.777-66', 'Operacional', 'senha123',1006);
 
 -- --------------------------------------------------------------------------------------------------------------------------------------
 
@@ -100,7 +97,7 @@ recinto VARCHAR(10) NOT NULL,
 tamanho_Recinto VARCHAR (12) NOT NULL,
          CONSTRAINT chk_TamanhoRecinto
              CHECK (tamanho_Recinto IN('Pequeno', 'Médio', 'Grande', 'Extra Grande', 'Gigante')),
-reptil VARCHAR(254) NOT NULL,
+serpente VARCHAR(254) NOT NULL,
 dt_Instalacao DATE NOT NULL,
 dt_Manutencao DATE,
 fkEmpresa INT NOT NULL,
@@ -109,29 +106,29 @@ fkMetricas INT NOT NULL UNIQUE,
 CONSTRAINT fkMetricas_local FOREIGN KEY (fkMetricas) REFERENCES metricas(idMetricas)
 ) AUTO_INCREMENT = 1000;
 
-INSERT INTO local_instalacao (recinto, tamanho_Recinto, reptil, dt_Instalacao, dt_Manutencao, fkEmpresa,fkMetricas)
+INSERT INTO local_instalacao (recinto, tamanho_Recinto, serpente, dt_Instalacao, dt_Manutencao, fkEmpresa,fkMetricas)
 VALUES 
-('Terrário', 'Médio', 'Gecko', '2025-03-15', '2025-05-15',1000, 1000),
-('Paludário', 'Grande', 'Anaconda', '2025-03-16', NULL, 1001, 1001),
-('Tanque', 'Gigante', 'Crocodilo', '2025-03-17', NULL, 1002, 1002),
-('Lago', 'Extra Grande', 'Iguana', '2025-03-18', NULL, 1003, 1003),
-('Terrário', 'Pequeno', 'Tartaruga', '2025-03-19', NULL, 1004, 1004),
-('Paludário', 'Médio', 'Camaleão', '2025-03-20', NULL, 1005, 1005),
-('Tanque', 'Grande', 'Jacaré', '2025-03-21', '2025-05-21', 1006, 1006),
-('Lago', 'Gigante', 'Piranha', '2025-03-22', NULL, 1006, 1007),
-('Terrário', 'Médio', 'Dragão barbudo', '2025-03-23', NULL, 1006, 1008),
-('Tanque', 'Extra Grande', 'Cobra', '2025-03-24', NULL, 1006, 1009),
-('Paludário', 'Grande', 'Cobra Jiboia', '2025-03-25', NULL, 1005, 1010),
-('Lago', 'Pequeno', 'Jacaré', '2025-03-26', NULL, 1005, 1011),
+('Terrário', 'Médio', 'Jiboia', '2025-03-15', '2025-05-15',1000, 1000),
+('Paludário', 'Grande', 'Jiboia', '2025-03-16', NULL, 1001, 1001),
+('Tanque', 'Gigante', 'Píton', '2025-03-17', NULL, 1002, 1002),
+('Lago', 'Extra Grande', 'Jiboia', '2025-03-18', NULL, 1003, 1003),
+('Terrário', 'Pequeno', 'Jiboia', '2025-03-19', NULL, 1004, 1004),
+('Paludário', 'Médio', 'Píton', '2025-03-20', NULL, 1005, 1005),
+('Tanque', 'Grande', 'Jiboia', '2025-03-21', '2025-05-21', 1006, 1006),
+('Lago', 'Gigante', 'Jiboia', '2025-03-22', NULL, 1006, 1007),
+('Terrário', 'Médio', 'Jiboia', '2025-03-23', NULL, 1006, 1008),
+('Tanque', 'Extra Grande', 'Jiboia', '2025-03-24', NULL, 1006, 1009),
+('Paludário', 'Grande', 'Jiboia', '2025-03-25', NULL, 1005, 1010),
+('Lago', 'Pequeno', 'jiboia', '2025-03-26', NULL, 1005, 1011),
 ('Paludário', 'Gigante', 'Jiboia', '2025-03-27', '2025-05-27', 1005, 1012),
-('Terrário', 'Pequeno', 'Camaleão', '2025-03-28', NULL, 1004, 1013),
-('Tanque', 'Médio', 'Tartaruga', '2025-03-29', NULL, 1003, 1014),
-('Lago', 'Médio', 'Peixe-boi', '2025-03-30', NULL, 1004, 1015),
-('Tanque', 'Gigante', 'Cobra d’água', '2025-03-31', NULL, 1005, 1016),
-('Paludário', 'Pequeno', 'Salamandra', '2025-04-01', NULL, 1006, 1017),
-('Terrário', 'Grande', 'Lagarto', '2025-04-02', NULL, 1006, 1018),
-('Tanque', 'Pequeno', 'Peixe elétrico', '2025-04-03', '2025-06-03', 1003, 1019),
-('Lago', 'Extra Grande', 'Cobra marinha', '2025-04-04', NULL, 1002, 1020);
+('Terrário', 'Pequeno', 'Píton', '2025-03-28', NULL, 1004, 1013),
+('Tanque', 'Médio', 'Jiboia', '2025-03-29', NULL, 1003, 1014),
+('Lago', 'Médio', 'Jiboia', '2025-03-30', NULL, 1004, 1015),
+('Tanque', 'Gigante', 'Jiboia', '2025-03-31', NULL, 1005, 1016),
+('Paludário', 'Pequeno', 'Píton', '2025-04-01', NULL, 1006, 1017),
+('Terrário', 'Grande', 'Jiboia', '2025-04-02', NULL, 1006, 1018),
+('Tanque', 'Pequeno', 'Jiboia', '2025-04-03', '2025-06-03', 1003, 1019),
+('Lago', 'Extra Grande', 'Jiboia', '2025-04-04', NULL, 1002, 1020);
 
 -- ----------------------------------------------------------------------------------------------------------------------------------------------
 
