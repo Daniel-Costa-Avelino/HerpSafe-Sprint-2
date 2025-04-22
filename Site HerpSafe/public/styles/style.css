@@ -441,3 +441,133 @@ hr{
 }
 
 /* Fim Sobre Nós */
+
+
+
+/* Simulador Financeiro */
+
+.calculadora_completa {
+  display: flex;
+  flex-direction: column;
+  margin: solid #042415 5px;
+  background: #8fbd8f;
+  gap: 20px;
+  height: auto;
+  padding: 2%;
+  margin-top: 5px;
+}
+
+.calculadora_completa h2 {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  color: #0a3b23;
+  font: bold;
+  font-size: 40px;
+  text-shadow: 1px 1px 1px #0a3b23;
+  margin-bottom: 10px;
+}
+
+.calculadora_completa .boxes {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  margin-bottom: 20px;
+}
+
+.calculadora_completa .titulo-entrada {
+  font-size: 25px;
+  color: #0a3b23;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.calculadora_completa .boxes .box-entrada {
+  font-family: Inter;
+  background: white;
+  color: #0a3b23;
+  padding: 5px;
+  font-size: 20px;
+  width: 35%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 12px;
+  border: solid #0a3b23 2px;
+  margin-left: 290px;
+  font-weight: 500;
+  box-shadow: 5px 5px 2px #0a3b23;
+}
+
+
+.calculadora_completa select,
+input[type="text"] {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  background-color: #e0fde2;
+  color: #0f4b2d;
+  margin-top: 5px;
+  border: solid #0a3b23 1px;
+}
+
+.calculadora_completa button {
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: rgb(222, 251, 220);
+  color: #0f4b2d;
+  cursor: pointer;
+  border: solid #0f4b2d 2px;
+  box-shadow: 1px 1px 1px #0f4b2d;
+}
+
+.calculadora_completa button:hover {
+  background-color: #2ecc71;
+}
+
+.calculadora_completa ::placeholder {
+  color: #66907a;
+}
+
+
+.calculadora_completa .titulo-resultado {
+  font-size: 25px;
+  color: #0a3b23;
+  padding: 10px;
+  font-weight: bold;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.calculadora_completa #div_mensagem {
+  padding: 20px;
+  border-radius: 10px;
+  line-height: 1.6;
+  color: #01160c;
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+.calculadora_completa .box-resultado {
+  width: 35%;
+  background: white;
+  height: 35%;
+
+  border: solid #0f4b2d 2px;
+  border-radius: 12px;
+
+  box-shadow: 5px 5px 2px #0a3b23;
+}
+
+/* Fim Simulador Financeiro */
+
+
