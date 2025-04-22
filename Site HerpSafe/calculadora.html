@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="public/assets/icons/HerpSafe - logo - light.png" type="image/x-icon">
+    <link rel="stylesheet" href="./public/styles/style.css">
+
+    <title>Calculadora financeira</title>
+</head>
+
+<body>
+    <!-- Header início -->
+    <header class="cabecalho">
+        <div class="logo">
+            <img src="public/assets/icons/HerpSafe - logo - dark.png" alt="Logo HerpSafe">
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="index.html"><img src="public/assets/imgs/arrow down.png">Home</a></li>
+                <li><a href=""> <img src="public/assets/imgs/arrow down.png"> Dashboard</a></li>
+                <li><a href="./calculadora_vs2.html"> <img src="public/assets/imgs/arrow down.png"> Calculadora</a></li>
+                <li><a class="agora" href="./sobreNos.html">Sobre nós</a></li>
+                <li><a href="">Contato</a></li>
+            </ul>
+        </div>
+    </header>
+    <!-- Header fim -->
+
+    <!-- Calculadora início -->
+    <div class="calculadora_completa">
+        <h2>Simulador Financeiro</h2>
+        <div class="boxes">
+            <div class="box-entrada">
+                <div class="titulo-entrada">
+                    Informe os Dados</div>
+                <br> Insira a Cobra: <select id="select_tipo">
+                    <option value="Píton Real (Python regius)">Píton Real (Python regius)</option>
+                    <option value="Jiboia Arco-Íris (Epicrates cenchria)">Jiboia Arco-Íris (Epicrates cenchria)</option>
+                    <option value="Jiboia (Boa constrictor)">Jiboia (Boa constrictor)</option>
+                </select><br><br>
+                Temperatura: <input type="text" id="input_temperatura" placeholder="Temperatura Atual"> <br><br>
+                Umidade: <input type="text" id="input_umidade" placeholder="Umidade Atual"> <br><br>
+                Informe a Quantidade de Cobras: <input type="text" id="input_qntcobras"
+                    placeholder="Cobras no Criadouro"><br><br>
+                <button onclick="Analisar()">Analisar Criadouro</button><br>
+            </div>
+            <div class="box-resultado">
+                <div class="titulo-resultado">
+                    Consulte o Resultado</div>
+                <div id="div_mensagem"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Calculadora Fim -->
+
+
+    <!-- Footer início -->
+    <footer class="rodape">
+        <div class="footer-menu">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">DashBoard</a></li>
+                <li><a href="#">Calculadora</a></li>
+                <li><a href="#">Quem Somos?</a></li>
+            </ul>
+        </div>
+        <div class="footer-info">
+            <p><a href="#">📍 Rua Haddock Lobo, 595 São Paulo - SP</a></p>
+            <img src="public/assets/icons/HerpSafe - logo - dark.png" alt="HerpSafe logo" class="logo-footer" />
+            <p>HERPSAFE © 2025. Todos os direitos reservados. Desenvolvido por HerpSafe.</p>
+            <div class="social">
+                <a href="#">Facebook</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">Instagram</a>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer fim -->
+
+
+    <div style="color: red;"></div>
+    <b style="color: rgb(183, 180, 0);"></b>
+
+</body>
+
+</html>
+
+<script>
+    function Analisar() {
+        var tipo = select_tipo.value;
+        var temperatura = Number(input_temperatura.value);
+        var umidade = Number(input_umidade.value);
+        var quantidade = Number(input_qntcobras.value);
+        var mensagem = '';
+        var preco = 0;
+
+        var metrica = '';
+        var filhote = 0;
+        var preco_filhote = preco * 0.1;
+
+        var MSituação = 'Indefinida';
+        var MTemperatura = 'Indefinida';
+        var MUmidade = '';
+        var MResulta = '';
+        var MMortalidade = 0;
+        var MFertilidade = 0;
+
+
+
+        if (tipo == 'Píton Real (Python regius)') {
+            metrica = '✔️Conserve a temperatura entre 27–32°C <br> ✔️Mantenha a umidade entre 50% e 60%';
+            preco = 6200;
+            filhote = 6;
+            preco_filhote = 800;
+
+            if (temperatura > -20 && temperatura < 100) {
+                if (temperatura >= 27 && temperatura <= 32) {
+                    MTemperatura = '<b style="color: green;">está ideal</b>';
+                } else if (temperatura >= 25 && temperatura <= 34) {
+                    MTemperatura = '<b style="color: blue;">faixa razoável</b>';
+                } else if (temperatura >= 23 && temperatura <= 35) {
+                    MTemperatura = '<b style="color: rgb(183, 180, 0);">faixa ruim</b>';
+                } else if (temperatura >= 21 && temperatura <= 36) {
+                    MTemperatura = '<b style="color: rgb(225, 98, 0);">faixa péssima</b>';
+                } else {
+                    MTemperatura = '<b style="color: red;">faixa insustentável</b>';
+                }
+            }
+
+            if (umidade >= 0 && umidade <= 100) {
+                if (umidade >= 50 && umidade <= 60) {
+                    MUmidade = '<b style="color: green;">está ideal</b>';
+                } else if (umidade >= 45 && umidade <= 65) {
+                    MUmidade = '<b style="color: blue;">está razoável</b>';
+                } else if (umidade >= 40 && umidade <= 70) {
+                    MUmidade = '<b style="color: rgb(183, 180, 0);">está ruim</b>';
+                } else if (umidade >= 35 && umidade <= 75) {
+                    MUmidade = '<b style="color: rgb(225, 98, 0);">está péssima</b>';
+                } else {
+                    MUmidade = '<b style="color: red;">está insustentável</b>';
+                }
+            }
+
+            if (MSituação == 'Indefinida') {
+                if (MTemperatura.includes("ideal") && MUmidade.includes("ideal")) {
+                    MSituação = '<b style="color: green;">Situação Ótima:</b>';
+                    MMortalidade = 0;
+                    MFertilidade = 0;
+                } else if (MTemperatura.includes("insustentável") || MUmidade.includes("insustentável")) {
+                    MSituação = '<b style="color: red;">Situação insustentável:</b>';
+                    MMortalidade = 50;
+                    MFertilidade = 100;
+                } else if (MTemperatura.includes("péssima") || MUmidade.includes("péssima")) {
+                    MSituação = '<b style="color: rgb(225, 98, 0);">Situação péssima:</b>';
+                    MMortalidade = 40;
+                    MFertilidade = 40;
+                } else if (MTemperatura.includes("ruim") || MUmidade.includes("ruim")) {
+                    MSituação = '<b style="color: rgb(183, 180, 0);">Situação ruim:</b>';
+                    MMortalidade = 25;
+                    MFertilidade = 20;
+                } else if (MTemperatura.includes("razoável") || MUmidade.includes("razoável")) {
+                    MSituação = '<b style="color: blue;">Situação razoável:</b>';
+                    MMortalidade = 5;
+                    MFertilidade = 10;
+                }
+            }
+        }
+
+
+        if (tipo == 'Jiboia Arco-Íris (Epicrates cenchria)') {
+            metrica = '✔️Conserve a temperatura entre 28–30°C <br>✔️Mantenha a umidade entre 75% e 85%';
+            preco = 4000;
+            filhote = 10;
+            preco_filhote = 1000;
+
+            if (temperatura >= 28 && temperatura <= 30) {
+                MTemperatura = '<b style="color: green;">temperatura está ideal</b>';
+            } else if (temperatura >= 26 && temperatura <= 32) {
+                MTemperatura = '<b style="color: blue;">faixa razoável</b>';
+            } else if (temperatura >= 24 && temperatura <= 34) {
+                MTemperatura = '<b style="color: rgb(183, 180, 0);">faixa ruim</b>';
+            } else if (temperatura >= 22 && temperatura <= 36) {
+                MTemperatura = '<b style="color: rgb(225, 98, 0);">faixa péssima</b>';
+            } else {
+                MTemperatura = '<b style="color: red;">faixa insustentável</b>';
+            }
+
+            if (umidade >= 75 && umidade <= 85) {
+                MUmidade = '<b style="color: green;">está ideal</b>';
+            } else if (umidade >= 70 && umidade <= 88) {
+                MUmidade = '<b style="color: blue;">está razoável</b>';
+            } else if (umidade >= 65 && umidade <= 91) {
+                MUmidade = '<b style="color: rgb(183, 180, 0);">está ruim</b>';
+            } else if (umidade >= 60 && umidade <= 94) {
+                MUmidade = '<b style="color: rgb(225, 98, 0);">está péssima</b>';
+            } else {
+                MUmidade = '<b style="color: red;">está insustentável</b>';
+            }
+
+            if (MSituação == 'Indefinida') {
+                if (MTemperatura.includes("ideal") && MUmidade.includes("ideal")) {
+                    MSituação = '<b style="color: green;">Situação Ótima:</b>';
+                    MMortalidade = 0;
+                    MFertilidade = 0;
+                } else if (MTemperatura.includes("insustentável") || MUmidade.includes("insustentável")) {
+                    MSituação = '<b style="color: red;">Situação insustentável:</b>';
+                    MMortalidade = 50;
+                    MFertilidade = 100;
+                } else if (MTemperatura.includes("péssima") || MUmidade.includes("péssima")) {
+                    MSituação = '<b style="color: rgb(225, 98, 0);">Situação péssima:</b>';
+                    MMortalidade = 30;
+                    MFertilidade = 40;
+                } else if (MTemperatura.includes("ruim") || MUmidade.includes("ruim")) {
+                    MSituação = '<b style="color: rgb(183, 180, 0);">Situação ruim:</b>';
+                    MMortalidade = 20;
+                    MFertilidade = 20;
+                } else if (MTemperatura.includes("razoável") || MUmidade.includes("razoável")) {
+                    MSituação = '<b style="color: blue;">Situação razoável:</b>';
+                    MMortalidade = 5;
+                    MFertilidade = 10;
+                }
+            }
+        }
+        if (tipo == 'Jiboia (Boa constrictor)') {
+            metrica = '✔️Conserve a temperatura entre 28–32°C <br>✔️Mantenha a umidade entre 75% e 85%';
+            preco = 6000;
+            filhote = 15;
+            preco_filhote = 800;
+
+            if (temperatura > -20 && temperatura < 100) {
+                if (temperatura >= 28 && temperatura <= 32) {
+                    MTemperatura = '<b style="color: green;">temperatura está ideal</b>';
+                } else if (temperatura >= 26 && temperatura <= 34) {
+                    MTemperatura = '<b style="color: blue;">faixa razoável</b>';
+                } else if (temperatura >= 24 && temperatura <= 35) {
+                    MTemperatura = '<b style="color: rgb(183, 180, 0);">faixa ruim</b>';
+                } else if (temperatura >= 22 && temperatura <= 36) {
+                    MTemperatura = '<b style="color: rgb(225, 98, 0);">faixa péssima</b>';
+                } else {
+                    MTemperatura = '<b style="color: red;">faixa insustentável</b>';
+                }
+            }
+
+            if (umidade >= 0 && umidade <= 100) {
+                if (umidade >= 75 && umidade <= 85) {
+                    MUmidade = '<b style="color: green;">está ideal</b>';
+                } else if (umidade >= 70 && umidade <= 88) {
+                    MUmidade = '<b style="color: blue;">está razoável</b>';
+                } else if (umidade >= 65 && umidade <= 91) {
+                    MUmidade = '<b style="color: rgb(183, 180, 0);">está ruim</b>';
+                } else if (umidade >= 60 && umidade <= 94) {
+                    MUmidade = '<b style="color: rgb(225, 98, 0);">está péssima</b>';
+                } else {
+                    MUmidade = '<b style="color: red;">faixa insustentável</b>';
+                }
+            }
+
+            if (MSituação == 'Indefinida') {
+                if (MTemperatura.includes("ideal") && MUmidade.includes("ideal")) {
+                    MSituação = '<b style="color: green;">Situação Ótima:</b>';
+                    MMortalidade = 0;
+                    MFertilidade = 0;
+                } else if (MTemperatura.includes("insustentável") || MUmidade.includes("insustentável")) {
+                    MSituação = '<b style="color: red;">Situação insustentável:</b>';
+                    MMortalidade = 50;
+                    MFertilidade = 100;
+                } else if (MTemperatura.includes("péssima") || MUmidade.includes("péssima")) {
+                    MSituação = '<b style="color: rgb(225, 98, 0);">Situação péssima:</b>';
+                    MMortalidade = 30;
+                    MFertilidade = 30;
+                } else if (MTemperatura.includes("ruim") || MUmidade.includes("ruim")) {
+                    MSituação = '<b style="color:  rgb(183, 180, 0);">Situação ruim:</b>';
+                    MMortalidade = 15;
+                    MFertilidade = 20;
+                } else if (MTemperatura.includes("razoável") || MUmidade.includes("razoável")) {
+                    MSituação = '<b style="color: blue;">Situação razoável:</b>';
+                    MMortalidade = 5;
+                    MFertilidade = 10;
+                }
+            }
+        }
+
+
+        mensagem = `Análise do Ambiente para ${tipo} <br>
+Temperatura Atual: ${temperatura}°C <br>
+Umidade Atual: ${umidade}% <br>
+
+<br>${MSituação} a temperatura está na ${MTemperatura} e a umidade ${MUmidade}.<br> 
+
+Isso pode resultar em: <br><b>
+Aumento de até ${MMortalidade}% na mortalidade <br>
+Redução de até ${MFertilidade}% na fertilidade <br></b>
+
+<br>Com ${quantidade} cobras no criadouro, você pode: <br>
+Perder até ${(MMortalidade * 0.01) * quantidade} animais por ano.<br> 
+Deixar de gerar até ${(MFertilidade * 0.01) * (quantidade / 2) * filhote} filhotes, considerando a média reprodutiva de ${filhote} filhotes por fêmea.
+
+<br> <b style="color: red;">Prejuízo estimado: R$${((MFertilidade * 0.01) * (quantidade / 2) * filhote * preco_filhote)} por ciclo reprodutivo </b>.<br> 
+
+<br>Recomendações: <br>
+${metrica}`;
+
+        div_mensagem.innerHTML = mensagem;
+    }
+</script>
