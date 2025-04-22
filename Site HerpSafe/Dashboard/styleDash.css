@@ -34,7 +34,6 @@ body{
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 2px 10px #119F58;
-    padding: 30px;
 
 }
 
@@ -51,11 +50,13 @@ h1{
 }
 
 
-/* .logo{
+.logo img{
 
+  margin-left: 60px;
+  width: 162px;
+  height: 162px;
 
-
-} */
+}
 
 
 .links a{
@@ -70,6 +71,7 @@ h1{
 
 .cargo{
 
+    margin-right: 30px;
     font-size:12px;
 
 }
@@ -89,6 +91,7 @@ h1{
     display: flex;
     flex-direction: column;
     background: #044036;
+    height: fit-content;
     align-items: center;
     justify-content: flex-start;
     border-radius: 0px 5px 5px 0px;
@@ -211,14 +214,16 @@ h1{
 
 .dashboard .grafico{
 
+    overflow: hidden;
+    overflow-y: scroll;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
     background: #9ff0a6;
     border-radius: 10px;
+    max-height: 450px;
     padding: 20px;
-    height: 100%;
 
 }
 
@@ -233,34 +238,25 @@ h1{
 
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     gap: 20px;
     border: 3px solid #00a35c;
     background: #a5f1af;
     padding: 20px;
     border-radius: 10px;
-    width: 100%;
 
 }
 
 #aba-geral{
 
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 
 }
 
-#aba-geral .card{
+.linha{
 
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 20px;
-    border: 3px solid #00a35c;
-    background: #a5f1af;
-    padding: 20px;
-    border-radius: 10px;
-    width: fit-content;
+    gap: 50px;
 
 }
 
@@ -326,42 +322,9 @@ canvas{
     font-weight: bold;
 
 }
-/* 
-.popup-container {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
-    justify-content: center;
-    align-items: center;
-  }
   
 
-  .popup-box {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 300px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  }
-  
-
-  .fechar-btn {
-    margin-top: 15px;
-    padding: 8px 15px;
-    background: #00a35c;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  } */
-  
-
-  .canvasHome{
+.canvasHome{
 
     display: flex;
     justify-content: center;
@@ -370,13 +333,51 @@ canvas{
     width:auto;
     box-shadow: 2px 2px 2px #044036;
 
-  }
+}
 
-footer{
 
-    display: flex;
-    justify-content: center;
-    background-color: #00a35c;
+.rodape {
+  background-color: #004d40;
+  color: white;
+  padding: 30px 20px;
+  text-align: center;
+}
+
+.footer-menu ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.footer-menu a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.footer-info p,
+.footer-info a {
+  color: white;
+  font-size: 0.9em;
+}
+
+.logo-footer {
+  width: 100px;
+  margin: 15px 0;
+}
+
+.social {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 
 }
- 
+
+.social a {
+  color: white;
+  text-decoration: none;
+
+}
