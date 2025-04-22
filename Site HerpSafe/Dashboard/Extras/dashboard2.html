@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Dashboard</title>
+</head>
+<body>
+<div class="class_nav">
+    <nav>
+        <div class="logo">HerpSafe</div>
+        <div class="links"><a href="">Home</a> <a href="">Dashboard</a> <a href="">Sensores</a> <a href="">Calculadora</a></div> <div class="cargo"><span>Olá Nome</span> <span>cargo</span></div>
+    </nav>
+</div>
+<div class="container">
+        <div class="barra">
+                <div class="perfil">
+                    <img src="./img/veio.jpg" alt="veio">
+                    <h3>Nome</h3>
+                    <p>Função</p>
+                </div>
+                <div class="menu">
+                    <h3><a href="">Home</a></h3>
+                    <h3><a href="">Dashboard</a></h3>
+                    <h3><a href="">Configurações</a></h3>
+            </div>
+        </div>
+        <div class="dashboard">
+          <div class="sensores"> <canvas id="Sensor"></canvas> </div>
+          <h1>Dashboard</h1>
+            <div class="switch">
+              <button id="btn-geral" class="abaAtiva" onclick="mostrarAba('geral')">Visão Geral</button>
+              <button id="btn-atencao" class="aba" onclick="mostrarAba('atencao')">Atenção</button>
+            </div>
+
+                <div class="grafico" id="aba-geral" style="display: flex;">
+                  <div class="card">
+                    <div class="info">
+                      <h2>Recinto 1</h2>
+                      <p>✔️ Temp (C°)</p>
+                      <p>✔️ Umi (%)</p>
+
+                    </div>
+                    <div class="chart">
+                      <div><img src="./img/TempMedia.png" alt="Termometro médio"></div>
+                      <div><img src="./img/UmiMedia.png" alt="Umidade média"></div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="info">
+                      <h2>Recinto 2</h2>
+                      <p>⚠️ Temp (C°)</p>
+                      <p>✔️ Umi (%)</p>
+                    </div>
+                    <div class="chart">
+                      <div><img src="./img/TempAlta.png" alt="Temperatura alta"></div>
+                      <div><img src="./img/UmiMedia.png" alt="Umidade média"></div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="info">
+                      <h2>Recinto 3</h2>
+                      <p>❗ Temp (C°)</p>
+                      <p>⚠️ Umi (%)</p>
+                    </div>
+                    <div class="chart">
+                      <div><img src="./img/TempBaixa.png" alt="Temperatura baixa"></div>
+                      <div><img src="./img/UmiBaixa.png" alt="Umidade baixa"></div>
+                    </div>
+                  </div>
+                </div>
+                
+                
+                
+              
+              
+                <div class="grafico" id="aba-atencao" style="visibility: hidden; position: absolute;">
+                  <div class="card">
+                    <div class="info">
+                      <h2>Recinto 2</h2>
+                      <div class="medidas">
+                        <p>Temperatura: 38C°</p>
+                        <p>Umidade: 60%</p>
+                      </div>
+                      <div class="botao2">
+                        <a href="#" class="botao" onclick="mostrarPopup()">Ver detalhes</a>
+                      </div>
+                    </div>
+                    <div class="chart">
+                      <div><canvas id="Temperatura"></canvas></div>
+                      <div><canvas id="Umidade"></canvas></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="popup-container" id="popupContainer">
+                <div class="popup-box">
+                  <h3>Sensor: 1234567890</h3>
+                  <p><b>Status:</b> Ativo</p>
+                  <hr>
+                  <p><b>Recinto:</b> 2</p>
+                  <p><b>Local:</b> São Paulo, SP</p>
+                  <p><b>Temperatura:</b> 36°C</p>
+                  <p><b>Umidade:</b> 60%</p>
+                  <hr>
+                  <p>Atualizado há 12 minutos</p>
+                  <button class="fechar-btn" onclick="fecharPopup()">Fechar</button>
+                </div>
+              </div>
+<footer></footer>
+</body>
+</html>
+
+<script>
+
+    const ctx_Temp = document.getElementById('Temperatura');
+    const ctx_Umi = document.getElementById('Umidade');
+    const ctx_Sen = document.getElementById('Sensor')
+
+  
+    new Chart(ctx_Temp, {
+      type: 'line',
+      data: {
+        labels: ['1', '2', '3', '4', '5', '6'],
+        datasets: [{
+          label: 'Temperatura (°C)',
+          data: [27, 28, 31, 30, 34, 38, 60],
+          borderColor: '#FF5733',
+          backgroundColor: 'rgba(255, 87, 51, 0.2)',
+          borderWidth: 2,
+          fill: true,
+          tension: 0.4
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Min'
+            }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Temperatura (°C)'
+            },
+            beginAtZero: true
+          }
+        },
+        plugins: {
+          legend: {
+            display: true
+          }
+        }
+      }
+    });
+  
+    new Chart(ctx_Umi, {
+      type: 'bar',
+      data: {
+        labels: ['1', '2', '3', '4', '5', '6'],
+        datasets: [{
+          label: 'Umidade (%)',
+          data: [54, 53, 52, 52, 56, 60, 100],
+          backgroundColor: '#36A2EB',
+          borderColor: '#1F6FB2',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Min'
+            }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Umidade (%)'
+            },
+            beginAtZero: true
+          }
+        },
+        plugins: {
+          legend: {
+            display: true
+          }
+        }
+      }
+    });
+
+  </script>
+  
+  <script>
+
+function mostrarPopup() {
+  document.getElementById('popupContainer').style.display = 'flex';
+}
+
+function fecharPopup() {
+  document.getElementById('popupContainer').style.display = 'none';
+}
+    
+    function mostrarAba(aba) {
+      const geral = document.getElementById("aba-geral");
+      const atencao = document.getElementById("aba-atencao");
+      const btnGeral = document.getElementById("btn-geral");
+      const btnAtencao = document.getElementById("btn-atencao");
+  
+      if (aba === "geral") {
+        geral.style.visibility = "visible";
+        geral.style.position = "static";
+        atencao.style.visibility = "hidden";
+        atencao.style.position = "absolute";
+        btnGeral.classList.add("abaAtiva");
+        btnGeral.classList.remove("aba");
+        btnAtencao.classList.remove("abaAtiva");
+        btnAtencao.classList.add("aba");
+      } else {
+        geral.style.visibility = "hidden";
+        geral.style.position = "absolute";
+        atencao.style.visibility = "visible";
+        atencao.style.position = "static";
+        btnGeral.classList.remove("abaAtiva");
+        btnGeral.classList.add("aba");
+        btnAtencao.classList.add("abaAtiva");
+        btnAtencao.classList.remove("aba");
+      }
+    }
+  </script>
+  
