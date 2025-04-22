@@ -378,7 +378,7 @@ hr{
   color: white;
   height: 300px;
   padding-top: 15px;
-  margin-bottom: 70px;
+  margin-bottom: 40px;
 }
 
 .div_titulo_carrossel {
@@ -409,6 +409,7 @@ hr{
 
 .div_equipe {
   display: flex;
+  justify-content: center;
 }
 
 .div_equipe_div {
@@ -421,7 +422,7 @@ hr{
 
 .div_equipe_div h1 {
   color: #20673E;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   font-size: 30px;
 }
 
@@ -429,23 +430,9 @@ hr{
   width: 70%;
   margin-top: 10px;
 }
-
-.imgFolha1,
-.imgFolha2 {
-  height: 200px;
-  width: 15%;
-}
-
-.imgFolha2 {
-  align-self: flex-end;
-}
-
 /* Fim Sobre Nós */
 
-
-
 /* Simulador Financeiro */
-
 .calculadora_completa {
   display: flex;
   flex-direction: column;
