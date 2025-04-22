@@ -10,19 +10,19 @@ nomeFantasia VARCHAR(255) NOT NULL,
 cnpj VARCHAR(18) NOT NULL UNIQUE,
 porte VARCHAR(8) NOT NULL,
   CONSTRAINT chk_Porte
-      CHECK (porte IN('Grande', 'Medio', 'Pequeno', 'Micro')),
+      CHECK (porte IN('Grande', 'Medio', 'Pequeno')),
 email VARCHAR(60) NOT NULL,
 senha VARCHAR(45) NOT NULL
 ) AUTO_INCREMENT = 1000;
 
 INSERT INTO empresa(razao_social, nomeFantasia, cnpj, porte, email, senha) VALUES
-('Jiboias Brasil Ltda', 'Animais Brasil', '15.251.660/0001-12', 'Pequeno', 'jiboias.brasil@gmail.com', 'jiboias123'),
-('I Azeredo Souza Criação de Répteis LTDA', 'Criatório Brasil Répteis', '30.683.842/0001-56', 'Micro','criatorio.brasil@gmail.com', 'criatorio123'),
-('CRIADOURO RECANTO DA JIBOIA LTDA', 'Recanto da Jiboia', '34.108.953/0001-90', 'Micro','recanto.jiboia@gmail.com', 'recanto123'),
-('Fauna Criadouro LTDA', 'Fauna Criadouro', '27.764.846/0001-54', 'Micro','fauna.criadouro@gmail.com', 'fauna123'),
-('Criatório BR LTDA', 'Criatório BR', '44.944.479/0001-90', 'Micro','criatorio.brasilLTDA@gmail.com', 'criatorioBR123'),
-('Fernando Vaz de Gouveia - Comercial', 'T-REX Pets', '22.212.737/0001-00', 'Micro','ferVaz.gouveia@gmail.com', 'gouveia123'),
-('Fernando Vaz de Gouveia - Comercial', 'Criadouro Répteis', '22.213.737/0001-00', 'Micro','fernando.vazGouveia@gmail.com', 'ferVaz123');
+('Jiboias Brasil Ltda', 'Animais Brasil', '15.251.660/0001-12', 'Grande', 'jiboias.brasil@gmail.com', 'jiboias123'),
+('I Azeredo Souza Criação de Répteis LTDA', 'Criatório Brasil Répteis', '30.683.842/0001-56', 'Pequeno','criatorio.brasil@gmail.com', 'criatorio123'),
+('CRIADOURO RECANTO DA JIBOIA LTDA', 'Recanto da Jiboia', '34.108.953/0001-90', 'Pequeno','recanto.jiboia@gmail.com', 'recanto123'),
+('Fauna Criadouro LTDA', 'Fauna Criadouro', '27.764.846/0001-54', 'Pequeno','fauna.criadouro@gmail.com', 'fauna123'),
+('Criatório BR LTDA', 'Criatório BR', '44.944.479/0001-90', 'Pequeno','criatorio.brasilLTDA@gmail.com', 'criatorioBR123'),
+('Fernando Vaz de Gouveia - Comercial', 'T-REX Pets', '22.212.737/0001-00', 'Pequeno','ferVaz.gouveia@gmail.com', 'gouveia123'),
+('Fernando Vaz de Gouveia - Comercial', 'Criadouro Répteis', '22.213.737/0001-00', 'Médio','fernando.vazGouveia@gmail.com', 'ferVaz123');
 
 -- -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -89,6 +89,40 @@ INSERT INTO funcionario (nome, email, cpf, cargo, senha,fkEmpresa) VALUES
 
 -- --------------------------------------------------------------------------------------------------------------------------------------
 
+CREATE TABLE metricas(
+idMetricas INT PRIMARY KEY AUTO_INCREMENT,
+max_Temp FLOAT NOT NULL,
+min_Temp FLOAT NOT NULL,
+max_Umid FLOAT NOT NULL,
+min_Umid FLOAT NOT NULL
+) AUTO_INCREMENT = 1000;
+
+INSERT INTO metricas (max_Temp, min_Temp, max_Umid, min_Umid)  
+VALUES  
+(35.0, 20.0, 80.0, 40.0),  
+(38.5, 22.5, 85.0, 45.0),  
+(40.0, 25.0, 90.0, 50.0),  
+(30.5, 18.0, 75.0, 35.0),  
+(28.0, 16.5, 70.0, 30.0),  
+(33.5, 21.0, 78.0, 38.0),  
+(37.0, 23.0, 82.0, 42.0),  
+(36.5, 22.0, 80.5, 41.0),  
+(32.0, 19.0, 76.0, 36.0),  
+(39.0, 24.0, 88.0, 48.0),  
+(34.5, 20.5, 79.5, 39.5),  
+(31.0, 17.5, 72.0, 32.0),  
+(36.0, 21.5, 81.0, 41.5),  
+(29.5, 15.5, 68.0, 28.0),  
+(33.0, 20.0, 74.5, 34.5),  
+(37.5, 23.5, 83.5, 43.5),  
+(30.0, 18.5, 69.5, 29.5),  
+(35.0, 22.0, 77.5, 37.5),  
+(38.0, 24.5, 86.0, 46.0),  
+(32.5, 19.5, 73.5, 33.5),  
+(39.5, 25.5, 89.0, 49.0);  
+
+-- ---------------------------------------------------------------------------------------------------------------------------------------------------
+
 CREATE TABLE local_instalacao(
 idLocal_instalacao INT PRIMARY KEY AUTO_INCREMENT,
 recinto VARCHAR(10) NOT NULL,
@@ -96,7 +130,7 @@ recinto VARCHAR(10) NOT NULL,
             CHECK (recinto IN('Terrário', 'Paludário', 'Tanque', 'Lago')),
 tamanho_Recinto VARCHAR (12) NOT NULL,
          CONSTRAINT chk_TamanhoRecinto
-             CHECK (tamanho_Recinto IN('Pequeno', 'Médio', 'Grande', 'Extra Grande', 'Gigante')),
+             CHECK (tamanho_Recinto IN('Pequeno', 'Médio', 'Grande')),
 serpente VARCHAR(254) NOT NULL,
 dt_Instalacao DATE NOT NULL,
 dt_Manutencao DATE,
@@ -110,25 +144,25 @@ INSERT INTO local_instalacao (recinto, tamanho_Recinto, serpente, dt_Instalacao,
 VALUES 
 ('Terrário', 'Médio', 'Jiboia', '2025-03-15', '2025-05-15',1000, 1000),
 ('Paludário', 'Grande', 'Jiboia', '2025-03-16', NULL, 1001, 1001),
-('Tanque', 'Gigante', 'Píton', '2025-03-17', NULL, 1002, 1002),
-('Lago', 'Extra Grande', 'Jiboia', '2025-03-18', NULL, 1003, 1003),
+('Tanque', 'Grande', 'Píton', '2025-03-17', NULL, 1002, 1002),
+('Lago', 'Grande', 'Jiboia', '2025-03-18', NULL, 1003, 1003),
 ('Terrário', 'Pequeno', 'Jiboia', '2025-03-19', NULL, 1004, 1004),
 ('Paludário', 'Médio', 'Píton', '2025-03-20', NULL, 1005, 1005),
 ('Tanque', 'Grande', 'Jiboia', '2025-03-21', '2025-05-21', 1006, 1006),
-('Lago', 'Gigante', 'Jiboia', '2025-03-22', NULL, 1006, 1007),
+('Lago', 'Grande', 'Jiboia', '2025-03-22', NULL, 1006, 1007),
 ('Terrário', 'Médio', 'Jiboia', '2025-03-23', NULL, 1006, 1008),
-('Tanque', 'Extra Grande', 'Jiboia', '2025-03-24', NULL, 1006, 1009),
+('Tanque', 'Grande', 'Jiboia', '2025-03-24', NULL, 1006, 1009),
 ('Paludário', 'Grande', 'Jiboia', '2025-03-25', NULL, 1005, 1010),
 ('Lago', 'Pequeno', 'jiboia', '2025-03-26', NULL, 1005, 1011),
-('Paludário', 'Gigante', 'Jiboia', '2025-03-27', '2025-05-27', 1005, 1012),
+('Paludário', 'Grande', 'Jiboia', '2025-03-27', '2025-05-27', 1005, 1012),
 ('Terrário', 'Pequeno', 'Píton', '2025-03-28', NULL, 1004, 1013),
 ('Tanque', 'Médio', 'Jiboia', '2025-03-29', NULL, 1003, 1014),
 ('Lago', 'Médio', 'Jiboia', '2025-03-30', NULL, 1004, 1015),
-('Tanque', 'Gigante', 'Jiboia', '2025-03-31', NULL, 1005, 1016),
+('Tanque', 'Grande', 'Jiboia', '2025-03-31', NULL, 1005, 1016),
 ('Paludário', 'Pequeno', 'Píton', '2025-04-01', NULL, 1006, 1017),
 ('Terrário', 'Grande', 'Jiboia', '2025-04-02', NULL, 1006, 1018),
 ('Tanque', 'Pequeno', 'Jiboia', '2025-04-03', '2025-06-03', 1003, 1019),
-('Lago', 'Extra Grande', 'Jiboia', '2025-04-04', NULL, 1002, 1020);
+('Lago', 'Grande', 'Jiboia', '2025-04-04', NULL, 1002, 1020);
 
 -- ----------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -193,40 +227,6 @@ INSERT INTO sensor (numero_Serie, codigo_Interno, status_Sensor, tipo, tipo_leit
 ('SN700003', 'CI600004', 'Manutenção', 'DHT11', 'Umidade', 1006),
 ('SN700004', 'CI600005', 'Ativo', 'LM35', 'Temperatura', 1006),
 ('SN700005', 'CI600006', 'Ativo', 'LM35', 'Temperatura', 1006);
-
--- ---------------------------------------------------------------------------------------------------------------------------------------------------
-
-CREATE TABLE metricas(
-idMetricas INT PRIMARY KEY AUTO_INCREMENT,
-max_Temp FLOAT NOT NULL,
-min_Temp FLOAT NOT NULL,
-max_Umid FLOAT NOT NULL,
-min_Umid FLOAT NOT NULL
-) AUTO_INCREMENT = 1000;
-
-INSERT INTO metricas (max_Temp, min_Temp, max_Umid, min_Umid)  
-VALUES  
-(35.0, 20.0, 80.0, 40.0),  
-(38.5, 22.5, 85.0, 45.0),  
-(40.0, 25.0, 90.0, 50.0),  
-(30.5, 18.0, 75.0, 35.0),  
-(28.0, 16.5, 70.0, 30.0),  
-(33.5, 21.0, 78.0, 38.0),  
-(37.0, 23.0, 82.0, 42.0),  
-(36.5, 22.0, 80.5, 41.0),  
-(32.0, 19.0, 76.0, 36.0),  
-(39.0, 24.0, 88.0, 48.0),  
-(34.5, 20.5, 79.5, 39.5),  
-(31.0, 17.5, 72.0, 32.0),  
-(36.0, 21.5, 81.0, 41.5),  
-(29.5, 15.5, 68.0, 28.0),  
-(33.0, 20.0, 74.5, 34.5),  
-(37.5, 23.5, 83.5, 43.5),  
-(30.0, 18.5, 69.5, 29.5),  
-(35.0, 22.0, 77.5, 37.5),  
-(38.0, 24.5, 86.0, 46.0),  
-(32.5, 19.5, 73.5, 33.5),  
-(39.5, 25.5, 89.0, 49.0);  
 
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -314,7 +314,7 @@ SELECT * FROM alertas;
 SELECT * FROM metricas;
 
 
-SELECT * FROM local_instalacao WHERE reptil LIKE '%tartaruga%';
+SELECT * FROM local_instalacao WHERE serpente LIKE '%Jiboia%';
 
 SELECT * FROM sensor WHERE Tipo_leitura LIKE '%temperatura%';
 
@@ -333,7 +333,6 @@ FROM captura;
 
 SELECT CONCAT(nome, ' - ', cargo) AS Cargo_Funcionario
 FROM funcionario;
-
 
 /* ------------------------------------------------------*/
 /*SELECT COM JOIN*/
