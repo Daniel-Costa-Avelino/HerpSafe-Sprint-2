@@ -28,8 +28,8 @@
         <section class="barra">
             <div class="perfil">
                 <img src="./img/veio.jpg" alt="veio">
-                <h3>Nome</h3>
-                <p>Função</p>
+                <h3>Daniel</h3>
+                <p>administrador</p>
             </div>
             <div class="menu">
                 <h3><a href="">Home</a></h3>
@@ -43,18 +43,18 @@
 
             <article class="indicadores">
                 <div class="indicador">
-                    <p>Sensores</p>
-                    <canvas id="situacaoSensores"></canvas>
+                    <p>Quantidade de recintos ativos</p>
+                    <p class="indicador-dado">6</p>
+                </div>
+
+                <div class="indicador">
+                    <p>Alertas na últimas 24h</p>
+                    <p class="indicador-dado">0</p>
                 </div>
 
                 <div class="indicador">
                     <p>Sensores com problema</p>
                     <canvas id="sensoresProblema"></canvas>
-                </div>
-
-                <div class="indicador">
-                    <p>Dias sem alertas</p>
-                    <canvas id="diasAlertas"></canvas>
                 </div>
             </article>
 
@@ -138,13 +138,12 @@
         type: 'doughnut',
         data: {
             labels: [
-                'Manutençãao',
+                'Manutenção',
                 'Funcionando',
                 'Configurar'
             ],
             datasets: [{
-                label: 'My First Dataset',
-                data: [0, 100, 0],
+                data: [2, 6, 1],
                 backgroundColor: [
                     'rgb(255, 99, 132)',
                     'rgb(54, 162, 235)',
@@ -167,46 +166,15 @@
         type: 'bar',
         data: {
             labels: [
-                'Manutençãao',
-                'Funcionando',
-                'Configurar'
+                'Quebrados',
+                'Queimados'
             ],
             datasets: [{
-                label: 'My First Dataset',
-                data: [2, 6, 4],
+                label: 'Manutenção',
+                data: [2, 1],
                 backgroundColor: [
                     'rgb(255, 99, 132)',
                     'rgb(54, 162, 235)',
-                    'rgb(255, 205, 86)'
-                ],
-                hoverOffset: 4
-            }]
-        },
-        Options: {
-            legend: {
-                display: true,
-                labels: {
-                    fontColor: '#FFF'
-                }
-            }
-        }
-    });
-
-    new Chart(ctx_alertas, {
-        type: 'line',
-        data: {
-            labels: [
-                'Manutençãao',
-                'Funcionando',
-                'Configurar'
-            ],
-            datasets: [{
-                label: 'My First Dataset',
-                data: [0, 100, 0],
-                backgroundColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(54, 162, 235)',
-                    'rgb(255, 205, 86)'
                 ],
                 hoverOffset: 4
             }]

@@ -82,8 +82,7 @@ body {
 .perfil h3 {
 
     font-weight: bold;
-    margin-bottom: 20px;
-    font-size: 10px;
+    font-size: 25px;
 
 }
 
@@ -100,11 +99,12 @@ body {
 
 }
 
-
+/* Bom dia */
 .barra p {
 
     margin-top: 10px;
-    font-size: 18px;
+    padding-bottom: 20px;
+    font-size: 12px;
 
 }
 
@@ -125,7 +125,7 @@ body {
 .indicador {
     padding: 25px;
     height: 200px;
-    width: 250px;
+    width: 300px;
     text-align: center;
     text-wrap: nowrap;
 
@@ -133,6 +133,12 @@ body {
     color: #044036;
     font-weight: bold;
     border-radius: 8px;
+}
+
+.indicador-dado {
+    padding-top: 30px;
+    font-size: 50px;
+    font-weight: bolder;
 }
 
 .titulo {
@@ -197,8 +203,6 @@ body {
     background: none;
     width: 40px;
 }
-
-
 
 .rodape {
     background-color: #004d40;
