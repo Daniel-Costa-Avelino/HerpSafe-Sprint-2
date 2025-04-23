@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="public/assets/icons/HerpSafe - logo - light.png" type="image/x-icon">
+    <link rel="stylesheet" href="./public/styles/style.css">
+    <link rel="stylesheet" href="./public/styles/login-cadastro.css">
+
+
+    <title>HerpSafe - Cadastro</title>
+</head>
+
+<body class="cadastro-body">
+
+    <img class="cadastro-imagem-cobra" src="./public/assets/icons/Cobra login.svg">
+    <img class="cadastro-imagem-logo" src="public/assets/icons/HerpSafe - logo - white.png">
+
+    <!-- Banner início -->
+
+    <section class="cadastro-banner">
+
+        <div class="cadastro-box">
+
+            <h1>Cadastro</h1>
+            <div class="cadastro-box-campos">
+                <span>Nome</span><input type="text" id="input_nomeCadastro" placeholder="Insira seu nome completo">
+            </div>
+            <div class="cadastro-box-campos">
+                <span>Email</span><input type="text" id="input_emailCadastro" placeholder="Insira seu email">
+            </div>
+            <div class="cadastro-box-campos">
+                <span>Senha</span><input type="password" id="input_senhaCadastro" placeholder="Insira a senha desejada">
+            </div>
+            <div class="cadastro-box-campos">
+                <span>CNPJ</span><input type="number" id="input_cnpjCadastro"
+                    placeholder="Insira o CNPJ da sua empresa">
+            </div>
+            <p>Já possui uma conta? Faça seu <span><a href="login.html">login!</a></span></p>
+            <div class="cadastro-box-buttons">
+                <button onclick="cadastro()">Cadastrar</button>
+                <button onclick="window.location.href ='index.html'">Home</button>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Banner fim -->
+    <script src="public/js/cadastro.js"></script>
+</body>
