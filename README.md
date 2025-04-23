@@ -46,11 +46,12 @@ O **HerpSafe** surge como uma solução para **automatizar o monitoramento** e g
 
 | Nomes                          
 | -------------------------------- |
-| Daniel Costa Avelino             | 
-| Ezequiel Ferreira Cardoso        | 
 | Camila Vitória Osório Sara       |
+| Daniel Costa Avelino             | 
+| Ezequiel Ferreira Cardoso        |
+| Guilherme Toledo                 |
 | João Victor Dorl Rossi           |
 | Matheus Zorzete Pereira          |
-| Guilherme Toledo                 |
+
 
 ---
