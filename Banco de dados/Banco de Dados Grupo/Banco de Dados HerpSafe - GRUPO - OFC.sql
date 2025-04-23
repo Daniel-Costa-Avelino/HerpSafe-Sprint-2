@@ -230,79 +230,60 @@ INSERT INTO sensor (numero_Serie, codigo_Interno, status_Sensor, tipo, tipo_leit
 
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------
 
+CREATE TABLE captura(
+idCaptura INT PRIMARY KEY AUTO_INCREMENT,
+temperatura FLOAT NOT NULL,
+umidade FLOAT NOT NULL,
+dt_Hr_Captura DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+fkSensorTemperatura INT NOT NULL,
+CONSTRAINT fkSensorTemperatura_captura FOREIGN KEY (fkSensorTemperatura) REFERENCES sensor(idSensor),
+fkSensorUmidade INT NOT NULL,
+CONSTRAINT fkSensorUmidade_captura FOREIGN KEY (fkSensorUmidade) REFERENCES sensor(idSensor)
+) AUTO_INCREMENT = 1000;
+
+INSERT INTO captura(temperatura, umidade, dt_Hr_Captura, fkSensorTemperatura, fkSensorUmidade)
+VALUES
+(28.5, 70.3, '2025-03-15 08:30:00', 1, 2),
+(28.5, 70.3, '2025-03-15 08:30:00', 3, 4),
+(28.5, 70.3, '2025-03-15 08:30:00', 5, 6),
+(28.5, 70.3, '2025-03-15 08:30:00', 6,7),
+(28.5, 70.3, '2025-03-15 08:30:00', 8, 9),
+(28.5, 70.3, '2025-03-15 08:30:00', 10, 11),
+(28.5, 70.3, '2025-03-15 08:30:00', 12, 13),
+(28.5, 70.3, '2025-03-15 08:30:00', 14, 15),
+(28.5, 70.3, '2025-03-15 08:30:00', 16, 17),
+(28.5, 70.3, '2025-03-15 08:30:00', 18, 19),
+(28.5, 70.3, '2025-03-15 08:30:00', 20, 21),
+(28.5, 70.3, '2025-03-15 08:30:00', 22, 23),
+(28.5, 70.3, '2025-03-15 08:30:00', 24, 25),
+(28.5, 70.3, '2025-03-15 08:30:00', 26, 27),
+(28.5, 70.3, '2025-03-15 08:30:00', 28, 29);
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------------
+
 CREATE TABLE alertas(
 idAlertas INT PRIMARY KEY AUTO_INCREMENT,
 alerta VARCHAR(100),
       CONSTRAINT chk_Alerta
            CHECK (alerta IN('Atenção', 'Cuidado', 'Perigo', 'Crítico', 'Extremo')),
-dt_Hr_Alerta DATETIME,
-fkSensor INT UNIQUE,
-CONSTRAINT fkSensor_alerta FOREIGN KEY (fkSensor) REFERENCES sensor(idSensor)
+dt_Hr_Alerta DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+fkCaptura INT UNIQUE,
+CONSTRAINT fkCaptura_alerta FOREIGN KEY (fkCaptura) REFERENCES captura(idCaptura)
 ) AUTO_INCREMENT = 1000;
 
-INSERT INTO alertas (alerta, dt_Hr_Alerta, fkSensor)  
+INSERT INTO alertas (alerta, dt_Hr_Alerta, fkCaptura)  
 VALUES
-('Atenção', '2025-03-15 08:30:00', 1),  
-('Cuidado', '2025-03-16 12:45:00', 2),  
-('Perigo', '2025-03-17 15:20:00', 3),  
-('Atenção', '2025-03-18 10:30:00', 6),  
-('Cuidado', '2025-03-20 07:50:00', 9),
-('Atenção', '2025-03-25 09:00:00', 4),  
-('Perigo', '2025-03-27 14:50:00', 5),  
-('Crítico', '2025-03-30 06:45:00', 7),
-('Extremo', '2025-04-03 19:30:00', 8);  
+('Atenção', '2025-03-15 08:30:00', 1000),  
+('Cuidado', '2025-03-16 12:45:00', 1001),  
+('Perigo', '2025-03-17 15:20:00', 1002),  
+('Atenção', '2025-03-18 10:30:00', 1003),  
+('Cuidado', '2025-03-20 07:50:00', 1004),
+('Atenção', '2025-03-25 09:00:00', 1005),  
+('Perigo', '2025-03-27 14:50:00', 1006),  
+('Crítico', '2025-03-30 06:45:00', 1007),
+('Extremo', '2025-04-03 19:30:00', 1008);  
   
 -- -----------------------------------------------------------------------------------------------------------------------------------------------
-
-CREATE TABLE captura(
-idCaptura INT PRIMARY KEY AUTO_INCREMENT,
-temperatura FLOAT NOT NULL,
-umidade FLOAT NOT NULL,
-dt_Hr_Alerta DATETIME NOT NULL,
-fkSensor INT NOT NULL,
-CONSTRAINT fkSensor_captura FOREIGN KEY (fkSensor) REFERENCES sensor(idSensor)
-) AUTO_INCREMENT = 1000;
-
-INSERT INTO captura(temperatura, umidade, dt_Hr_Alerta, fkSensor)
-VALUES
-(28.5, 70.3, '2025-03-15 08:30:00', 1),
-(28.7, 69.5, '2025-03-15 08:31:00', 1),
-(28.9, 68.7, '2025-03-15 08:32:00', 1),
-(29.0, 67.8, '2025-03-15 08:33:00', 1),
-(29.2, 67.0, '2025-03-15 08:34:00', 1),
-(27.0, 72.5, '2025-03-18 10:30:00', 1),
-(27.2, 72.0, '2025-03-18 10:31:00', 1),
-(27.4, 71.8, '2025-03-18 10:32:00', 1),
-(27.5, 71.5, '2025-03-18 10:33:00', 1),
-(27.7, 71.0, '2025-03-18 10:34:00', 1),
-(32.0, 60.0, '2025-03-21 09:00:00', 2),
-(32.2, 59.5, '2025-03-21 09:01:00', 2),
-(32.3, 59.0, '2025-03-21 09:02:00', 2),
-(32.5, 58.7, '2025-03-21 09:03:00', 3),
-(32.7, 58.0, '2025-03-21 09:04:00', 4),
-(31.2, 63.5, '2025-03-23 16:30:00', 5),
-(31.3, 63.3, '2025-03-23 16:31:00', 6),
-(31.5, 63.0, '2025-03-23 16:32:00', 6),
-(31.7, 62.7, '2025-03-23 16:33:00', 6),
-(31.8, 62.5, '2025-03-23 16:34:00', 6),
-(30.0, 65.5, '2025-03-27 12:30:00', 6),
-(30.2, 65.0, '2025-03-27 12:31:00', 6),
-(30.3, 64.7, '2025-03-27 12:32:00', 7),
-(30.5, 64.3, '2025-03-27 12:33:00', 7),
-(30.7, 64.0, '2025-03-27 12:34:00', 7),
-(29.8, 68.0, '2025-03-30 11:30:00', 8),
-(30.0, 67.5, '2025-03-30 11:31:00', 8),
-(30.1, 67.0, '2025-03-30 11:32:00', 8),
-(30.3, 66.8, '2025-03-30 11:33:00', 9),
-(30.5, 66.5, '2025-03-30 11:34:00', 9),
-(28.0, 75.0, '2025-04-02 14:30:00', 9),
-(28.2, 74.5, '2025-04-02 14:31:00', 10),
-(28.4, 74.0, '2025-04-02 14:32:00', 10),
-(28.6, 73.5, '2025-04-02 14:33:00', 10),
-(28.8, 73.0, '2025-04-02 14:34:00', 10);
-
--- ------------------------------------------------------------------------------------------------------------------------------------------------------
-UPDATE empresa set porte = 'Grande' WHERE idEmpresa = 2;
 
 SELECT * FROM empresa;
 SELECT * FROM sensor;
@@ -341,5 +322,5 @@ SELECT * FROM funcionario JOIN empresa ON funcionario.fkEmpresa = empresa.idEmpr
 SELECT * FROM sensor JOIN local_instalacao ON sensor.fkLocalInstalacao = local_instalacao.idLocal_instalacao
 JOIN metricas ON metricas.idMetricas = local_instalacao.fkMetricas;
 SELECT * FROM local_instalacao JOIN metricas ON metricas.idMetricas = local_instalacao.fkMetricas;
-SELECT * FROM alertas JOIN sensor ON sensor.idSensor = alertas.fkSensor;
-SELECT * FROM captura JOIN sensor ON captura.fkSensor = sensor.idSensor;
+SELECT * FROM alertas JOIN captura ON captura.idCaptura = alertas.fkCaptura;
+SELECT * FROM captura JOIN sensor ON captura.fkSensorTemperatura = sensor.idSensor JOIN sensor AS sensor2 ON captura.fkSensorUmidade = sensor2.idSensor;
