@@ -287,7 +287,8 @@
                 }
             }
         }
-
+        var Morte_perda = ((MMortalidade * 0.01) * quantidade).toFixed(0);
+        var fertilidade_perda = ((MFertilidade * 0.01) * (quantidade / 2) * filhote).toFixed(0);
 
         mensagem = `Análise do Ambiente para ${tipo} <br>
 Temperatura Atual: ${temperatura}°C <br>
@@ -300,8 +301,8 @@ Aumento de até ${MMortalidade}% na mortalidade <br>
 Redução de até ${MFertilidade}% na fertilidade <br></b>
 
 <br>Com ${quantidade} cobras no criadouro, você pode: <br>
-Perder até ${(MMortalidade * 0.01) * quantidade} animais por ano.<br> 
-Deixar de gerar até ${(MFertilidade * 0.01) * (quantidade / 2) * filhote} filhotes, considerando a média reprodutiva de ${filhote} filhotes por fêmea.
+Perder até <b>${Morte_perda} animais</b> por ano.<br> 
+Deixar de gerar até <b>${fertilidade_perda} filhotes</b>, considerando a média reprodutiva de ${filhote} filhotes por fêmea.
 
 <br> <b style="color: red;">Prejuízo estimado: R$${((MFertilidade * 0.01) * (quantidade / 2) * filhote * preco_filhote)} por ciclo reprodutivo </b>.<br> 
 
