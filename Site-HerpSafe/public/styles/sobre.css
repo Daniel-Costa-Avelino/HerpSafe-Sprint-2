@@ -32,7 +32,7 @@
     font-size: 18px;
     font-weight: 800;
     border-radius: 6px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid #0a2e1c;
 }
 
 .div_cards_temperatura_umidade {

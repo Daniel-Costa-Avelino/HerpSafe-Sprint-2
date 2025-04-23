@@ -84,6 +84,7 @@
     color: white;
     padding: 30px 20px;
     text-align: center;
+    height: 270px;
 }
 
 .footer-menu ul {
@@ -91,7 +92,6 @@
     display: flex;
     justify-content: center;
     gap: 30px;
-    margin-bottom: 20px;
 }
 
 .footer-menu a {
