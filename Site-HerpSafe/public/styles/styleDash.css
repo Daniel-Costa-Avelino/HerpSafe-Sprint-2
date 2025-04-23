@@ -165,14 +165,18 @@ h1{
 }
 
 
-.perfil h3{
+.barra .perfil h3{
 
     font-weight: bold;
-    margin-bottom:20px;
-    font-size: 10px;
+    font-size: 25px;
 
 }
 
+.barra .perfil p{
+
+    font-size: 12px;
+
+}
 
 .barra .menu{
 
