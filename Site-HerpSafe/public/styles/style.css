@@ -64,6 +64,20 @@
     filter: brightness(60%);
 }
 
+.menu .agora {
+    color: #1c834f;
+}
+
+.agora img {
+    filter: brightness(60%);
+}
+
+.menu img {
+
+    width: 22px;
+    height: auto;
+    
+  }
 
 .rodape {
     background-color: #004d40;
