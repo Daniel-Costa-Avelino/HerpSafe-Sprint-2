@@ -304,7 +304,7 @@ Redução de até ${MFertilidade}% na fertilidade <br></b>
 Perder até <b>${Morte_perda} animais</b> por ano.<br> 
 Deixar de gerar até <b>${fertilidade_perda} filhotes</b>, considerando a média reprodutiva de ${filhote} filhotes por fêmea.
 
-<br> <b style="color: red;">Prejuízo estimado: R$${((MFertilidade * 0.01) * (quantidade / 2) * filhote * preco_filhote)} por ciclo reprodutivo </b>.<br> 
+<br> <b> Prejuízo estimado: <b style="color: red;">R$${(fertilidade_perda * preco_filhote)}</b> por ciclo reprodutivo e <b style ='color: red'> R$${Morte_perda * preco} </b> por mortalidade.</b><br>.<br> 
 
 <br>Recomendações: <br>
 ${metrica}`;
