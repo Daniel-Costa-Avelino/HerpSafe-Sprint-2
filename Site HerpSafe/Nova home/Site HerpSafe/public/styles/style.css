@@ -1,0 +1,643 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  border: none;
+  list-style: none;
+  text-decoration: none;
+  font-family: Inter;
+}
+
+/* Header */
+
+.cabecalho {
+  border-top: 46px solid #0F4B2D;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  box-shadow: 0px 5px 5px #0F4B2D;
+  height: 150px;
+}
+
+.cabecalho .logo img {
+  margin-left: 60px;
+  width: 162px;
+  height: 162px;
+}
+
+.cabecalho .menu {
+  display: flex;
+  justify-content: space-evenly;
+  width: 80%;
+}
+
+.cabecalho .menu ul {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.cabecalho .menu ul li a {
+  display: flex;
+  color: black;
+  font-size: 20px;
+}
+
+.cabecalho .menu ul li a img {
+  width: 22px;
+  filter: brightness(0%);
+  height: auto;
+}
+
+.cabecalho .menu .agora {
+  color: #1c834f;
+}
+
+.cabecalho .menu .agora img {
+  filter: brightness(60%);
+}
+
+
+
+/* Banner */
+
+.banner {
+  color: white;
+  background: url(../assets/imgs/Banner-Home_v2.png);
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.banner p {
+  padding-left: 4%;
+  width: 600px;
+  font-size: 22px;
+}
+
+
+.banner h1 {
+  padding-left: 4%;
+  padding-top: 2%;
+  width: 900px;
+  font-size: 60px;
+  line-height: 0.9;
+}
+
+.banner button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-left: 4%;
+  margin-top: 2%;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  width: 220px;
+  height: 60px;
+  background-color: #0F4B2D;
+}
+
+body .container {
+  color: aquamarine;
+  display: flex;
+  height: auto;
+
+}
+
+.servicos .titulo-servico {
+  text-align: center;
+  font-size: 28px;
+  color: #2d6949;
+  margin: 60px 0 30px 0;
+  margin-bottom: 30px;
+  padding-bottom: 5px;
+}
+
+.caixas {
+  display: flex;
+  width: 100%;
+
+}
+
+.caixas {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.box {
+  flex: 1;
+  width: 100%;
+  max-width: 450px;
+  padding: 40px;
+  border-radius: 8px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+}
+
+.monitoramento,
+.alertas {
+  background-color: #044036;
+}
+
+.icone-servico {
+  width: 100px;
+  margin-bottom: 30px;
+}
+
+.box h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.box p {
+  font-size: 16px;
+  margin-bottom: 20px;
+  max-width: 300px;
+}
+
+.box button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #0C381F;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 6px;
+  width: 200px;
+  height: 50px;
+}
+
+.sobre {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #2B442F;
+  flex-direction: column;
+  text-align: center;
+  height: 400px;
+  padding-bottom: 30px ;
+  margin-top: 30px;
+}
+
+.sobre button {
+  background-color: #044036;
+  color: white;
+}
+
+.sobre img {
+  width: 250px;
+  height: 250px;
+}
+
+.sobre p {
+  color: white;
+  font-size: 18px;
+  text-align: center;
+}
+
+
+/* Botão */
+.botao-sobre {
+  margin-top: 25px;
+  padding: 12px 30px;
+  background-color: white;
+  color: #2e7d50;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+
+
+
+.rodape {
+  background-color: #004d40;
+  color: white;
+  padding: 30px 20px;
+  text-align: center;
+}
+
+.footer-menu ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.footer-menu a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.footer-info p,
+.footer-info a {
+  color: white;
+  font-size: 0.9em;
+}
+
+.logo-footer {
+  width: 100px;
+  margin: 15px 0;
+}
+
+.social {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+
+}
+
+.social a {
+  color: white;
+  text-decoration: none;
+
+}
+
+/* Index */
+
+.section_faleConosco {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+  gap: 15px;
+  width: 100%;
+}
+
+.div_formulario_faleConosco {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.div_nome,
+.div_email,
+.div_assunto {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.section_faleConosco div button {
+  align-self: center;
+}
+
+.section_faleConosco h1 {
+  color: #20673E;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.section_faleConosco div div p {
+  font-size: 20px;
+  font-weight: bold;
+  color: #0C381F;
+  align-self: flex-start;
+}
+
+#input_nomeFaleConosco,
+#input_emailFaleConosco {
+  background-color: #0F4B2D;
+  color: white;
+}
+
+#textarea_assunto {
+  background-color: #0F4B2D;
+  height: 100px;
+  color: white;
+  width: 105%;
+  border-radius: 8px;
+}
+
+.btn_enviar {
+  width: 150px;
+  height: 40px;
+  background-color: #044036;
+  color: white;
+  font-size: 20px;
+  border-radius: 8px;
+  margin-top: 30px;
+}
+
+/* Sobre Nós */
+
+.section_sobreNos {
+  display: flex;
+  margin-top: 50px;
+  justify-content: space-around;
+}
+
+.div_sobreNos_div {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  gap: 15px;
+  justify-content: center;
+}
+
+.div_sobreNos_div h1 {
+  color: #20673E;
+  font-size: 36px;
+  font-weight: 800;
+}
+
+.div_sobreNos_div p {
+  font-size: 22px;
+  color: #044036;
+}
+
+.btn_saberMais {
+  background-color: #0a2e1c;
+  color: white;
+  padding: 12px 24px;
+  font-size: 18px;
+  font-weight: 800;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.div_cards_temperatura_umidade {
+  display: flex;
+  width: 40%;
+  justify-content: space-around;
+}
+
+.div_cards_temperatura_umidade img {
+  width: 200px;
+}
+
+.div_cards_temperatura_umidade p {
+  color: #044036;
+  font-size: 20px;
+  font-weight: 800;
+  text-align: center;
+}
+
+hr {
+  border: 3px solid #0B371F;
+  width: 60%;
+  margin: 60px auto;
+  border-radius: 8px;
+}
+
+
+.section_cards_sobreNos {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 30px;
+  width: 100%;
+}
+
+.card_sobreNos {
+  display: flex;
+  flex-direction: column;
+  background-color: #044036;
+  width: 25%;
+  color: white;
+  height: 200px;
+  padding: 10px;
+  border-radius: 15px;
+}
+
+.div_card_titulo_sobreNos {
+  display: flex;
+  gap: 10px;
+  align-self: center;
+  align-items: center;
+  height: 20%;
+  font-size: 22px;
+}
+
+.div_card_titulo_sobreNos img {
+  width: 35px;
+}
+
+.div_card_paragrafo {
+  text-align: center;
+  display: flex;
+  height: 80%;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.section_carrossel_sobreNos {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background-color: #044036;
+  color: white;
+  height: 300px;
+  padding-top: 15px;
+  margin-bottom: 40px;
+}
+
+.div_titulo_carrossel {
+  text-align: center;
+  font-size: 24px;
+}
+
+.div_paragrafo_carrossel {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  height: 80%;
+  font-size: 22px;
+  justify-content: space-evenly;
+}
+
+.div_paragrafo_carrossel p {
+  width: 70%;
+}
+
+.div_paragrafo_carrossel img {
+  width: 40px;
+}
+
+.section_equipe_sobreNos {
+  margin-bottom: 60px;
+}
+
+
+.div_equipe {
+  display: flex;
+  justify-content: center;
+}
+
+.div_equipe_div {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 70%;
+  align-items: center;
+}
+
+.div_equipe_div h1 {
+  color: #20673E;
+  margin-bottom: 10px;
+  font-size: 30px;
+}
+
+.div_equipe_div img {
+  width: 70%;
+  margin-top: 10px;
+}
+
+
+/* Fim Sobre Nós */
+
+
+
+/* Simulador Financeiro */
+
+.calculadora_completa {
+  display: flex;
+  flex-direction: column;
+  margin: solid #042415 5px;
+  background: #8fbd8f;
+  gap: 20px;
+  height: auto;
+  padding: 2%;
+  margin-top: 5px;
+}
+
+.calculadora_completa h2 {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  color: #0a3b23;
+  font: bold;
+  font-size: 40px;
+  text-shadow: 1px 1px 1px #0a3b23;
+  margin-bottom: 10px;
+}
+
+.calculadora_completa .boxes {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  margin-bottom: 20px;
+}
+
+.calculadora_completa .titulo-entrada {
+  font-size: 25px;
+  color: #0a3b23;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.calculadora_completa .boxes .box-entrada {
+  font-family: Inter;
+  background: white;
+  color: #0a3b23;
+  padding: 5px;
+  font-size: 20px;
+  width: 35%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 12px;
+  border: solid #0a3b23 2px;
+  margin-left: 290px;
+  font-weight: 500;
+  box-shadow: 5px 5px 2px #0a3b23;
+}
+
+
+.calculadora_completa select,
+input[type="text"] {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  background-color: #e0fde2;
+  color: #0f4b2d;
+  margin-top: 5px;
+  border: solid #0a3b23 1px;
+}
+
+.calculadora_completa button {
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: rgb(222, 251, 220);
+  color: #0f4b2d;
+  cursor: pointer;
+  border: solid #0f4b2d 2px;
+  box-shadow: 1px 1px 1px #0f4b2d;
+}
+
+.calculadora_completa button:hover {
+  background-color: #2ecc71;
+}
+
+.calculadora_completa ::placeholder {
+  color: #66907a;
+}
+
+
+.calculadora_completa .titulo-resultado {
+  font-size: 25px;
+  color: #0a3b23;
+  padding: 10px;
+  font-weight: bold;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.calculadora_completa #div_mensagem {
+  padding: 20px;
+  border-radius: 10px;
+  line-height: 1.6;
+  color: #01160c;
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+.calculadora_completa .box-resultado {
+  width: 35%;
+  background: white;
+  height: 35%;
+
+  border: solid #0f4b2d 2px;
+  border-radius: 12px;
+
+  box-shadow: 5px 5px 2px #0a3b23;
+}
+
+/* Fim Simulador Financeiro */
