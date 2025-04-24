@@ -1,0 +1,190 @@
+/* 
+main{
+
+    height: 100vh;
+
+}
+
+.principal{
+
+    max-width: 500px;
+    max-height: 500px;
+    background-color: green;
+    align-items: center;
+    justify-content: center;
+
+} */
+.class_nav nav {
+
+    border-top: 46px solid #0F4B2D;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 1px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    box-shadow: 0px 5px 5px #0F4B2D;
+    height: 150px;
+
+}
+
+.links{
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 80%;
+    font-size: 20px;
+
+}
+
+nav a img {
+
+    width: 22px;
+    filter: brightness(0%);
+    height: auto;
+    
+  }
+
+.menu img {
+
+    width: 22px;
+    height: auto;
+    
+  }
+
+
+.principal {
+    display: flex;
+}
+
+
+h1{
+
+    color: #20673E;
+    font-weight: 800;
+    font-size: 28px;
+
+}
+
+
+.logo img{
+
+    padding-left: 30px;
+    width: 150px;
+
+}
+
+
+.links .agora {
+    color: #1c834f;
+}
+
+
+.agora img {
+    filter: brightness(60%);
+}
+
+
+.links a{
+
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 10px;
+    color:black;
+
+}
+
+
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #f7f7f7;
+  color: #333;
+}
+
+.container {
+  max-width: 600px;
+  margin: 60px auto;
+  text-align: center;
+  position: relative;
+}
+
+.voltar {
+  position: absolute;
+  left: 20px;
+  top: -10px;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.voltar a{
+
+    text-decoration: none;
+
+}
+
+.titulo {
+  color: #2e7d32;
+  font-size: 28px;
+  margin-bottom: 30px;
+}
+
+.card {
+  background-color: #4b7554;
+  padding: 30px;
+  border-radius: 12px;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.id {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.status {
+  color: #ccc;
+  margin-bottom: 25px;
+}
+
+.ativo {
+  color: #76ff03;
+  font-weight: bold;
+}
+
+.dados {
+  text-align: left;
+  margin: 0 auto 25px auto;
+  max-width: 300px;
+  font-size: 16px;
+}
+
+.dados p {
+  margin: 10px 0;
+}
+
+.configurar {
+  background-color: #0b1f14;
+  color: white;
+  border: none;
+  padding: 10px 30px;
+  font-size: 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: solid 0 -4px #062e1b;
+}
+
+.atualizado {
+  margin-top: 15px;
+  font-size: 13px;
+  color: #999;
+}
