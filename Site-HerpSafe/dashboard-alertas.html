@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Alertas</title>
     <link rel="stylesheet" href="./public/styles/style.css">
+    <link rel="stylesheet" href="./public/styles/dashboard-alertas.css">
 </head>
 
 <body>
@@ -38,6 +39,53 @@
                     <img src="./public/assets/icons/icon-sair.svg" id="icon-sair">
                     Sair
                 </a>
+            </div>
+        </section>
+
+        <section class="principal-alertas">
+            <div class="principal-alertas-container">
+                <div class="principal-alertas-container-titulo">
+                    <h1>Alertas</h1>
+                    <img src="./public/assets/icons/icon-alertas.png" alt="Icon Alertas">
+                </div>
+
+                <form action="" class="principal-alertas-container-filtro">
+                    <input type="text" placeholder="Nome do Recinto">
+                    <input type="date" placeholder="Data">
+
+                    <select name="sensores" id="">
+                        <option value="#">Tipo de sensor do Recinto</option>
+                        <option value="LM35">LM35</option>
+                        <option value="DH11">DH11</option>
+                    </select>
+
+                    <button>Filtrar</button>
+                    <button>Limpar Filtro</button>
+                </form>
+
+                <section class="principal-alertas-scroll">
+                    <div class="principal-alertas-scroll-container">
+                        <div class="principal-alertas-scroll-data">
+                            <img src="./public/assets/icons/icon-data.svg" alt="Icon Data">
+                            <p>02/05/2025</p>
+                        </div>
+                        <img src="./public/assets/icons/icon-status-recinto-vermelho.svg" alt="Status Recinto">
+                        <h1>Recinto 2:</h1>
+                        <p>LM35: Temperatura em 36 graus fora dos padrões estabelecidos o limite é 30 graus.
+                            Plano de ação: Ligar camisas de resfriamento</p>
+                    </div>
+
+                    <div class="principal-alertas-scroll-container">
+                        <div class="principal-alertas-scroll-data">
+                            <img src="./public/assets/icons/icon-data.svg" alt="Icon Data">
+                            <p>01/05/2025</p>
+                        </div>
+                        <img src="./public/assets/icons/icon-status-recinto-amarelo.svg" alt="Status Recinto">
+                        <h1>Recinto 3:</h1>
+                        <p>DHT11: Umidade em 35% fora dos padrões estabelecidos, o mínimo é 40%.
+                            Plano de ação: Aumente a umidade do recinto</p>
+                    </div>
+                </section>
             </div>
         </section>
     </main>
