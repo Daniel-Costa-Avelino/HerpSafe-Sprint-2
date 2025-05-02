@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Alertas</title>
+    <link rel="stylesheet" href="./public/styles/style.css">
 </head>
 
 <body>
@@ -14,8 +15,31 @@
     </header>
 
     <!-- Parte principal-->
-    <main>
+    <main class="principal">
+        <!-- Barra lateral da dashboard-->
+        <section class="principal-barra-lateral">
+            <div class="barra-lateral-perfil">
+                <img src="./public/assets/imgs/foto-perfil-dashboard.png" alt="Foto de Perfil da Dashboard">
+                <h1>Guilherme</h1>
+                <p>Gestor</p>
+            </div>
 
+            <!-- Navegação do usuário-->
+            <div class="barra-lateral-navegacao">
+                <a href="dashboard-visao-geral.html">
+                    <img src="./public/assets/icons/icon-visao-geral.png" alt="Icon Visão Geral">
+                    Visão geral
+                </a>
+                <a href="dashboard-alertas.html" id="vector-ativo">
+                    <img src="./public/assets/icons/icon-alertas.png">
+                    Alertas
+                </a>
+                <a href="">
+                    <img src="./public/assets/icons/icon-sair.svg" id="icon-sair">
+                    Sair
+                </a>
+            </div>
+        </section>
     </main>
 
     <!-- Rodapé -->
