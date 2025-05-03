@@ -1,0 +1,137 @@
+body{
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #20402E;
+    color: white;
+    display: flex;
+}
+
+.principal{
+    padding-left: 18rem;
+    display: flex;
+    width: 80%;
+    height: 100%;
+}
+
+.principal-visao{
+    padding: 30px;
+}
+
+.titulo-recintos{
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.section_boxes-monitoramento{
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 30px;
+    flex-direction: row;
+}
+
+.box-monitoramento{
+    background-color: #3C6A54;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 16px;
+    width: 180px;
+}
+
+.titulo-box{
+font-weight: bold;
+margin-bottom: 8px;
+}
+
+.numero-monitoramento{
+    font-size: 30px;
+}
+
+.section_visao-recintos{
+    display: flex;
+    gap: 20px;
+    justify-content: start;
+    flex-direction: column;
+}
+
+.Pratileiras{
+  min-width: 300px;
+  max-width: 380px;
+  padding: 40px;
+
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  
+}
+
+.Pratileira1{
+    background-color: #3BAE3B;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 16px;
+    padding: 20px;
+}
+
+.Pratileira2{
+    background-color: #C8A52B;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 16px;
+    padding: 20px;
+}
+
+.Pratileira3{
+    background-color: #3BAE3B;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 16px;
+    padding: 20px;
+}
+
+.Pratileira4{
+    background-color: #A83232;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 16px;
+    padding: 20px;
+}
+
+.Pratileira5{
+    background-color: #3BAE3B;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 16px;
+    padding: 20px;
+}
+
+.Pratileira6{
+    background-color: #3BAE3B;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 16px;
+    padding: 20px;
+}
+
+.pratileira-bloco1{
+    display: flex;
+    flex-direction: row;
+
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+.pratileira-bloco2{
+    display: flex;
+    flex-direction: row;
+
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
