@@ -1,12 +1,12 @@
 /* Sobre Nós */
 
-.section_sobreNos {
+.principal-sobreNos {
     display: flex;
     margin-top: 50px;
     justify-content: space-around;
 }
 
-.div_sobreNos_div {
+.sobreNos-texto {
     display: flex;
     flex-direction: column;
     width: 30%;
@@ -14,71 +14,71 @@
     justify-content: center;
 }
 
-.div_sobreNos_div h1 {
-    color: #20673E;
+.sobreNos-texto h1 {
+    color: var(--green2);
     font-size: 36px;
     font-weight: 800;
 }
 
-.div_sobreNos_div p {
+.sobreNos-texto p {
     font-size: 22px;
-    color: #044036;
+    color: var(--green3);
 }
 
 .btn_saberMais {
-    background-color: #0a2e1c;
+    background-color: var(--green4);
     color: white;
     padding: 12px 24px;
     font-size: 18px;
     font-weight: 800;
     border-radius: 6px;
-    border: 1px solid #0a2e1c;
+    border: 1px solid var(--green4);
 }
 
-.div_cards_temperatura_umidade {
+.sobreNos-imagem {
     display: flex;
     width: 40%;
     justify-content: space-around;
 }
 
-.div_cards_temperatura_umidade img {
-    width: 200px;
+.sobreNos-imagem img {
+    width: 12.5rem;
 }
 
-.div_cards_temperatura_umidade p {
-    color: #044036;
+.sobreNos-imagem p {
+    color: var(--green3);
     font-size: 20px;
     font-weight: 800;
     text-align: center;
 }
 
 hr {
-    border: 3px solid #0B371F;
+    border: 3px solid var(--green5);
     width: 60%;
     margin: 60px auto;
     border-radius: 8px;
 }
 
 
-.section_cards_sobreNos {
+.principal-cards {
     display: flex;
     justify-content: space-evenly;
     margin-top: 30px;
     width: 100%;
 }
 
-.card_sobreNos {
+.card-identidade {
     display: flex;
     flex-direction: column;
-    background-color: #044036;
+    background-color: var(--green3);
     width: 25%;
     color: white;
-    height: 200px;
+    height: 12.5rem;
     padding: 10px;
     border-radius: 15px;
 }
 
-.div_card_titulo_sobreNos {
+.identidade-titulo {
     display: flex;
     gap: 10px;
     align-self: center;
@@ -87,11 +87,11 @@ hr {
     font-size: 22px;
 }
 
-.div_card_titulo_sobreNos img {
+.identidade-titulo img {
     width: 35px;
 }
 
-.div_card_paragrafo {
+.identidade-paragrafo {
     text-align: center;
     display: flex;
     height: 80%;
@@ -100,25 +100,25 @@ hr {
     font-size: 20px;
 }
 
-.section_carrossel_sobreNos {
+.principal-carrosel {
     margin-top: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    background-color: #044036;
+    background-color: var(--green3);
     color: white;
-    height: 300px;
+    height: 19rem;
     padding-top: 15px;
     margin-bottom: 40px;
 }
 
-.div_titulo_carrossel {
+.carrossel-titulo {
     text-align: center;
     font-size: 24px;
 }
 
-.div_paragrafo_carrossel {
+.carrossel-paragrafo {
     display: flex;
     align-items: center;
     text-align: center;
@@ -127,25 +127,25 @@ hr {
     justify-content: space-evenly;
 }
 
-.div_paragrafo_carrossel p {
+.carrossel-paragrafo p {
     width: 70%;
 }
 
-.div_paragrafo_carrossel img {
-    width: 40px;
+.carrossel-paragrafo img {
+    width: 2.5rem;
 }
 
-.section_equipe_sobreNos {
+.principal-equipe {
     margin-bottom: 60px;
 }
 
 
-.div_equipe {
+.equipe-card {
     display: flex;
     justify-content: center;
 }
 
-.div_equipe_div {
+.card-imagem {
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -153,13 +153,13 @@ hr {
     align-items: center;
 }
 
-.div_equipe_div h1 {
-    color: #20673E;
+.card-imagem h1 {
+    color: var(--green2);
     margin-bottom: 10px;
     font-size: 30px;
 }
 
-.div_equipe_div img {
+.card-imagem img {
     width: 70%;
     margin-top: 10px;
 }

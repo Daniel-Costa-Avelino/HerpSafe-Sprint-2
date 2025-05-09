@@ -11,9 +11,10 @@ cnpj VARCHAR(18) NOT NULL UNIQUE,
 porte VARCHAR(8) NOT NULL,
   CONSTRAINT chk_Porte
       CHECK (porte IN('Grande', 'Medio', 'Pequeno')),
-email VARCHAR(60) NOT NULL,
-senha VARCHAR(45) NOT NULL
-) AUTO_INCREMENT = 1000;
+      fkEndereco INT NOT NULL,
+CONSTRAINT fkendereco_Empresa FOREIGN KEY (fkEndereco)
+    REFERENCES endereco(idEndereco)
+);
 
 INSERT INTO empresa(razao_social, nomeFantasia, cnpj, porte, email, senha) VALUES
 ('Jiboias Brasil Ltda', 'Animais Brasil', '15.251.660/0001-12', 'Grande', 'jiboias.brasil@gmail.com', 'jiboias123'),
@@ -33,11 +34,8 @@ numero VARCHAR(10) NOT NULL,
 bairro VARCHAR(255) NOT NULL,
 cidade VARCHAR(100) NOT NULL,
 estado CHAR(2) NOT NULL,
-cep VARCHAR(9) NOT NULL,
-fkEmpresa INT NOT NULL,
-CONSTRAINT fkEmpresa_endereco FOREIGN KEY (fkEmpresa)
-    REFERENCES empresa(idEmpresa)
-) AUTO_INCREMENT = 1000;
+cep VARCHAR(9) NOT NULL
+);
 
 INSERT INTO endereco (rua, numero, bairro, cidade, estado, cep, fkEmpresa) VALUES
 ('Rua Contagem', '20', 'Betim Industrial', 'Betim', 'MG', '32670402', 1000),
@@ -62,7 +60,7 @@ senha VARCHAR(20) NOT NULL,
 fkEmpresa INT NOT NULL,
 CONSTRAINT fkEmpresa_funcionario FOREIGN KEY (fkEmpresa)
     REFERENCES empresa(idEmpresa)
-) AUTO_INCREMENT = 1000;
+);
 
 INSERT INTO funcionario (nome, email, cpf, cargo, senha,fkEmpresa) VALUES
 ('Carlos Silva', 'carlos.silva@animaisbrasil.com', '111.111.111-11', 'Gerencial', 'senha123', 1000),
@@ -87,58 +85,16 @@ INSERT INTO funcionario (nome, email, cpf, cargo, senha,fkEmpresa) VALUES
 ('Felipe Cardoso', 'felipe.cardoso@criadouroreptil.com', '555.666.777-88', 'Operacional', 'senha123',1006),
 ('Carla Moreira', 'carla.moreira@criadouroreptil.com', '999.888.777-66', 'Operacional', 'senha123',1006);
 
--- --------------------------------------------------------------------------------------------------------------------------------------
-
-CREATE TABLE metricas(
-idMetricas INT PRIMARY KEY AUTO_INCREMENT,
-max_Temp FLOAT NOT NULL,
-min_Temp FLOAT NOT NULL,
-max_Umid FLOAT NOT NULL,
-min_Umid FLOAT NOT NULL
-) AUTO_INCREMENT = 1000;
-
-INSERT INTO metricas (max_Temp, min_Temp, max_Umid, min_Umid)  
-VALUES  
-(35.0, 20.0, 80.0, 40.0),  
-(38.5, 22.5, 85.0, 45.0),  
-(40.0, 25.0, 90.0, 50.0),  
-(30.5, 18.0, 75.0, 35.0),  
-(28.0, 16.5, 70.0, 30.0),  
-(33.5, 21.0, 78.0, 38.0),  
-(37.0, 23.0, 82.0, 42.0),  
-(36.5, 22.0, 80.5, 41.0),  
-(32.0, 19.0, 76.0, 36.0),  
-(39.0, 24.0, 88.0, 48.0),  
-(34.5, 20.5, 79.5, 39.5),  
-(31.0, 17.5, 72.0, 32.0),  
-(36.0, 21.5, 81.0, 41.5),  
-(29.5, 15.5, 68.0, 28.0),  
-(33.0, 20.0, 74.5, 34.5),  
-(37.5, 23.5, 83.5, 43.5),  
-(30.0, 18.5, 69.5, 29.5),  
-(35.0, 22.0, 77.5, 37.5),  
-(38.0, 24.5, 86.0, 46.0),  
-(32.5, 19.5, 73.5, 33.5),  
-(39.5, 25.5, 89.0, 49.0);  
-
 -- ---------------------------------------------------------------------------------------------------------------------------------------------------
 
-CREATE TABLE local_instalacao(
-idLocal_instalacao INT PRIMARY KEY AUTO_INCREMENT,
-recinto VARCHAR(10) NOT NULL,
-         CONSTRAINT chk_Recinto
-            CHECK (recinto IN('Terrário', 'Paludário', 'Tanque', 'Lago')),
-tamanho_Recinto VARCHAR (12) NOT NULL,
-         CONSTRAINT chk_TamanhoRecinto
-             CHECK (tamanho_Recinto IN('Pequeno', 'Médio', 'Grande')),
-serpente VARCHAR(254) NOT NULL,
+CREATE TABLE recinto(
+idrecinto INT PRIMARY KEY AUTO_INCREMENT,
+nome_recinto VARCHAR(40) NOT NULL,
 dt_Instalacao DATE NOT NULL,
-dt_Manutencao DATE,
+status_recinto TINYINT,
 fkEmpresa INT NOT NULL,
-CONSTRAINT fkEmpresa_local FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa),
-fkMetricas INT NOT NULL UNIQUE,
-CONSTRAINT fkMetricas_local FOREIGN KEY (fkMetricas) REFERENCES metricas(idMetricas)
-) AUTO_INCREMENT = 1000;
+CONSTRAINT fkEmpresa_local FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
+);
 
 INSERT INTO local_instalacao (recinto, tamanho_Recinto, serpente, dt_Instalacao, dt_Manutencao, fkEmpresa,fkMetricas)
 VALUES 
@@ -169,19 +125,15 @@ VALUES
 CREATE TABLE sensor (
 idSensor INT PRIMARY KEY AUTO_INCREMENT,
 numero_Serie CHAR(8) NOT NULL,
-codigo_Interno CHAR(8) NOT NULL,
 status_Sensor VARCHAR(10) NOT NULL,
       CONSTRAINT chk_StatusSensor
              CHECK (Status_Sensor IN('Ativo', 'Manutenção', 'Inativo')),
 tipo VARCHAR(5) NOT NULL,
       CONSTRAINT chk_Tipo
            CHECK (tipo IN('DHT11', 'LM35')),
-tipo_leitura VARCHAR(11) NOT NULL,
-     CONSTRAINT chk_TipoLeitura
-           CHECK (tipo_leitura IN('Temperatura', 'Umidade')),
-fkLocalInstalacao INT NOT NULL,
-CONSTRAINT fkLocal_sensor FOREIGN KEY (fkLocalInstalacao)
-    REFERENCES local_instalacao(idLocal_instalacao)
+fkRecinto INT NOT NULL,
+CONSTRAINT fkRecinto FOREIGN KEY (fkRecinto)
+    REFERENCES recinto(idrecinto)
 );
 
 INSERT INTO sensor (numero_Serie, codigo_Interno, status_Sensor, tipo, tipo_leitura, fkLocalInstalacao) VALUES
@@ -235,11 +187,10 @@ idCaptura INT PRIMARY KEY AUTO_INCREMENT,
 temperatura FLOAT NOT NULL,
 umidade FLOAT NOT NULL,
 dt_Hr_Captura DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-fkSensorTemperatura INT NOT NULL,
-CONSTRAINT fkSensorTemperatura_captura FOREIGN KEY (fkSensorTemperatura) REFERENCES sensor(idSensor),
-fkSensorUmidade INT NOT NULL,
-CONSTRAINT fkSensorUmidade_captura FOREIGN KEY (fkSensorUmidade) REFERENCES sensor(idSensor)
-) AUTO_INCREMENT = 1000;
+fksensor INT NOT NULL,
+CONSTRAINT fkCapturaSensor FOREIGN KEY (fksensor)
+    REFERENCES sensor(idsensor)
+);
 
 INSERT INTO captura(temperatura, umidade, dt_Hr_Captura, fkSensorTemperatura, fkSensorUmidade)
 VALUES
@@ -263,13 +214,19 @@ VALUES
 
 CREATE TABLE alertas(
 idAlertas INT PRIMARY KEY AUTO_INCREMENT,
-alerta VARCHAR(100),
+dt_Hr_Alerta DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+mensagem VARCHAR(100),
       CONSTRAINT chk_Alerta
            CHECK (alerta IN('Atenção', 'Cuidado', 'Perigo', 'Crítico', 'Extremo')),
-dt_Hr_Alerta DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+nivelAlerta INT,
+CONSTRAINT pkAssociativa PRIMARY KEY (fkMetricas, fkCaptura, fkSensor),
+fkMetricas INT UNIQUE,
+CONSTRAINT fkAlerta_metricas FOREIGN KEY (fkMetricas) REFERENCES metricas(idMetricas),
 fkCaptura INT UNIQUE,
-CONSTRAINT fkCaptura_alerta FOREIGN KEY (fkCaptura) REFERENCES captura(idCaptura)
-) AUTO_INCREMENT = 1000;
+CONSTRAINT fkCaptura_alerta FOREIGN KEY (fkCaptura) REFERENCES captura(idCaptura),
+fkSensor INT NOT NULL,
+CONSTRAINT fkSensor_captura FOREIGN KEY (fkSensor) REFERENCES sensor(idSensor)
+);
 
 INSERT INTO alertas (alerta, dt_Hr_Alerta, fkCaptura)  
 VALUES
@@ -283,6 +240,40 @@ VALUES
 ('Crítico', '2025-03-30 06:45:00', 1007),
 ('Extremo', '2025-04-03 19:30:00', 1008);  
   
+  -- -----------------------------------------------------------------------------------------------------------------------------------------------
+  
+  CREATE TABLE metricas(
+idMetricas INT PRIMARY KEY AUTO_INCREMENT,
+max FLOAT NOT NULL,
+min FLOAT NOT NULL,
+tipo VARCHAR(45),
+CONSTRAINT cktipo CHECK (tipo("DHT11", "LM35"))
+);
+
+INSERT INTO metricas (max_Temp, min_Temp, max_Umid, min_Umid)  
+VALUES  
+(35.0, 20.0, 80.0, 40.0),  
+(38.5, 22.5, 85.0, 45.0),  
+(40.0, 25.0, 90.0, 50.0),  
+(30.5, 18.0, 75.0, 35.0),  
+(28.0, 16.5, 70.0, 30.0),  
+(33.5, 21.0, 78.0, 38.0),  
+(37.0, 23.0, 82.0, 42.0),  
+(36.5, 22.0, 80.5, 41.0),  
+(32.0, 19.0, 76.0, 36.0),  
+(39.0, 24.0, 88.0, 48.0),  
+(34.5, 20.5, 79.5, 39.5),  
+(31.0, 17.5, 72.0, 32.0),  
+(36.0, 21.5, 81.0, 41.5),  
+(29.5, 15.5, 68.0, 28.0),  
+(33.0, 20.0, 74.5, 34.5),  
+(37.5, 23.5, 83.5, 43.5),  
+(30.0, 18.5, 69.5, 29.5),  
+(35.0, 22.0, 77.5, 37.5),  
+(38.0, 24.5, 86.0, 46.0),  
+(32.5, 19.5, 73.5, 33.5),  
+(39.5, 25.5, 89.0, 49.0);  
+
 -- -----------------------------------------------------------------------------------------------------------------------------------------------
 
 SELECT * FROM empresa;

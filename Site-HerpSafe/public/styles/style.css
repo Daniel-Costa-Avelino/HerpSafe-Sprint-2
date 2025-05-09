@@ -8,15 +8,26 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+:root{
+
+    --green:#0F4B2D;  
+    --green2:#20673E; 
+    --green3:#044036;
+    --green4:#0a2e1c;
+    --green5:#0B371F;
+
+    
+}
+
 .cabecalho {
-    border-top: 46px solid #0F4B2D;
+    border-top: 46px solid var(--green);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 1px;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
-    box-shadow: 0px 5px 5px #0F4B2D;
+    box-shadow: 0px 5px 5px var(--green);
     height: 150px;
 }
 
