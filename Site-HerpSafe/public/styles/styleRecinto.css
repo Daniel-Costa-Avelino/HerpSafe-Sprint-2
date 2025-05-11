@@ -189,6 +189,7 @@ body {
   color: #999;
 }
 
+<<<<<<< HEAD
 
 .dadosVermelho{
 
@@ -201,3 +202,16 @@ body {
   color:yellow;
 
 }
+=======
+.dadoVermelho{
+
+  color:red;
+
+}
+
+.dadoAmarelo{
+
+  color: yellow;
+
+}
+>>>>>>> 2bb0c0c6c0299c5840dc97519f8e07ae19f50452

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Alertas</title>
+    <link rel="stylesheet" href="./public/styles/dashboard-global.css">
+    <link rel="stylesheet" href="./public/styles/dashboard-alertas.css">
+</head>
+
+<body>
+    <!-- Cabeçalho -->
+    <header>
+
+    </header>
+
+    <!-- Parte principal-->
+    <main class="principal">
+        <!-- Barra lateral da dashboard-->
+        <section class="principal-barra-lateral">
+            <div class="barra-lateral-perfil">
+                <img src="./public/assets/imgs/foto-perfil-dashboard.png" alt="Foto de Perfil da Dashboard">
+                <h1>Guilherme</h1>
+                <p>Gestor</p>
+            </div>
+
+            <!-- Navegação do usuário-->
+            <div class="barra-lateral-navegacao">
+                <a href="dashboard-visao-geral.html">
+                    <img src="./public/assets/icons/icon-visao-geral.png" alt="Icon Visão Geral">
+                    Visão geral
+                </a>
+                <a href="dashboard-alertas.html" id="vector-ativo">
+                    <img src="./public/assets/icons/icon-alertas.png">
+                    Alertas
+                </a>
+                <a href="">
+                    <img src="./public/assets/icons/icon-sair.svg" id="icon-sair">
+                    Sair
+                </a>
+            </div>
+        </section>
+
+        <section class="principal-alertas">
+            <div class="principal-alertas-container">
+                <div class="principal-alertas-container-titulo">
+                    <h1>Alertas</h1>
+                    <img src="./public/assets/icons/icon-alertas.png" alt="Icon Alertas">
+                </div>
+
+                <form action="" class="principal-alertas-container-filtro">
+                    <input type="text" placeholder="Nome do Recinto">
+                    <input type="date" placeholder="Data">
+
+                    <select name="sensores" id="">
+                        <option value="#">Tipo de sensor do Recinto</option>
+                        <option value="LM35">LM35</option>
+                        <option value="DH11">DH11</option>
+                    </select>
+
+                    <button><img src="./public/assets/icons/icon-filtro.svg" alt="Icon Filtro">Filtrar</button>
+                    <button id="limpar-filtro">Limpar Filtro</button>
+                </form>
+
+                <section class="principal-alertas-scroll">
+                    <div class="principal-alertas-scroll-container">
+                        <div class="principal-alertas-scroll-data">
+                            <img src="./public/assets/icons/icon-data.svg" alt="Icon Data">
+                            <p>02/05/2025</p>
+                        </div>
+                        <div class="alertas-recinto-texto">
+                            <img src="./public/assets/icons/icon-status-recinto-vermelho.svg" alt="Status Recinto">
+                            <div>
+                                <h1>Recinto 2:</h1>
+                                <p>LM35: Temperatura em <span style="color: #AB3030;">36 graus</span> fora dos padrões
+                                    estabelecidos o limite é
+                                    30 graus.
+                                    Plano de ação: Ligar camisas de resfriamento</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="principal-alertas-scroll-container">
+                        <div class="principal-alertas-scroll-data">
+                            <img src="./public/assets/icons/icon-data.svg" alt="Icon Data">
+                            <p>01/05/2025</p>
+                        </div>
+                        <div class="alertas-recinto-texto">
+                            <img src="./public/assets/icons/icon-status-recinto-amarelo.svg" alt="Status Recinto">
+                            <div>
+                                <h1>Recinto 3:</h1>
+                                <p>DHT11: Umidade em <span style="color: #5e5e1d; font-weight: bold;">35%</span> fora
+                                    dos padrões
+                                    estabelecidos, o mínimo é 40%.
+                                    Plano de ação: Aumente a umidade do recinto</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="principal-alertas-scroll-container">
+                        <div class="principal-alertas-scroll-data">
+                            <img src="./public/assets/icons/icon-data.svg" alt="Icon Data">
+                            <p>02/05/2025</p>
+                        </div>
+                        <div class="alertas-recinto-texto">
+                            <img src="./public/assets/icons/icon-status-recinto-vermelho.svg" alt="Status Recinto">
+                            <div>
+                                <h1>Recinto 2:</h1>
+                                <p>LM35: Temperatura em <span style="color: #AB3030;">36 graus</span> fora dos padrões
+                                    estabelecidos o limite é
+                                    30 graus.
+                                    Plano de ação: Ligar camisas de resfriamento</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="principal-alertas-scroll-container">
+                        <div class="principal-alertas-scroll-data">
+                            <img src="./public/assets/icons/icon-data.svg" alt="Icon Data">
+                            <p>01/05/2025</p>
+                        </div>
+                        <div class="alertas-recinto-texto">
+                            <img src="./public/assets/icons/icon-status-recinto-amarelo.svg" alt="Status Recinto">
+                            <div>
+                                <h1>Recinto 3:</h1>
+                                <p>DHT11: Umidade em <span style="color: #5e5e1d; font-weight: bold;">35%</span> fora
+                                    dos padrões
+                                    estabelecidos, o mínimo é 40%.
+                                    Plano de ação: Aumente a umidade do recinto</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="principal-alertas-scroll-container">
+                        <div class="principal-alertas-scroll-data">
+                            <img src="./public/assets/icons/icon-data.svg" alt="Icon Data">
+                            <p>01/05/2025</p>
+                        </div>
+                        <div class="alertas-recinto-texto">
+                            <img src="./public/assets/icons/icon-status-recinto-amarelo.svg" alt="Status Recinto">
+                            <div>
+                                <h1>Recinto 3:</h1>
+                                <p>DHT11: Umidade em <span style="color: #5e5e1d; font-weight: bold;">35%</span> fora
+                                    dos padrões
+                                    estabelecidos, o mínimo é 40%.
+                                    Plano de ação: Aumente a umidade do recinto</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer>
+
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,126 @@
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+
+    font-family: Inter, Helvetica, sans-serif;
+}
+
+.principal-alertas {
+    padding: 2rem;
+    padding-left: 20rem;
+    background-color: #99B69C;
+    height: 100vh;
+}
+
+.principal-alertas-container {
+    color: #FFF;
+    font-size: 20px;
+
+    width: 100%;
+
+    background-color: #044036;
+    padding: 1.5rem;
+    border-radius: 4px;
+}
+
+.principal-alertas-container-titulo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    font-size: 1.2rem;
+    padding-bottom: 1rem;
+}
+
+.principal-alertas-container-titulo img {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.principal-alertas-container-filtro {
+    background-color: #99B69C;
+    padding: 0.6rem;
+
+    border-radius: 4px;
+}
+
+.principal-alertas-container-filtro input,
+.principal-alertas-container-filtro select {
+    border-radius: 4px;
+    padding: 0.6rem;
+
+    width: 25%;
+}
+
+.principal-alertas-container-filtro button {
+    background-color: #4DA26D;
+    color: #FFF;
+
+    padding: 0.6rem;
+    border-radius: 4px;
+
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+.principal-alertas-container-filtro button img {
+    width: 1.4rem;
+    padding-right: 0.5rem;
+}
+
+#limpar-filtro {
+    background-color: #4da26eb9;
+
+    font-weight: normal;
+}
+
+.principal-alertas-scroll {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    margin-top: 2rem;
+    overflow-x: none;
+
+    overflow-y: scroll;
+    height: 60vh;
+    scrollbar-color: #ffffff #4DA26D;
+}
+
+.principal-alertas-scroll-container {
+    background-color: #99B69C;
+    padding: 1rem;
+    border-radius: 4px;
+}
+
+.principal-alertas-scroll-data {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: #000;
+
+    justify-content: flex-end;
+
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.alertas-recinto-texto {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    font-size: 1rem;
+
+    color: black;
+    font-weight: bold;
+}
+
+.alertas-recinto-texto img {
+    width: 3rem;
+}
+
+.alertas-recinto-texto p {
+    padding-top: 1rem;
+}
