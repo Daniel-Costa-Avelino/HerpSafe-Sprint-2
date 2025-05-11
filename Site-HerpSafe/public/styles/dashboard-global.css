@@ -1,5 +1,5 @@
 .principal-barra-lateral {
-    background-color: #044036;
+    background-color: var(--green3);
     height: 100vh;
 
     position: fixed;
