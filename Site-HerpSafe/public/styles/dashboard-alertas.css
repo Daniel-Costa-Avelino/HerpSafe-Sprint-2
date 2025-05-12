@@ -19,7 +19,7 @@
 
     width: 100%;
 
-    background-color: #044036;
+    background-color: var(--green3);
     padding: 1.5rem;
     border-radius: 4px;
 }

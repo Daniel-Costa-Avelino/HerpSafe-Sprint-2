@@ -45,7 +45,7 @@ body {
 .barra {
     display: flex;
     flex-direction: column;
-    background: #044036;
+    background: var(--green3);
     align-items: center;
     justify-content: flex-start;
     border-radius: 0px 5px 5px 0px;
@@ -128,7 +128,7 @@ body {
     text-wrap: nowrap;
 
     background-color: #a5f1af;
-    color: #044036;
+    color: var(--green3);
     font-weight: bold;
     border-radius: 8px;
 }
@@ -140,7 +140,7 @@ body {
 }
 
 .titulo {
-    color: #20673E;
+    color: var(--green2);
     font-weight: 800;
     font-size: 28px;
     padding: 20px;
@@ -185,7 +185,7 @@ body {
     gap: 20px;
     padding: 20px;
 
-    background-color: #044036;
+    background-color: var(--green3);
     color: #f2f2f2;
     font-weight: bold;
 

@@ -15,10 +15,10 @@
     align-items: center;
     display: flex;
     justify-content: center;
-    color: #0a3b23;
+    color: var(--green8);
     font: bold;
     font-size: 40px;
-    text-shadow: 1px 1px 1px #0a3b23;
+    text-shadow: 1px 1px 1px var(--green8);
     margin-bottom: 10px;
 }
 
@@ -31,7 +31,7 @@
 
 .calculadora_completa .titulo-entrada {
     font-size: 25px;
-    color: #0a3b23;
+    color: var(--green8);
     padding: 10px;
     font-weight: bold;
 }
@@ -39,7 +39,7 @@
 .calculadora_completa .boxes .box-entrada {
     font-family: Inter;
     background: white;
-    color: #0a3b23;
+    color: var(--green8);
     padding: 5px;
     font-size: 20px;
     width: 35%;
@@ -48,10 +48,10 @@
     justify-content: center;
     flex-direction: column;
     border-radius: 12px;
-    border: solid #0a3b23 2px;
+    border: solid var(--green8) 2px;
     margin-left: 290px;
     font-weight: 500;
-    box-shadow: 5px 5px 2px #0a3b23;
+    box-shadow: 5px 5px 2px var(--green8);
 }
 
 
@@ -64,9 +64,9 @@ input[type="text"] {
     border-radius: 8px;
     font-size: 18px;
     background-color: #e0fde2;
-    color: #0f4b2d;
+    color: var(--green);
     margin-top: 5px;
-    border: solid #0a3b23 1px;
+    border: solid var(--green8) 1px;
 }
 
 .calculadora_completa button {
@@ -75,10 +75,10 @@ input[type="text"] {
     border: none;
     border-radius: 8px;
     background-color: rgb(222, 251, 220);
-    color: #0f4b2d;
+    color: var(--green);
     cursor: pointer;
-    border: solid #0f4b2d 2px;
-    box-shadow: 1px 1px 1px #0f4b2d;
+    border: solid var(--green) 2px;
+    box-shadow: 1px 1px 1px var(--green);
 }
 
 .calculadora_completa button:hover {
@@ -92,7 +92,7 @@ input[type="text"] {
 
 .calculadora_completa .titulo-resultado {
     font-size: 25px;
-    color: #0a3b23;
+    color: var(--green8);
     padding: 10px;
     font-weight: bold;
 
@@ -116,10 +116,10 @@ input[type="text"] {
     background: white;
     height: 35%;
 
-    border: solid #0f4b2d 2px;
+    border: solid var(--green) 2px;
     border-radius: 12px;
 
-    box-shadow: 5px 5px 2px #0a3b23;
+    box-shadow: 5px 5px 2px var(--green8);
 }
 
 /* Fim Simulador Financeiro */
