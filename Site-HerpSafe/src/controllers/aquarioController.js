@@ -1,9 +1,9 @@
 var aquarioModel = require("../models/aquarioModel");
 
-function buscarAquariosPorEmpresa(req, res) {
+function buscarRecintoPorEmpresa(req, res) {
   var idUsuario = req.params.idUsuario;
 
-  aquarioModel.buscarAquariosPorEmpresa(idUsuario).then((resultado) => {
+  recintoModel.buscarRecintoPorEmpresa(idUsuario).then((resultado) => {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
     } else {
@@ -18,7 +18,7 @@ function buscarAquariosPorEmpresa(req, res) {
 
 
 function cadastrar(req, res) {
-  var descricao = req.body.descricao;
+  var nome_recinto = req.body.nome_recinto;
   var idUsuario = req.body.idUsuario;
 
   if (descricao == undefined) {
@@ -28,7 +28,7 @@ function cadastrar(req, res) {
   } else {
 
 
-    aquarioModel.cadastrar(descricao, idUsuario)
+    recintoModel.cadastrar(nome_recinto, idUsuario)
       .then((resultado) => {
         res.status(201).json(resultado);
       }
@@ -44,6 +44,6 @@ function cadastrar(req, res) {
 }
 
 module.exports = {
-  buscarAquariosPorEmpresa,
+  buscarRecintoPorEmpresa,
   cadastrar
 }
