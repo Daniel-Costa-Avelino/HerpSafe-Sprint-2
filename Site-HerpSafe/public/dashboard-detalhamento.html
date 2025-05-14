@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visão Geral - Detalhamento</title>
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/detalhamento.css">
+
+</head>
+
+<body>
+
+    <div class="principal">
+        <section class="principal-barra-lateral">
+            <div class="barra-lateral-perfil">
+                <img src="./assets/imgs/foto-perfil-dashboard.png" alt="Foto de Perfil da Dashboard">
+                <h1>Guilherme</h1>
+                <p>Gestor</p>
+            </div>
+
+            <!-- Navegação do usuário-->
+            <div class="barra-lateral-navegacao">
+                <a href="dashboard-visao-geral.html" id="vector-ativo">
+                    <img src="./assets/icons/icon-visao-geral.png" alt="Icon Visão Geral">
+                    Visão geral
+                </a>
+                <a href="dashboard-alertas.html">
+                    <img src="./assets/icons/icon-alertas.png">
+                    Alertas
+                </a>
+                <a href="">
+                    <img src="./assets/icons/icon-sair.svg" id="icon-sair">
+                    Sair
+                </a>
+            </div>
+        </section>
+
+        <div class="principal-visao">
+            <section class="section_boxes-monitoramento">
+                <div class="box-monitoramento">
+                    <div class="titulo-box">Sensores</div>
+                    <div class="numero-monitoramento">4</div>
+                </div>
+                <div class="box-monitoramento">
+                    <div class="titulo-box">Alertas(24h)</div>
+                    <div class="numero-monitoramento numero-monitoramento-alerta">1</div>
+                </div>
+                <div class="box-monitoramento">
+                    <div class="titulo-box">Temperatura média(24h)</div>
+                    <div class="numero-monitoramento">50 °C</div>
+                </div>
+                <div class="box-monitoramento">
+                    <div class="titulo-box">Umidade média(50%)</div>
+                    <div class="numero-monitoramento">50%</div>
+                </div>
+            </section>
+
+            <section class="sessao_filtro_historico">
+                <div class="div_filtro">
+                    <img src="./assets/icons/icon-filtro.svg" alt="Ícone de filtro">
+                    <p>Filtro:</p>
+                    <p>De</p>
+                    <input type="date">
+                    <p>a</p>
+                    <input type="date">
+                </div>
+                <button class="btn_historico">
+                    <img src="./assets/icons/icon-alertas.png" alt="Ícone de alerta">
+                    <p>Histórico</p>
+                </button>
+            </section>
+
+            <section class="sessao_cards_graficos">
+                <div class="div_sessao_graficos">
+                    <div class="div_div_titulo">
+                        <h1>Recinto 1 Temp 1</h1>
+                        <img src="./assets/icons/certoVerde.png" alt="Ícone">
+                    </div>
+                    <div class="div_div_grafico">
+                        oiiiiiiiiiiiii
+                    </div>
+                </div>
+                <div class="div_sessao_graficos">
+                    <div class="div_div_titulo">
+                        <h1>Recinto 1 Umidade 1</h1>
+                        <img src="./assets/icons/certoVerde.png" alt="Ícone">
+                    </div>
+                    <div class="div_div_grafico">
+
+                    </div>
+                </div>
+                <div class="div_sessao_graficos">
+                    <div class="div_div_titulo">
+                        <h1>Recinto 2 Temp 2</h1>
+                        <img src="./assets/icons/erradoVermelho.png" alt="Ícone">
+                    </div>
+                    <div class="div_div_grafico">
+
+                    </div>
+                </div>
+                <div class="div_sessao_graficos">
+                    <div class="div_div_titulo">
+                        <h1>Recinto 2 Umidade 2</h1>
+                        <img src="./assets/icons/certoVerde.png" alt="Ícone">
+                    </div>
+                    <div class="div_div_grafico">
+
+                    </div>
+                </div>
+            </section>
+        </div>
+
+</body>
+
+</html>
