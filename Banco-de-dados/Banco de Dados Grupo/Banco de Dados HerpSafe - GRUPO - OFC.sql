@@ -14,7 +14,7 @@ porte VARCHAR(8) NOT NULL,
       fkEndereco INT NOT NULL,
 CONSTRAINT fkendereco_Empresa FOREIGN KEY (fkEndereco)
     REFERENCES endereco(idEndereco)
-);
+); 
 
 INSERT INTO empresa(razao_social, nomeFantasia, cnpj, porte, email, senha) VALUES
 ('Jiboias Brasil Ltda', 'Animais Brasil', '15.251.660/0001-12', 'Grande', 'jiboias.brasil@gmail.com', 'jiboias123'),
@@ -53,9 +53,6 @@ idFuncionario INT PRIMARY KEY AUTO_INCREMENT,
 nome VARCHAR(80) NOT NULL,
 email VARCHAR(200)NOT NULL UNIQUE,
 cpf VARCHAR(14) NOT NULL,
-cargo VARCHAR(15) NOT NULL,
-    CONSTRAINT chk_Cargo
-        CHECK (cargo IN('Gerencial' , 'Operacional')),
 senha VARCHAR(20) NOT NULL,
 fkEmpresa INT NOT NULL,
 CONSTRAINT fkEmpresa_funcionario FOREIGN KEY (fkEmpresa)
@@ -85,6 +82,16 @@ INSERT INTO funcionario (nome, email, cpf, cargo, senha,fkEmpresa) VALUES
 ('Felipe Cardoso', 'felipe.cardoso@criadouroreptil.com', '555.666.777-88', 'Operacional', 'senha123',1006),
 ('Carla Moreira', 'carla.moreira@criadouroreptil.com', '999.888.777-66', 'Operacional', 'senha123',1006);
 
+-- -----------------------------------------------------------------------------------------------------------------------------------------------
+CREATE TABLE prateleira (
+idPrateleira INT PRIMARY KEY AUTO_INCREMENT,
+nome VARCHAR(45),
+status_prateleira VARCHAR(45),
+fkEmpresa_prateleira INT,
+CONSTRAINT fkPrateleiraEmpresa FOREIGN KEY (fkEmpresa_prateleira)
+    REFERENCES empresa(idEmpresa));
+
+
 -- ---------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE recinto(
@@ -92,8 +99,8 @@ idrecinto INT PRIMARY KEY AUTO_INCREMENT,
 nome_recinto VARCHAR(40) NOT NULL,
 dt_Instalacao DATE NOT NULL,
 status_recinto TINYINT,
-fkEmpresa INT NOT NULL,
-CONSTRAINT fkEmpresa_local FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
+fkPrateleira INT NOT NULL,
+CONSTRAINT fkPrateleiraRecinto FOREIGN KEY (fkPrateleira) REFERENCES prateleira(idPrateleira)
 );
 
 INSERT INTO local_instalacao (recinto, tamanho_Recinto, serpente, dt_Instalacao, dt_Manutencao, fkEmpresa,fkMetricas)
@@ -213,11 +220,10 @@ VALUES
 -- ------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE alertas(
-idAlertas INT PRIMARY KEY AUTO_INCREMENT,
 dt_Hr_Alerta DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
 mensagem VARCHAR(100),
       CONSTRAINT chk_Alerta
-           CHECK (alerta IN('Atenção', 'Cuidado', 'Perigo', 'Crítico', 'Extremo')),
+           CHECK (mensagem IN('Atenção', 'Cuidado', 'Perigo', 'Crítico', 'Extremo')),
 nivelAlerta INT,
 CONSTRAINT pkAssociativa PRIMARY KEY (fkMetricas, fkCaptura, fkSensor),
 fkMetricas INT UNIQUE,
@@ -247,7 +253,7 @@ idMetricas INT PRIMARY KEY AUTO_INCREMENT,
 max FLOAT NOT NULL,
 min FLOAT NOT NULL,
 tipo VARCHAR(45),
-CONSTRAINT cktipo CHECK (tipo("DHT11", "LM35"))
+CONSTRAINT cktipo CHECK (tipo in ("DHT11", "LM35"))
 );
 
 INSERT INTO metricas (max_Temp, min_Temp, max_Umid, min_Umid)  
@@ -274,8 +280,16 @@ VALUES
 (32.5, 19.5, 73.5, 33.5),  
 (39.5, 25.5, 89.0, 49.0);  
 
--- -----------------------------------------------------------------------------------------------------------------------------------------------
 
+
+
+
+
+
+
+
+
+-- -----------------------------------------------------------------------------------------------------------------------------------------------
 SELECT * FROM empresa;
 SELECT * FROM sensor;
 SELECT * FROM captura;
