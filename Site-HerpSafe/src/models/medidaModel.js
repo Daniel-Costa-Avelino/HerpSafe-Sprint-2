@@ -1,6 +1,6 @@
 var database = require("../database/config");
 
-function buscarUltimasMedidas(idCaptura, limite_linhas) {
+function buscarUltimasMedidas(idRecinto, limite_linhas) {
 
     var instrucaoSql = `SELECT 
         temperatura as temperatura, 
@@ -15,7 +15,7 @@ function buscarUltimasMedidas(idCaptura, limite_linhas) {
     return database.executar(instrucaoSql);
 }
 
-function buscarMedidasEmTempoReal(idAquario) {
+function buscarMedidasEmTempoReal(idRecinto) {
 
     var instrucaoSql = `SELECT 
         temperatura as temperatura, 
