@@ -21,12 +21,13 @@
     <!-- Banner início -->
 
     <section class="cadastro-banner">
-
         <div class="cadastro-box">
-
             <h1>Cadastro</h1>
             <div class="cadastro-box-campos">
                 <span>Nome</span><input type="text" id="input_nomeCadastro" placeholder="Insira seu nome completo">
+            </div>
+            <div class="cadastro-box-campos">
+                <span>CPF</span><input type="text" id="input_cpf" placeholder="Insira seu CPF">
             </div>
             <div class="cadastro-box-campos">
                 <span>Email</span><input type="text" id="input_emailCadastro" placeholder="Insira seu email">
@@ -34,20 +35,74 @@
             <div class="cadastro-box-campos">
                 <span>Senha</span><input type="password" id="input_senhaCadastro" placeholder="Insira a senha desejada">
             </div>
-            <div class="cadastro-box-campos">
-                <span>CNPJ</span><input type="number" id="input_cnpjCadastro"
-                    placeholder="Insira o CNPJ da sua empresa">
+              <div class="cadastro-box-campos">
+                <span>Confirmar Senha</span><input type="password" id="input_confirmarsenhaCadastro" placeholder="Confirme a Senha">
             </div>
+            <div class="cadastro-box-campos">
+                <span>Código de Ativação</span>
+                <input type="password" id="input_codigo" placeholder="Insira o código da empresa">
+            </div>
+
             <p>Já possui uma conta? Faça seu <span><a href="login.html">login!</a></span></p>
+
             <div class="cadastro-box-buttons">
                 <button onclick="cadastro()">Cadastrar</button>
                 <button onclick="window.location.href ='index.html'">Home</button>
             </div>
-
-        </div>
-
+        </div> 
     </section>
 
     <!-- Banner fim -->
-    <script src="js/cadastro.js"></script>
 </body>
+
+<script>
+    
+function cadastro(){
+    var nome = document.getElementById('input_nomeCadastro').value;
+    var cpf = document.getElementById("input_cpf").value;
+    var email = document.getElementById("input_emailCadastro").value;
+    var senha = document.getElementById("input_senhaCadastro").value;
+    var confirmarsenha = document.getElementById("input_confirmarsenhaCadastro").value;
+    var fkEmpresa = document.getElementById("input_codigo").value;
+
+
+if (nome == '' || cpf == '' || email == '' || senha == '' || fkEmpresa == ''){
+    alert (`Prencha todos os campos.`);
+    return
+}
+
+if (senha !== confirmarsenha){
+    alert (`As senhas não coincidem.`);
+    return
+}
+
+//Requisições 
+var corpo = {
+    nomeServer: nome,
+    cpfServer: cpf,
+    emailServer: email,
+    senhaServer: senha, 
+    fkEmpresaServer:fkEmpresa
+};
+
+fetch("/usuarios/cadastrar", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+        body: JSON.stringify(corpo)
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            alert("Cadastro realizado com sucesso!");
+            window.location.href = "login.html";
+        } else {
+            resposta.text().then(msg => {
+                alert("Erro ao cadastrar: " + msg);
+            });
+        }
+    }).catch(function (erro) {
+        console.error("Erro na requisição:", erro);
+    });
+}
+
+</script>

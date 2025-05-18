@@ -1,7 +1,7 @@
 var database = require("../database/config");
 
-function buscarPorId(id) {
-  var instrucaoSql = `SELECT * FROM empresa WHERE id = '${id}'`;
+function buscarPorCodigo(codigo) {
+  var instrucaoSql = `SELECT * FROM empresa WHERE id = '${codigo}'`;
 
   return database.executar(instrucaoSql);
 }
@@ -24,4 +24,4 @@ function cadastrar(razaoSocial, cnpj) {
   return database.executar(instrucaoSql);
 }
 
-module.exports = { buscarPorCnpj, buscarPorId, cadastrar, listar };
+module.exports = { buscarPorCnpj, buscarPorCodigo, cadastrar, listar };

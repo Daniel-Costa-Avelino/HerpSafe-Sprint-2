@@ -30,6 +30,9 @@
             <div class="cadastro-box-campos">
                 <p><span>Senha</span></p><input type="password" id="input_senhaLogin" placeholder="Insira sua senha">
             </div>
+             <!-- <div class="cadastro-box-campos">
+                <p><span>Código de Ativação</span></p><input type="password" id="input_codigoLogin" placeholder="Insira o código da empresa">
+            </div> -->
             <p>Não possui uma conta? Faça seu <span><a href="cadastro.html">cadastro!</a></span></p>
             <div class="cadastro-box-buttons">
                 <button onclick="login()" id="buttonLogin">Entrar</button>
@@ -41,5 +44,52 @@
     </section>
 
     <!-- Banner fim -->
-    <script src="public/js/cadastro.js"></script>
 </body>
+
+<script>
+    function login(){
+    var email = document.getElementById("input_emailLogin").value;
+    var senha = document.getElementById("input_senhaLogin").value;
+    // var codigo = document.getElementById("input_codigoLogin").value;
+
+
+
+    if (email == "" || senha == ""){
+        alert(`Preencha todos os campos para continuar.`); 
+        return;
+    }
+
+    var corpo = {
+        emailServer: email,
+        senhaServer: senha,
+        // codigoServer: codigo
+    };
+
+        fetch("/usuarios/autenticar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(corpo)
+    })
+    .then(function (resposta) {
+        if (resposta.ok) {
+            return resposta.json();
+        } else {
+            return resposta.text().then(msg => {
+                throw new Error(msg);
+            });
+        }
+    })
+    .then(function (dados) {
+        alert("Login realizado com sucesso!");
+        console.log("Usuário logado:", dados);
+
+        window.location.href = "./dashboard/dashboard-visao-geral.html";
+    })
+    .catch(function (erro) {
+        console.error("Erro ao tentar login:", erro.message);
+        document.getElementById("p_mensagem").innerText = "Erro: " + erro.message;
+    });
+        }
+</script>

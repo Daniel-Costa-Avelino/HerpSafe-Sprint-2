@@ -79,6 +79,7 @@
     padding-left: 4%;
     padding-top: 2%;
     width: 900px;
+    height: 300px;
     font-size: 80px;
     line-height: 0.9;
 }
@@ -221,25 +222,32 @@ body .container {
 /* Telas de cadastro e login */
 
 .cadastro-body {
-
     display: flex;
     width: 100%;
     height: 100%;
     background-image: url(../assets/imgs/cadastro-login-banner.png);
     background-position-x: -4px;
     filter: brightness(1.5);
-
 }
 
 .cadastro-banner {
-
     display: flex;
     flex-direction: column;
     text-align: center;
     justify-content: center;
     width: 100%;
     height: 100%;
+    display: flex;
+}
 
+.cadastro-box-completo{
+    height: 80%;
+    width: 50%;
+    /* background-color: rgba(203, 178, 228, 0.071); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; 
 }
 
 .cadastro-imagem-cobra {
@@ -267,7 +275,6 @@ body .container {
 }
 
 .cadastro-box {
-
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -275,40 +282,32 @@ body .container {
     align-self: center;
     justify-self: center;
     align-items: center;
-
     color: white;
-
     border-radius: 16px;
     background-color: rgba(66, 42, 42, 0.8);
     /* rgb + opacidade */
     width: 50%;
-    height: 60%;
+    height: 75%;
     padding-bottom: 40px;
-
     position: relative;
     z-index: 2;
-
 }
 
 .cadastro-box h1 {
-
     font-family: "Adamina";
     font-size: 70px;
     color: #769F51;
     font-weight: lighter;
-
 }
 
 .cadastro-box-campos {
-
     width: 50%;
-
 }
 
 .cadastro-box-campos span {
 
     font-family: "Adamina";
-    font-size: 18px;
+    font-size: 14px;
 
 }
 
@@ -332,13 +331,10 @@ body .container {
 }
 
 .cadastro-box-campos p {
-
     font-family: "Adamina";
-    
 }
 
 .cadastro-box a {
-
     color: white;
     font-family: "Adamina";
     font-size: 16px;
@@ -346,17 +342,14 @@ body .container {
 }
 
 .cadastro-box-buttons {
-
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 30%;
     height: 5%;
-
 }
 
 .cadastro-box button {
-
     background-color: rgba(118, 159, 81, 1);
     border-radius: 8px;
     width: 45%;
@@ -365,5 +358,4 @@ body .container {
     color: white;
     font-size: 16px;
     filter: brightness(0.8);
-
 }

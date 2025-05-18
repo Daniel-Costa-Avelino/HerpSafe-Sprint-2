@@ -20,4 +20,8 @@ router.get("/listar", function (req, res) {
   empresaController.listar(req, res);
 });
 
+router.get("/buscarPorCodigo/:codigo", function (req, res) {
+    empresaController.buscarPorCodigo(req, res);
+});
+
 module.exports = router;
