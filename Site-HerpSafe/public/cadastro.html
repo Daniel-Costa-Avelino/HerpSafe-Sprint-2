@@ -68,15 +68,30 @@ function cadastro(){
 
 if (nome == '' || cpf == '' || email == '' || senha == '' || fkEmpresa == ''){
     alert (`Prencha todos os campos.`);
-    return
 }
 
-if (senha !== confirmarsenha){
+else if (senha !== confirmarsenha){
     alert (`As senhas não coincidem.`);
-    return
 }
+
+else if (nome.length <= 3 || nome.indexOf(" ") == -1) { //validação nome
+         alert (`Nome - Deve conter nome e sobrenome\n`);
+    } 
+    
+    else if (email == "" || email.indexOf("@") == -1 || email.indexOf(".com") == -1) { // validação email
+        alert (`Email - Deve estar no formato correto\n`);
+    } 
+    
+    else if ((senha == "" ||  senha.length < 8) || senha == senha.toLowerCase(senha) || senha == senha.toUpperCase(senha)) { // validação senha
+        alert (`Senha - Deve ter pelo menos 8 dígitos, 1 letra minúscula e 1 letra maiúscula \n`);
+    } 
+    
+    else if (cpf == "" || cpf.length != 11) { //validação CPF
+        alert (`CPF - Deve ter 11 dígitos`);
+    } 
 
 //Requisições 
+else{
 var corpo = {
     nomeServer: nome,
     cpfServer: cpf,
@@ -103,6 +118,6 @@ fetch("/usuarios/cadastrar", {
     }).catch(function (erro) {
         console.error("Erro na requisição:", erro);
     });
-}
+}}
 
 </script>

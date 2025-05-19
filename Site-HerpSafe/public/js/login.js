@@ -7,7 +7,6 @@
 
     if (email == "" || senha == "" || codigo == ""){
         alert(`Preencha todos os campos para continuar.`); 
-        return;
     }
 
     var corpo = {

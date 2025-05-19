@@ -265,7 +265,6 @@ body .container {
 }
 
 .cadastro-imagem-logo {
-
     width: 160px;
     height: 160px;
     position: fixed;
@@ -292,6 +291,7 @@ body .container {
     position: relative;
     z-index: 2;
 }
+
 
 .cadastro-box h1 {
     font-family: "Adamina";
