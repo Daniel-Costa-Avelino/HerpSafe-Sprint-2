@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 
-var empresaController = require("../controllers/empresaController");
+var recintoController = require("../controllers/recintoController");
 
 // router.get("/:empresaId", function (req, res) {
 //   aquarioController.buscarRecintosPorEmpresa(req, res);

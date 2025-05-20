@@ -18,16 +18,24 @@ var recintoModel = require("../models/recintoModel");
 
 
 function cadastrar(req, res) {
-  var nome_recinto = req.body.input_nomeCadastro;
-  var dt_Instalacao = req.body.input_dataCadastro;
+  var nome_recinto = req.body.nome_cadastro;
+  var n1Cadastro = req.body.n1Cadastro;
+  var n2Cadastro = req.body.n2Cadastro;
+  var fkPrateleira = req.body.fkPrateleira
 
   if (nome_recinto == undefined) {
     res.status(400).send("nome_recinto está undefined!");
-  } else if (dt_Instalacao == undefined) {
-    res.status(400).send("dt_Instalacao está undefined!");
-  } else {
-
-    recintoModel.cadastrar(nome_recinto, dt_Instalacao)
+  } else if (n1Cadastro == undefined) {
+    res.status(400).send("n1Cadastro está undefined!");
+  } 
+    else if (n2Cadastro == undefined) {
+    res.status(400).send("n2Cadastro está undefined!");
+  } 
+  else if(fkPrateleira == undefined) {
+    res.status(400).send("fkPrateleira está undefined");
+  }
+  else {
+    recintoModel.cadastrar(nome_recinto, n1Cadastro, n2Cadastro, fkPrateleira)
       .then((resultado) => {
         res.status(201).json(resultado);
       }

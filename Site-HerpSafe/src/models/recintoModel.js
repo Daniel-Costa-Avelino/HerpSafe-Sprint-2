@@ -8,9 +8,9 @@ function buscarRecintosPorEmpresa(empresaId) {
   return database.executar(instrucaoSql);
 }
 
-function cadastrar(nome_recinto, numero_sensor1, numero_sensor2, dt_Instalacao) {
+function cadastrar(nome_recinto, numeroSerial1, numeroSerial2, fkPrateleira) {
   
-  var instrucaoSql = `INSERT INTO (nome_recinto, dt_Instalacao) recinto VALUES (${nome_recinto}, ${dt_Instalacao})`;
+  var instrucaoSql = `INSERT INTO recinto (nome_recinto, numeroSerial1 , numeroSerial2, fkPrateleira)  VALUES ('${nome_recinto}', ${numeroSerial1}, ${numeroSerial2}, ${fkPrateleira})`;
   return database.executar(instrucaoSql);
 }
 

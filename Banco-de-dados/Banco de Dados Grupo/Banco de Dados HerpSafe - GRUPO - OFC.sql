@@ -64,20 +64,20 @@ status_prateleira VARCHAR(45),
 fkEmpresa_prateleira INT,
 CONSTRAINT fkPrateleiraEmpresa FOREIGN KEY (fkEmpresa_prateleira)
     REFERENCES empresa(idEmpresa)
-);
+); 
 
 INSERT INTO prateleira (nome, status_prateleira, fkEmpresa_prateleira)
 VALUES 
 ('Prateleira A', 'Ativa', 1),
-('Prateleira B', 'Inativa', 2);
+('Prateleira B', 'Inativa', 1);
 
 -- ---------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE recinto(
 idrecinto INT PRIMARY KEY AUTO_INCREMENT,
 nome_recinto VARCHAR(40) NOT NULL,
-dt_Instalacao DATE NOT NULL,
-status_recinto TINYINT,
+numeroSerial1 CHAR(8) NOT NULL,
+numeroSerial2 CHAR(8),
 fkPrateleira INT NOT NULL,
 CONSTRAINT fkPrateleiraRecinto FOREIGN KEY (fkPrateleira) REFERENCES prateleira(idPrateleira)
 );
@@ -171,6 +171,7 @@ SELECT * FROM endereco;
 SELECT * FROM local_instalacao;
 SELECT * FROM alertas;
 SELECT * FROM metricas;
+SELECT * FROM recinto;
 
 
 SELECT * FROM local_instalacao WHERE serpente LIKE '%Jiboia%';
