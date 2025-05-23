@@ -1,3 +1,7 @@
+*{
+    overflow-y: hidden;
+}
+
 .cadastro-recinto{
     display: flex;
     justify-content: center;
@@ -47,6 +51,8 @@ border-radius: 3px;
 
     padding: 2rem;
     padding-left: 16rem;
+
+    height: 75vh;
 }
 
 .cadastro-recinto-img{
@@ -67,4 +73,18 @@ border-radius: 3px;
     flex-direction: column;
     justify-content: center;
     align-items: center;   
+}
+
+/* Rodapé do cadastro do recinto */
+
+.rodape {
+    background-color: var(--green6);
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+    height: 230px;
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    z-index: 1;
 }
