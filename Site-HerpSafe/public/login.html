@@ -85,6 +85,10 @@
         alert("Login realizado com sucesso!");
         console.log("Usuário logado:", dados);
 
+        sessionStorage.EMAIL_USUARIO = dados.email;
+        sessionStorage.NOME_USUARIO = dados.nome;
+        sessionStorage.ID_EMPRESA = dados.fkEmpresa;
+
         window.location.href = "./dashboard/dashboard-visao-geral.html";
     })
     .catch(function (erro) {

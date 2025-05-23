@@ -30,7 +30,8 @@ function autenticar(req, res) {
                                 nome: resultadoAutenticar[0].nome,
                                 cpf: resultadoAutenticar[0].cpf,
                                 email: resultadoAutenticar[0].email,
-                                senha: resultadoAutenticar[0].senha
+                                senha: resultadoAutenticar[0].senha,
+                                fkEmpresa: resultadoAutenticar[0].fkEmpresa
                             });
                     } else if (resultadoAutenticar.length == 0) {
                         res.status(403).send("Credenciais inválidas.");
