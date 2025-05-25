@@ -18,40 +18,35 @@ var prateleiraModel = require("../models/prateleiraModel");
  }
 
 
-// function cadastrar(req, res) {
-//     var nome_recinto = req.body.nome_cadastro;
-//     var n1Cadastro = req.body.n1Cadastro;
-//     var n2Cadastro = req.body.n2Cadastro;
-//     var fkPrateleira = req.body.fkPrateleira
+function cadastrar(req, res) {
+    var idPrateleira = req.body.idPrateleira;
+    var nome_prateleira = req.body.nome_cadastro;
+    var fkEmpresa = req.body.id_empresa;
 
-//     if (nome_recinto == undefined) {
-//         res.status(400).send("nome_recinto está undefined!");
-//     } else if (n1Cadastro == undefined) {
-//         res.status(400).send("n1Cadastro está undefined!");
-//     }
-//     else if (n2Cadastro == undefined) {
-//         res.status(400).send("n2Cadastro está undefined!");
-//     }
-//     else if (fkPrateleira == undefined) {
-//         res.status(400).send("fkPrateleira está undefined");
-//     }
-//     else {
-//         recintoModel.cadastrar(nome_recinto, n1Cadastro, n2Cadastro, fkPrateleira)
-//             .then((resultado) => {
-//                 res.status(201).json(resultado);
-//             }
-//             ).catch((erro) => {
-//                 console.log(erro);
-//                 console.log(
-//                     "\nHouve um erro ao realizar o cadastro! Erro: ",
-//                     erro.sqlMessage
-//                 );
-//                 res.status(500).json(erro.sqlMessage);
-//             });
-//     }
-// }
+    if (idPrateleira == undefined) {
+        res.status(400).send("Campo idPrateleira está indefinido!");
+    } else if (nome_prateleira == undefined) {
+        res.status(400).send("Campo nome_prateleira está indefinido!");
+    } else if (fkEmpresa == undefined) {
+        res.status(400).send("Campo fkEmpresa está indefinido");
+    }
+    else {
+        prateleiraModel.cadastrar(idPrateleira, nome_prateleira, fkEmpresa)
+            .then((resultado) => {
+                res.status(201).json(resultado);
+            }
+            ).catch((erro) => {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o cadastro! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            });
+    }
+}
 
 module.exports = {
-    //cadastrar
+    cadastrar,
     buscarPrateleirasPorEmpresa
 }

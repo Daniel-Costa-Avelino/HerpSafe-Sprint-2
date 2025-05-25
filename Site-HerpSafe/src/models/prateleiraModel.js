@@ -8,9 +8,9 @@ function buscarPrateleirasPorEmpresa(fkEmpresa) {
   return database.executar(instrucaoSql);
 }
 
-function cadastrar(nome_recinto, numeroSerial1, numeroSerial2, fkPrateleira) {
+function cadastrar(idPrateleira, nome_prateleira, fkEmpresa) {
   
-  var instrucaoSql = `INSERT INTO recinto (nome_recinto, numeroSerial1 , numeroSerial2, fkPrateleira)  VALUES ('${nome_recinto}', ${numeroSerial1}, ${numeroSerial2}, ${fkPrateleira})`;
+  var instrucaoSql = `INSERT INTO prateleira (idPrateleira, nome, fkEmpresa_prateleira)  VALUES ('${idPrateleira}', '${nome_prateleira}', ${fkEmpresa})`;
   return database.executar(instrucaoSql);
 }
 

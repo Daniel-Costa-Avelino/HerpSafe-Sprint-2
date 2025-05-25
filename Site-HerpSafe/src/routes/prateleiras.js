@@ -8,7 +8,7 @@ router.post("/buscarPrateleirasPorEmpresa", function (req, res) {
 });
 
 router.post("/cadastrar", function (req, res) {
-    recintoController.cadastrar(req, res);
+    prateleiraController.cadastrar(req, res);
 });
 
 module.exports = router;
