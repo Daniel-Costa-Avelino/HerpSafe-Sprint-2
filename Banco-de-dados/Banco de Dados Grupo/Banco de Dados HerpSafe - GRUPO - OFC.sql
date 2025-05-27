@@ -1,7 +1,7 @@
 CREATE DATABASE HerpSafe;
 USE HerpSafe;
 
--- --------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE empresa (
 idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
@@ -15,6 +15,8 @@ porte VARCHAR(8) NOT NULL,
 CONSTRAINT fkendereco_Empresa FOREIGN KEY (fkEndereco)
     REFERENCES endereco(idEndereco)
 ); 
+
+SELECT * FROM empresa;
 
 INSERT INTO empresa (razao_social, nomeFantasia, cnpj, porte, fkEndereco)
 VALUES 
