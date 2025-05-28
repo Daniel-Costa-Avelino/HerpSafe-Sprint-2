@@ -1,20 +1,20 @@
 var recintoModel = require("../models/recintoModel");
 
-// function buscarRecintoPorEmpresa(req, res) {
-//   var idUsuario = req.params.idUsuario;
+function buscarRecintosPorPrateleira(req, res) {
+  var idPrateleira = req.body.fkPrateleiraServer;
 
-//   recintoModel.buscarRecintoPorEmpresa(idUsuario).then((resultado) => {
-//     if (resultado.length > 0) {
-//       res.status(200).json(resultado);
-//     } else {
-//       res.status(204).json([]);
-//     }
-//   }).catch(function (erro) {
-//     console.log(erro);
-//     console.log("Houve um erro ao buscar os aquarios: ", erro.sqlMessage);
-//     res.status(500).json(erro.sqlMessage);
-//   });
-// }
+  recintoModel.buscarRecintosPorPrateleira(idPrateleira).then((resultado) => {
+    if (resultado.length > 0) {
+      res.status(200).json(resultado);
+    } else {
+      res.status(204).json([]);
+    }
+  }).catch(function (erro) {
+    console.log(erro);
+    console.log("Houve um erro ao buscar os recintos: ", erro.sqlMessage);
+    res.status(500).json(erro.sqlMessage);
+  });
+}
 
 
 function cadastrar(req, res) {
@@ -27,11 +27,11 @@ function cadastrar(req, res) {
     res.status(400).send("nome_recinto está undefined!");
   } else if (n1Cadastro == undefined) {
     res.status(400).send("n1Cadastro está undefined!");
-  } 
-    else if (n2Cadastro == undefined) {
+  }
+  else if (n2Cadastro == undefined) {
     res.status(400).send("n2Cadastro está undefined!");
-  } 
-  else if(fkPrateleira == undefined) {
+  }
+  else if (fkPrateleira == undefined) {
     res.status(400).send("fkPrateleira está undefined");
   }
   else {
@@ -51,5 +51,6 @@ function cadastrar(req, res) {
 }
 
 module.exports = {
-  cadastrar
+  cadastrar,
+  buscarRecintosPorPrateleira
 }

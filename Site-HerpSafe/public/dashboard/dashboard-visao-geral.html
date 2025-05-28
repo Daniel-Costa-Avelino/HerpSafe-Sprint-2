@@ -42,11 +42,11 @@
             <section class="section_boxes-monitoramento">
                 <div class="box-monitoramento">
                     <div class="titulo-box">Recintos Monitorados</div>
-                    <div class="numero-monitoramento">30</div>
+                    <div class="numero-monitoramento" id="div_qtdRecintosMonitorados"></div>
                 </div>
                 <div class="box-monitoramento">
                     <div class="titulo-box">Sensores Ativos</div>
-                    <div class="numero-monitoramento">30</div>
+                    <div class="numero-monitoramento" id="div_qtdSensoresAtivos"></div>
                 </div>
                 <div class="box-monitoramento">
                     <div class="titulo-box">Recintos com Problemas</div>
@@ -54,15 +54,19 @@
                 </div>
                 <div class="box-monitoramento">
                     <div class="titulo-box">Alertas (últimas 24h) </div>
-                    <div class="numero-monitoramento">4</div>
+                    <div class="numero-monitoramento" id="div_qtdAlertas"></div>
                 </div>
             </section>
 
+            <section class="section_btn_links">
+                <button onclick="window.location.href = './dashboard-cadastro-recinto.html'">Cadastro de recinto</button>
+                <button onclick="window.location.href = './dashboard-cadastro-prateleira.html'">Cadastro de prateleira</button>
+            </section>
+
             <section class="section_visao-recintos">
-                <section class="pratileira-bloco1">
                     <div class="Pratileiras">
 
-                        <div class="Pratileira1">
+                        <!-- <div class="Pratileira1">
                             <button class="button-pratileira1" onclick="button1()">Pratileira 1</button>
                             <div class="expandir-recintos">
                                 <div class="box-recinto">
@@ -79,25 +83,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- Box 2-->
-                                    <div class="recinto1-box">
-                                        <p class="titulo-box-recinto">Recinto 2</p class="titulo-box-recinto">
-                                        <div class="temp-umidade">
-                                            <div class="temperatura-recinto1">
-                                                <p>Temperatura</p>
-                                                <img src="../assets/imgs/tempMedia.png" alt="Temperatura">
-                                            </div>
-                                            <div class="umidade-recinto1">
-                                                <p>Umidade</p>
-                                                <img src="../assets/imgs/UmiMedia.png" alt="Umidade">
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
-                </section>
             </section>
         </div>
     </div>

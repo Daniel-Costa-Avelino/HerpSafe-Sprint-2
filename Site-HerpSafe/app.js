@@ -22,6 +22,7 @@ var medidasRouter = require("./src/routes/medidas");
 var recintoRouter = require("./src/routes/recinto");
 var empresasRouter = require("./src/routes/empresas");
 var prateleiraRouter = require("./src/routes/prateleiras");
+var indicadorRouter = require("./src/routes/indicadores");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -35,6 +36,7 @@ app.use("/avisos", avisosRouter);
 app.use("/medidas", medidasRouter);
 app.use("/recinto", recintoRouter);
 app.use("/prateleiras", prateleiraRouter);
+app.use("/indicadores", indicadorRouter);
 app.use("/empresas", empresasRouter);
 
 app.listen(PORTA_APP, function () {

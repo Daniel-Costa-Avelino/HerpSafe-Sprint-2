@@ -1,8 +1,8 @@
 var database = require("../database/config");
 
-function buscarRecintosPorEmpresa(empresaId) {
+function buscarRecintosPorPrateleira(idPrateleira) {
 
-  var instrucaoSql = `SELECT * FROM recinto WHERE fk_empresa = ${empresaId}`;
+  var instrucaoSql = `SELECT * FROM recinto WHERE fkPrateleira = ${idPrateleira}`;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
@@ -16,6 +16,6 @@ function cadastrar(nome_recinto, numeroSerial1, numeroSerial2, fkPrateleira) {
 
 
 module.exports = {
-  buscarRecintosPorEmpresa,
+  buscarRecintosPorPrateleira,
   cadastrar
 }

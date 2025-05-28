@@ -17,13 +17,15 @@ body {
 .principal {
     padding-left: 18rem;
     display: flex;
-    width: 80%;
+    width: 100%;
     height: 100%;
+    flex-direction: column;
 }
 
 .principal-visao {
     padding: 30px;
     position: relative;
+    width: 100%;
 }
 
 .titulo-recintos {
@@ -38,9 +40,9 @@ body {
 .section_boxes-monitoramento {
     display: flex;
     flex-direction: row;
-
-    gap: 3rem;
+    gap: 2rem;
     padding-bottom: 2.4rem;
+    width: 100%;
 }
 
 .box-monitoramento {
@@ -49,7 +51,7 @@ body {
     border-radius: 12px;
     text-align: center;
     font-size: 16px;
-    width: 180px;
+    width: 100%;
 }
 
 .titulo-box {
@@ -65,7 +67,19 @@ body {
     font-weight: bold;
     color: white;
     cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
 
+.Pratileira1{
+    width: 100%;
+}
+
+.section_visao-recintos {
+    width: 100%;
 }
 
 .button-pratileira1 {
@@ -74,59 +88,19 @@ body {
     text-align: center;
     font-size: 16px;
     padding: 20px;
-    width: 18rem;
+    width: 14rem;
     border: solid #5b4702 3px;
     color: white;
 }
 
-.button-pratileira2,
-.button-pratileira4,
-.button-pratileira5,
-.button-pratileira6 {
-    background-color: #3BAE3B;
-    border-radius: 12px;
-    text-align: center;
-    font-size: 16px;
-    padding: 20px;
-    width: 18rem;
-    border: solid #014701 3px;
-    color: white;
-}
-
-.button-pratileira3 {
-    background-color: #A83232;
-    border-radius: 12px;
-    text-align: center;
-    font-size: 16px;
-    padding: 20px;
-    width: 18rem;
-    border: solid #5e0101 3px;
-    color: white;
-}
-
-.pratileira-bloco1 {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    margin-bottom: 20px;
-}
-
-.pratileira-bloco2 {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    margin-bottom: 20px;
-}
-
-.expandir-recintos, .expandir-recintos2{
+.expandir-recintos,
+.expandir-recintos2 {
     display: none;
     position: absolute;
-    top: 25.5rem;
+    top: 26rem;
     left: 1.25rem;
     z-index: 10;
 }
-
-
 
 .ativo {
     display: block;
@@ -182,4 +156,27 @@ body {
 .titulo-box-recinto {
     font-size: 16px;
     color: white;
+}
+
+.section_btn_links{
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    height: 80px;
+    margin-bottom: 20px;
+}
+
+.section_btn_links button{
+    height: 70%;
+    background-color: #6c8d7f;
+    border-radius: 10px;
+    width: 20%;
+    text-align: center;
+    color: white;
+    font-size: 18px;
+}
+
+.section_btn_links button:hover{
+    background-color: #5b4702;
+    transition: 0.5s;
 }
