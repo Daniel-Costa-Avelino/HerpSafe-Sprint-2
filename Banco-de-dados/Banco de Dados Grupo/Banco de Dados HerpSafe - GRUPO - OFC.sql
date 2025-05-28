@@ -59,10 +59,11 @@ VALUES
 ('Maria Souza', 'maria@empP.com', '987.654.321-00', 'senha456', 2);
 
 -- -----------------------------------------------------------------------------------------------------------------------------------------------
+-- alterei varchar
 CREATE TABLE prateleira (
 idPrateleira INT PRIMARY KEY AUTO_INCREMENT,
 nome VARCHAR(45),
-status_prateleira VARCHAR(45),
+status_prateleira VARCHAR(10),
 fkEmpresa_prateleira INT,
 CONSTRAINT fkPrateleiraEmpresa FOREIGN KEY (fkEmpresa_prateleira)
     REFERENCES empresa(idEmpresa)
@@ -74,10 +75,11 @@ VALUES
 ('Prateleira B', 'Inativa', 1);
 
 -- ---------------------------------------------------------------------------------------------------------------------------------------------------
-
+-- ADICIONEI STATUS
 CREATE TABLE recinto(
 idrecinto INT PRIMARY KEY AUTO_INCREMENT,
 nome_recinto VARCHAR(40) NOT NULL,
+status_recinto VARCHAR(10) NOT NULL,
 numeroSerial1 CHAR(8) NOT NULL,
 numeroSerial2 CHAR(8),
 fkPrateleira INT NOT NULL,
@@ -117,10 +119,12 @@ idCaptura INT PRIMARY KEY AUTO_INCREMENT,
 temperatura FLOAT NOT NULL,
 umidade FLOAT NOT NULL,
 dt_Hr_Captura DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+alerta TINYINT,
+mensagem VARCHAR (100),
 fksensor INT NOT NULL,
 CONSTRAINT fkCapturaSensor FOREIGN KEY (fksensor)
     REFERENCES sensor(idsensor)
-);
+); 
 
 INSERT INTO captura (temperatura, umidade, fksensor)
 VALUES 
@@ -128,30 +132,7 @@ VALUES
 (22.4, 65.0, 2);
 
 -- ------------------------------------------------------------------------------------------------------------------------------------------------------
-
-CREATE TABLE alertas(
-dt_Hr_Alerta DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-mensagem VARCHAR(100),
-      CONSTRAINT chk_Alerta
-           CHECK (mensagem IN('Atenção', 'Cuidado', 'Perigo', 'Crítico', 'Extremo')),
-nivelAlerta INT,
-CONSTRAINT pkAssociativa PRIMARY KEY (fkMetricas, fkCaptura, fkSensor),
-fkMetricas INT UNIQUE,
-CONSTRAINT fkAlerta_metricas FOREIGN KEY (fkMetricas) REFERENCES metricas(idMetricas),
-fkCaptura INT UNIQUE,
-CONSTRAINT fkCaptura_alerta FOREIGN KEY (fkCaptura) REFERENCES captura(idCaptura),
-fkSensor INT NOT NULL,
-CONSTRAINT fkSensor_captura FOREIGN KEY (fkSensor) REFERENCES sensor(idSensor)
-);
-
-INSERT INTO alertas (mensagem, nivelAlerta, fkMetricas, fkCaptura, fkSensor)
-VALUES 
-('Atenção', 1, 1, 1, 1),
-('Perigo', 3, 2, 2, 2);
-  
-  -- -----------------------------------------------------------------------------------------------------------------------------------------------
-  
-  CREATE TABLE metricas(
+CREATE TABLE metricas(
 idMetricas INT PRIMARY KEY AUTO_INCREMENT,
 max FLOAT NOT NULL,
 min FLOAT NOT NULL,
@@ -163,6 +144,20 @@ INSERT INTO metricas (max, min, tipo)
 VALUES 
 (30.0, 15.0, 'DHT11'),
 (60.0, 20.0, 'LM35');
+
+-- -----------------------------------------------------------------------------------------------------------------------------------------------
+CREATE TABLE metricas_do_recinto(
+fkIdRecinto INT,
+fkIdMetricas INT,
+especie VARCHAR(45),
+CONSTRAINT pkComposta PRIMARY KEY (fkIdRecinto, fkIdMetricas),
+CONSTRAINT fkMetricasIdRecinto FOREIGN KEY (fkIdRecinto)
+REFERENCES recinto(idRecinto),
+CONSTRAINT fkMetricasIdMetricas FOREIGN KEY (fkIdMetricas)
+REFERENCES metricas(idMetricas) 
+);
+
+
 
 -- -----------------------------------------------------------------------------------------------------------------------------------------------
 SELECT * FROM empresa;
