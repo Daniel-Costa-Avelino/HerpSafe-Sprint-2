@@ -112,7 +112,7 @@ body {
     gap: 20px;
 }
 
-.div_sessao_graficos{
+.div_sessao_graficos {
     background-color: #044036;
     width: 45%;
     padding: 10px;
@@ -124,22 +124,22 @@ body {
 }
 
 
-.div_sessao_graficos h1{
+.div_sessao_graficos h1 {
     font-size: 20px;
     height: 10%;
 }
 
-.div_sessao_graficos img{
+.div_sessao_graficos img {
     width: 25px;
 }
 
-.div_div_titulo{
+.div_titulo {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.div_div_grafico{
+.div_grafico {
     height: 80%;
     border: 1px solid white;
 }
