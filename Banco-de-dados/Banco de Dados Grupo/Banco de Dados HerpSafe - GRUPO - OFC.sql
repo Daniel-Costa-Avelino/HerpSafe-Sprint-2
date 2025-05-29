@@ -1,29 +1,5 @@
 CREATE DATABASE HerpSafe;
-USE HerpSafe;
-
-----------------------------------------------------------------------------------------------------------------------------------------------------------
-
-CREATE TABLE empresa (
-idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
-razao_social VARCHAR(255) NOT NULL,
-nomeFantasia VARCHAR(255) NOT NULL,
-cnpj VARCHAR(18) NOT NULL UNIQUE,
-porte VARCHAR(8) NOT NULL,
-  CONSTRAINT chk_Porte
-      CHECK (porte IN('Grande', 'Medio', 'Pequeno')),
-      fkEndereco INT NOT NULL,
-CONSTRAINT fkendereco_Empresa FOREIGN KEY (fkEndereco)
-    REFERENCES endereco(idEndereco)
-); 
-
-SELECT * FROM empresa;
-
-INSERT INTO empresa (razao_social, nomeFantasia, cnpj, porte, fkEndereco)
-VALUES 
-('Empresa Grande Ltda', 'EmpG', '00.000.000/0001-00', 'Grande', 1),
-('Empresa Pequena ME', 'EmpP', '11.111.111/0001-11', 'Pequeno', 2);
-
--- -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+USE HerpSafe;-- --------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE endereco (
 idEndereco INT PRIMARY KEY AUTO_INCREMENT,
@@ -40,7 +16,30 @@ VALUES
 ('Rua das Flores', '123', 'Centro', 'São Paulo', 'SP', '01000-000'),
 ('Av. Brasil', '456', 'Jardins', 'São Paulo', 'SP', '01400-000');
 
--- -------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE empresa (
+idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
+razao_social VARCHAR(255) NOT NULL,
+nomeFantasia VARCHAR(255) NOT NULL,
+cnpj VARCHAR(18) NOT NULL UNIQUE,
+porte VARCHAR(8) NOT NULL,
+  CONSTRAINT chk_Porte
+      CHECK (porte IN('Grande', 'Medio', 'Pequeno')),
+      fkEndereco INT NOT NULL,
+CONSTRAINT fkendereco_Empresa FOREIGN KEY (fkEndereco)
+    REFERENCES endereco(idEndereco)
+); 
+
+INSERT INTO empresa (razao_social, nomeFantasia, cnpj, porte, fkEndereco)
+VALUES 
+('Empresa Grande Ltda', 'EmpG', '00.000.000/0001-00', 'Grande', 1),
+('Empresa Pequena ME', 'EmpP', '11.111.111/0001-11', 'Pequeno', 2);
+
+INSERT INTO empresa (razao_social, nomeFantasia, cnpj, porte, fkEndereco)
+VALUES ('Empresa do Kali Linux', 'Kalinux', '00.000.002/0001-02', 'Grande', 3);
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE funcionario (
 idFuncionario INT PRIMARY KEY AUTO_INCREMENT,
@@ -58,8 +57,8 @@ VALUES
 ('João Silva', 'joao@empG.com', '123.456.789-00', 'senha123', 1),
 ('Maria Souza', 'maria@empP.com', '987.654.321-00', 'senha456', 2);
 
--- -----------------------------------------------------------------------------------------------------------------------------------------------
--- alterei varchar
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
 CREATE TABLE prateleira (
 idPrateleira INT PRIMARY KEY AUTO_INCREMENT,
 nome VARCHAR(45),
@@ -69,27 +68,29 @@ CONSTRAINT fkPrateleiraEmpresa FOREIGN KEY (fkEmpresa_prateleira)
     REFERENCES empresa(idEmpresa)
 ); 
 
+SELECT * FROM prateleira;
+
 INSERT INTO prateleira (nome, status_prateleira, fkEmpresa_prateleira)
 VALUES 
 ('Prateleira A', 'Ativa', 1),
 ('Prateleira B', 'Inativa', 1);
 
+SELECT * FROM prateleira;
+
 -- ---------------------------------------------------------------------------------------------------------------------------------------------------
--- ADICIONEI STATUS
 CREATE TABLE recinto(
 idrecinto INT PRIMARY KEY AUTO_INCREMENT,
 nome_recinto VARCHAR(40) NOT NULL,
-status_recinto VARCHAR(10) NOT NULL,
-numeroSerial1 CHAR(8) NOT NULL,
-numeroSerial2 CHAR(8),
+status_recinto VARCHAR(10),
+fk_sensor INT,
+fk_sensor2 INT,
 fkPrateleira INT NOT NULL,
 CONSTRAINT fkPrateleiraRecinto FOREIGN KEY (fkPrateleira) REFERENCES prateleira(idPrateleira)
 );
+ALTER TABLE recinto ADD CONSTRAINT fkSensor_1 FOREIGN KEY (fk_sensor) REFERENCES sensor(idSensor);
+ALTER TABLE recinto ADD CONSTRAINT fkSensor_2 FOREIGN KEY (fk_sensor2) REFERENCES sensor(idSensor);
 
-INSERT INTO recinto (nome_recinto, dt_Instalacao, status_recinto, fkPrateleira)
-VALUES 
-('Recinto 1', '2023-01-10', 1, 1),
-('Recinto 2', '2023-06-15', 0, 2);
+SELECT * FROM recinto;
 
 -- ----------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -101,16 +102,35 @@ status_Sensor VARCHAR(10) NOT NULL,
              CHECK (Status_Sensor IN('Ativo', 'Manutenção', 'Inativo')),
 tipo VARCHAR(5) NOT NULL,
       CONSTRAINT chk_Tipo
-           CHECK (tipo IN('DHT11', 'LM35')),
-fkRecinto INT NOT NULL,
-CONSTRAINT fkRecinto FOREIGN KEY (fkRecinto)
-    REFERENCES recinto(idrecinto)
+           CHECK (tipo IN('DHT11', 'LM35'))
 );
+SELECT * FROM sensor;
 
-INSERT INTO sensor (numero_Serie, status_Sensor, tipo, fkRecinto)
+INSERT INTO sensor (numero_Serie, status_Sensor, tipo)
 VALUES 
-('ABC12345', 'Ativo', 'DHT11', 1),
-('DEF67890', 'Manutenção', 'LM35', 2);
+('ABC12345', 'Ativo', 'DHT11'),
+('DEF67890', 'Manutenção', 'LM35');
+
+SELECT * FROM recinto;
+SELECT COUNT(fk_sensor1), COUNT(fk_sensor2) FROM recinto WHERE idrecinto = 2;
+
+-- Selecionando a temperatura e umidade máxima da captura
+SELECT MAX(temperatura) FROM captura WHERE fksensor = 5;
+SELECT MAX(temperatura) FROM captura WHERE fksensor = 6;
+
+SELECT MAX(umidade) FROM captura WHERE fksensor = 5;
+SELECT MAX(umidade) FROM captura WHERE fksensor = 6;
+
+
+-- Exibir os alertas com base no sensor específico
+SELECT alerta, mensagem FROM captura WHERE fksensor = 5 OR fksensor = 6; 
+
+UPDATE captura SET alerta = 2 WHERE idCaptura = 2;
+UPDATE captura SET mensagem = "LM35: Temperatura em 36 graus fora dos padrões estabelecidos. O limite é 25 graus.
+Plano de ação: Ligar camisas de resfriamento" WHERE idCaptura = 2;
+
+select * from captura;
+SELECT * FROM sensor;
 
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -125,11 +145,42 @@ fksensor INT NOT NULL,
 CONSTRAINT fkCapturaSensor FOREIGN KEY (fksensor)
     REFERENCES sensor(idsensor)
 ); 
+ALTER TABLE captura MODIFY COLUMN mensagem VARCHAR(255);
+
+SELECT * FROM captura;
+
+-- Pegando Captura de Temperatura do Sensor 1 para Plotar no gráfico
+SELECT temperatura, umidade FROM recinto JOIN sensor ON recinto.fk_sensor = sensor.idSensor 
+					  JOIN captura ON captura.fksensor = sensor.idSensor WHERE idrecinto = 1;
+
+-- Pegando Captura de Umidade do sensor 1 para Plotar no gráfico
+SELECT umidade FROM recinto JOIN sensor ON recinto.fk_sensor = sensor.idSensor 
+					  JOIN captura ON captura.fksensor = sensor.idSensor WHERE idrecinto = 1;                      
+ 
+-- Pegando Captura de Temperatura do sensor 2 para Plotar no gráfico                      
+SELECT temperatura FROM recinto JOIN sensor ON recinto.fk_sensor2 = sensor.idSensor 
+					  JOIN captura ON captura.fksensor = sensor.idSensor WHERE idrecinto = 1; 
+ 
+-- Pegando Captura de Umidade do sensor 2 para Plotar no gráfico                      
+SELECT umidade FROM recinto JOIN sensor ON recinto.fk_sensor2 = sensor.idSensor 
+					  JOIN captura ON captura.fksensor = sensor.idSensor WHERE idrecinto = 1;
 
 INSERT INTO captura (temperatura, umidade, fksensor)
 VALUES 
-(28.5, 70.2, 1),
-(22.4, 65.0, 2);
+(28.5, 70.2, 5),
+(29.5, 67.2, 5),
+(27.3, 68.6, 5),
+(27.7, 69.3, 5),
+(28.4, 70.3, 5),
+(29.2, 72.4, 5);
+
+INSERT INTO captura (temperatura, umidade, fksensor)
+VALUES 
+(25.5, 69.2, 6),
+(27.3, 68.5, 6),
+(23.7, 67.1, 6),
+(26.4, 74.2, 6),
+(24.2, 72.4, 6);
 
 -- ------------------------------------------------------------------------------------------------------------------------------------------------------
 CREATE TABLE metricas(
@@ -157,8 +208,6 @@ CONSTRAINT fkMetricasIdMetricas FOREIGN KEY (fkIdMetricas)
 REFERENCES metricas(idMetricas) 
 );
 
-
-
 -- -----------------------------------------------------------------------------------------------------------------------------------------------
 SELECT * FROM empresa;
 SELECT * FROM sensor;
@@ -170,10 +219,7 @@ SELECT * FROM alertas;
 SELECT * FROM metricas;
 SELECT * FROM recinto;
 
-
-SELECT * FROM local_instalacao WHERE serpente LIKE '%Jiboia%';
-
-SELECT * FROM sensor WHERE Tipo_leitura LIKE '%temperatura%';
+SELECT * FROM alertas;
 
 SELECT recinto, 
        IFNULL((dt_Manutencao), 'Sem manutenção') AS data_ultima_manutencao
@@ -187,16 +233,3 @@ temperatura as temperatura,
         ELSE 'Frio'
 	END AS condicao_temperatura
 FROM captura;
-
-SELECT CONCAT(nome, ' - ', cargo) AS Cargo_Funcionario
-FROM funcionario;
-
-/* ------------------------------------------------------*/
-/*SELECT COM JOIN*/
-SELECT * FROM empresa JOIN endereco ON empresa.idEmpresa = endereco.fkEmpresa;
-SELECT * FROM funcionario JOIN empresa ON funcionario.fkEmpresa = empresa.idEmpresa;
-SELECT * FROM sensor JOIN local_instalacao ON sensor.fkLocalInstalacao = local_instalacao.idLocal_instalacao
-JOIN metricas ON metricas.idMetricas = local_instalacao.fkMetricas;
-SELECT * FROM local_instalacao JOIN metricas ON metricas.idMetricas = local_instalacao.fkMetricas;
-SELECT * FROM alertas JOIN captura ON captura.idCaptura = alertas.fkCaptura;
-SELECT * FROM captura JOIN sensor ON captura.fkSensorTemperatura = sensor.idSensor JOIN sensor AS sensor2 ON captura.fkSensorUmidade = sensor2.idSensor;
