@@ -68,8 +68,37 @@ function pegarCapturasTemperatura(req, res) {
   }
 }
 
+function pegarCapturasUmidade(req, res){
+
+  const idRecinto = req.body.idRecinto;
+  const numeroSensor = req.body.fk_sensor;
+
+  if (idRecinto == undefined || numeroSensor == undeffined){
+
+    res.status(500).send(`Alguns dos seus componentes estão como indefinidos!`);
+
+  }else{
+
+    recintoModel.pegarCapturasUmidade(idRecinto, numeroSensor)
+    .then((result) => {
+
+      res.status(200).json(result);
+
+    })
+
+    .catch((error) => {
+
+      console.log(`Não foi possível pegar as capturas de umidade`, error);
+
+    })
+
+  }
+
+}
+
 module.exports = {
   cadastrar,
   buscarRecintosPorPrateleira,
-  pegarCapturasTemperatura
+  pegarCapturasTemperatura,
+  pegarCapturasUmidade
 }
