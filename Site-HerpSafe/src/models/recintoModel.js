@@ -1,21 +1,29 @@
-var database = require("../database/config");
+const database = require("../database/config");
 
 function buscarRecintosPorPrateleira(idPrateleira) {
+  const instrucaoSql = `SELECT * FROM recinto WHERE fkPrateleira = ${idPrateleira}`;
 
-  var instrucaoSql = `SELECT * FROM recinto WHERE fkPrateleira = ${idPrateleira}`;
-
-  console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
 
-function cadastrar(nome_recinto, numeroSerial1, numeroSerial2, fkPrateleira) {
+function cadastrar(nome_recinto, fk_sensor, fk_sensor2, fkPrateleira) {
   
-  var instrucaoSql = `INSERT INTO recinto (nome_recinto, numeroSerial1 , numeroSerial2, fkPrateleira)  VALUES ('${nome_recinto}', ${numeroSerial1}, ${numeroSerial2}, ${fkPrateleira})`;
+  const instrucaoSql = `INSERT INTO recinto (nome_recinto, fk_sensor, fk_sensor2, fkPrateleira)  VALUES ('${nome_recinto}', ${fk_sensor}, ${fk_sensor2}, ${fkPrateleira})`;
   return database.executar(instrucaoSql);
 }
 
+
+function pegarCapturasTemperatura(id_recinto, numeroSensor) {
+  const instrucaoSql = 
+  `SELECT temperatura FROM recinto 
+  JOIN sensor ON recinto.fk_sensor${numeroSensor} = sensor.idSensor 
+	JOIN captura ON captura.fksensor = sensor.idSensor WHERE idrecinto = ${id_recinto};`
+
+  return database.executar(instrucaoSql);
+}
 
 module.exports = {
   buscarRecintosPorPrateleira,
-  cadastrar
+  cadastrar, 
+  pegarCapturasTemperatura
 }

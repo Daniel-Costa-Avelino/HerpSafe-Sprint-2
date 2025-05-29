@@ -11,4 +11,8 @@ router.post("/cadastrar", function (req, res) {
   recintoController.cadastrar(req, res);
 });
 
+router.post("/pegarCapturasTemperatura", function(req, res) {
+  recintoController.pegarCapturasTemperatura(req, res);
+})
+
 module.exports = router;

@@ -17,7 +17,6 @@ var prateleiraModel = require("../models/prateleiraModel");
    });
  }
 
-
 function cadastrar(req, res) {
     var idPrateleira = req.body.idPrateleira;
     var nome_prateleira = req.body.nome_cadastro;
