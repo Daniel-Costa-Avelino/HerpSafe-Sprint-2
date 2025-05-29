@@ -8,7 +8,7 @@ function buscarRecintosPorPrateleira(idPrateleira) {
 
 function cadastrar(nome_recinto, fk_sensor, fk_sensor2, fkPrateleira) {
   
-  const instrucaoSql = `INSERT INTO recinto (nome_recinto, fk_sensor, fk_sensor2, fkPrateleira)  VALUES ('${nome_recinto}', ${fk_sensor}, ${fk_sensor2}, ${fkPrateleira})`;
+  const instrucaoSql = `INSERT INTO recinto (nome_recinto, fk_sensor1, fk_sensor2, fkPrateleira)  VALUES ('${nome_recinto}', ${fk_sensor}, ${fk_sensor2}, ${fkPrateleira})`;
   return database.executar(instrucaoSql);
 }
 
