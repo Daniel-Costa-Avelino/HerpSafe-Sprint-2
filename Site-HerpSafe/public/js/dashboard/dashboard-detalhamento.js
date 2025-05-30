@@ -1,6 +1,7 @@
 const nomeUsuario = document.getElementById("nome_usuario");    
-const botaoHistorico = document.getElementById("filter_historico");
 const numeroSensoresRecinto = document.getElementById("numero-sensores-recinto"); 
+const botaoHistorico = document.getElementById("filter_historico");
+
 
 nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO;
 
@@ -185,7 +186,32 @@ function pegarMaximoTemperatura() {
 }
 
 function pegarMaximoUmidade() {
+    const umidadeMaxima = document.getElementById("umidade-maxima");
+    const jsonRecintos = JSON.parse(sessionStorage.RECINTOS_TODOS);
 
+    const header = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+           fk_sensor1: jsonRecintos[0].fk_sensor1,
+           fk_sensor2: jsonRecintos[0].fk_sensor2,
+        }) 
+    }
+
+    fetch("http://localhost:3333/recinto/pegarMaximoUmidade", header)
+    .then((result) => {
+        if(result.ok) {
+            result.json()
+            .then((json) => {
+                umidadeMaxima.innerHTML = `${json[0].umidade}%`;
+            })
+        }
+    })
+    .catch((erro) => {
+        console.log("Erro: não foi possível pegar o máximo de umidade", erro);
+    })
 }
 
 pegarCapturasTemperatura(1);

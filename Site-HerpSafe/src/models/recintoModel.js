@@ -44,11 +44,19 @@ function pegarMaximoTemperatura(fk_sensor1, fk_sensor2) {
   return database.executar(instrucaoSql);
 }
 
+
+function pegarMaximoUmidade(fk_sensor1, fk_sensor2) {
+  const instrucaoSql = `SELECT MAX(umidade) AS 'umidade' FROM captura WHERE fksensor IN (${fk_sensor1}, ${fk_sensor2});`;
+
+  return database.executar(instrucaoSql);
+}
+
 module.exports = {
   buscarRecintosPorPrateleira,
   cadastrar, 
   pegarCapturasTemperatura,
   pegarCapturasUmidade,
   pegarTotalSensores,
-  pegarMaximoTemperatura
+  pegarMaximoTemperatura,
+  pegarMaximoUmidade
 }

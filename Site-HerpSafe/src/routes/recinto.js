@@ -27,4 +27,8 @@ router.post("/pegarMaximoTemperatura", function(req, res) {
   recintoController.pegarMaximoTemperatura(req, res);
 })
 
+router.post("/pegarMaximoUmidade", function(req, res) {
+  recintoController.pegarMaximoUmidade(req, res);
+})
+
 module.exports = router;
