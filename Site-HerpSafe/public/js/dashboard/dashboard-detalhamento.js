@@ -69,21 +69,14 @@ function pegarCapturasTemperatura(numeroSensor) {
 function pegarCapturasUmidade(numeroSensor){
 
   const header = {
-
     method: "POST",
       headers: {
-
         "Content-type": "Application/json"
-
       },
-
       body: JSON.stringify({
-
         idRecinto: sessionStorage.ID_RECINTO_INDIVIDUAL,
         fk_sensor: numeroSensor
-
       })
-
   }
 
   fetch ("http://localhost:3333/recinto/pegarCapturasUmidade", header)
@@ -100,7 +93,7 @@ function pegarCapturasUmidade(numeroSensor){
                 labels: [`1`, `2`, `3`, `4`, `5`, `6`],
                 datasets: [{
 
-                  lavel: `Umidade do Sensor 1`,
+                  label: `Umidade do Sensor 1`,
                   data: [json[0].umidade, json[1].umidade, json[2].umidade, json[3].umidade, json[4].umidade, json[5].umidade
                 ],
                   borderWidth: 1,
@@ -140,28 +133,4 @@ pegarCapturasTemperatura(2);
 pegarCapturasUmidade(1);
 pegarCapturasUmidade(2);
 
-// function pegarCapturasUmidade(numeroSensor) {
-
-// }
-
 botaoHistorico.addEventListener('click', filterHistorico);
-
-//    new Chart(sensorUmid1, {
-//     type: 'line',
-//     data: {
-//       labels: ['1', '2', '3', '4', '5', '6'],
-//       datasets: [{
-//         label: 'Umidade do sensor 1',
-//         data: [12, 19, 3, 5, 2, 3],
-//         borderWidth: 1,
-//     }]
-//     },
-
-//     options: {
-//       scales: {
-//         y: {
-//           beginAtZero: true
-//         }
-//       }
-//     }
-//   });

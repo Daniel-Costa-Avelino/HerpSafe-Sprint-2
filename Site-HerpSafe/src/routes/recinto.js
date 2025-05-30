@@ -15,10 +15,7 @@ router.post("/pegarCapturasTemperatura", function(req, res) {
   recintoController.pegarCapturasTemperatura(req, res);
 })
 
-router.post("/pegarCapturasUmidade"), function (req, res){
-
+router.post("/pegarCapturasUmidade", function(req, res) {
   recintoController.pegarCapturasUmidade(req, res);
-
-}
-
+})
 module.exports = router;

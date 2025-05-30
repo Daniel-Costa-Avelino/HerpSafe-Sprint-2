@@ -73,11 +73,10 @@ function pegarCapturasUmidade(req, res){
   const idRecinto = req.body.idRecinto;
   const numeroSensor = req.body.fk_sensor;
 
-  if (idRecinto == undefined || numeroSensor == undeffined){
-
+  if (idRecinto == undefined || numeroSensor == undefined){
     res.status(500).send(`Alguns dos seus componentes estão como indefinidos!`);
-
-  }else{
+  }
+  else{
 
     recintoModel.pegarCapturasUmidade(idRecinto, numeroSensor)
     .then((result) => {
