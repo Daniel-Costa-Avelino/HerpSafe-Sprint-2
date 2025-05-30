@@ -217,7 +217,8 @@ module.exports = {
   buscarRecintosPorPrateleira,
   pegarCapturasTemperatura,
   pegarCapturasUmidade,
-  pegarTotalSensores,
+  pegarMaximoUmidade,
   pegarMaximoTemperatura,
-  pegarMaximoUmidade
+  alertas,
+  pegarTotalSensores
 }
