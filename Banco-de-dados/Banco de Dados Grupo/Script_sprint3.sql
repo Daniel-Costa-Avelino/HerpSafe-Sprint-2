@@ -148,13 +148,18 @@ SELECT * FROM sensor;
 -- SELECT umidade FROM recinto JOIN sensor ON recinto.fk_sensor2 = sensor.idSensor
                 --      JOIN captura ON captura.fksensor = sensor.idSensor WHERE idrecinto = 1;
 -- ------------------------------------------------------------------------------------------------------------------------------------------------------
-CREATE TABLE metricas(
-idMetricas INT PRIMARY KEY AUTO_INCREMENT,
-max FLOAT NOT NULL,
-min FLOAT NOT NULL,
-tipo VARCHAR(45),
-CONSTRAINT cktipo CHECK (tipo in ("DHT11", "LM35"))
-);
+CREATE TABLE metricas (
+    idMetricas INT PRIMARY KEY AUTO_INCREMENT,
+    tipo VARCHAR(45) NOT NULL,
+    min_ok FLOAT NOT NULL,
+    max_ok FLOAT NOT NULL,
+    min_atencao FLOAT NOT NULL,
+    max_atencao FLOAT NOT NULL,
+    min_emergencia FLOAT NOT NULL,
+    max_emergencia FLOAT NOT NULL,
+    CONSTRAINT cktipo CHECK (tipo IN ("Umidade", "Temperatura"))
+); 
+
 
 INSERT INTO metricas (max, min, tipo)
 VALUES
@@ -171,7 +176,7 @@ CONSTRAINT fkMetricasIdRecinto FOREIGN KEY (fkIdRecinto)
 REFERENCES recinto(idRecinto),
 CONSTRAINT fkMetricasIdMetricas FOREIGN KEY (fkIdMetricas)
 REFERENCES metricas(idMetricas)
-);
+); 
 
 -- -----------------------------------------------------------------------------------------------------------------------------------------------
 SELECT idCaptura as id,
@@ -182,6 +187,9 @@ temperatura as temperatura,
         ELSE 'Frio'
     END AS condicao_temperatura
 FROM captura;
+
+
+show tables;
 
 SELECT * FROM empresa;
 SELECT * FROM sensor;
