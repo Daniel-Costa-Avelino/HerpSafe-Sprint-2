@@ -1,6 +1,22 @@
 const nomeUsuario = document.getElementById("nome_usuario");    
 nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO;
 
+const botaoHistorico = document.getElementById("filter_historico");
+
+function filterHistorico() {
+    window.location.href = "../../dashboard/dashboard-alertas.html";
+    
+    // const header = {
+    //     method: "POST",
+    //     headers: {
+    //         "Content-Type": "Applcication/json"
+    //     },
+    //     body: JSON.stringify{
+
+    //     }
+    // }
+}
+
 
 function pegarCapturasTemperatura(numeroSensor) {
     const header = {
@@ -25,7 +41,7 @@ function pegarCapturasTemperatura(numeroSensor) {
                 data: {
                 labels: ['1', '2', '3', '4', '5', '6'],
                 datasets: [{
-                    label: 'Temperatura do Sensor 1',
+                    label: `Temperatura do sensor ${numeroSensor}`,
                     data: [json[0].temperatura, json[1].temperatura, json[2].temperatura,
                             json[3].temperatura, json[4].temperatura, json[5].temperatura
                 ],
@@ -55,6 +71,7 @@ function pegarCapturasUmidade(numeroSensor) {
 
 }
 
+botaoHistorico.addEventListener('click', filterHistorico);
 
 //    new Chart(sensorUmid1, {
 //     type: 'line',
