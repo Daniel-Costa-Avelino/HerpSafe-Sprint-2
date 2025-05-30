@@ -44,9 +44,11 @@ function pegarCapturasTemperatura(numeroSensor) {
                     label: `Temperatura do sensor ${numeroSensor}`,
                     data: [json[0].temperatura, json[1].temperatura, json[2].temperatura,
                             json[3].temperatura, json[4].temperatura, json[5].temperatura
-                ],
+                    ],
                     borderWidth: 1,
-                }]
+                    backgroundColor: '#EA4949',
+                    borderColor: '#FFF'
+                }],
                 },
 
                 options: {
@@ -93,7 +95,7 @@ function pegarCapturasUmidade(numeroSensor){
                 labels: [`1`, `2`, `3`, `4`, `5`, `6`],
                 datasets: [{
 
-                  label: `Umidade do Sensor 1`,
+                  label: `Umidade do Sensor ${numeroSensor}`,
                   data: [json[0].umidade, json[1].umidade, json[2].umidade, json[3].umidade, json[4].umidade, json[5].umidade
                 ],
                   borderWidth: 1,
