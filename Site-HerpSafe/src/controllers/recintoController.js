@@ -95,6 +95,98 @@ function pegarCapturasUmidade(req, res){
 
 }
 
+function pegarTotalSensores(req, res) {
+  idRecinto = req.body.idRecinto;
+
+  if(idRecinto == undefined) {
+    res.status(500).send("O ID do seu recinto está indefinido!");
+  }
+  else {
+    recintoModel.pegarTotalSensores(idRecinto)
+    .then((result) => {
+      res.status(200).json(result);
+    })
+  }
+}
+
+function pegarMaximoTemperatura(req, res) {
+  const fkSensor1 = req.body.fk_sensor1;
+  const fkSensor2 = req.body.fk_sensor2;
+
+  if(fkSensor1 == undefined || fkSensor2 == undefined) {
+    res.status(500).send("Sensores estão como indefinidos!");
+  }
+  else {
+    recintoModel.pegarMaximoTemperatura(fkSensor1, fkSensor2)
+    .then((result) => {
+      res.status(200).json(result);
+    })
+  }
+
+}
+
+function pegarMaximoUmidade(req, res) {
+  const fkSensor1 = req.body.fk_sensor1;
+  const fkSensor2 = req.body.fk_sensor2;
+
+  if(fkSensor1 == undefined || fkSensor2 == undefined) {
+    res.status(500).send("Sensores estão como indefinidos!");
+  }
+  else {
+    recintoModel.pegarMaximoUmidade(fkSensor1, fkSensor2)
+    .then((result) => {
+      res.status(200).json(result);
+    })
+  }
+
+}
+
+function pegarTotalSensores(req, res) {
+  idRecinto = req.body.idRecinto;
+
+  if(idRecinto == undefined) {
+    res.status(500).send("O ID do seu recinto está indefinido!");
+  }
+  else {
+    recintoModel.pegarTotalSensores(idRecinto)
+    .then((result) => {
+      res.status(200).json(result);
+    })
+  }
+}
+
+function pegarMaximoTemperatura(req, res) {
+  const fkSensor1 = req.body.fk_sensor1;
+  const fkSensor2 = req.body.fk_sensor2;
+
+  if(fkSensor1 == undefined || fkSensor2 == undefined) {
+    res.status(500).send("Sensores estão como indefinidos!");
+  }
+  else {
+    recintoModel.pegarMaximoTemperatura(fkSensor1, fkSensor2)
+    .then((result) => {
+      res.status(200).json(result);
+    })
+  }
+
+}
+
+function pegarMaximoUmidade(req, res) {
+  const fkSensor1 = req.body.fk_sensor1;
+  const fkSensor2 = req.body.fk_sensor2;
+
+  if(fkSensor1 == undefined || fkSensor2 == undefined) {
+    res.status(500).send("Sensores estão como indefinidos!");
+  }
+  else {
+    recintoModel.pegarMaximoUmidade(fkSensor1, fkSensor2)
+    .then((result) => {
+      res.status(200).json(result);
+    })
+  }
+
+}
+
 function alertas(req,res){
   const idRecinto = req.body.idRecinto;
   const numeroSensor = req.body.fk_sensor;
@@ -124,5 +216,8 @@ module.exports = {
   cadastrar,
   buscarRecintosPorPrateleira,
   pegarCapturasTemperatura,
-  pegarCapturasUmidade
+  pegarCapturasUmidade,
+  pegarTotalSensores,
+  pegarMaximoTemperatura,
+  pegarMaximoUmidade
 }

@@ -19,6 +19,19 @@ router.post("/pegarCapturasUmidade", function(req, res) {
   recintoController.pegarCapturasUmidade(req, res);
 })
 
+router.post("/pegarTotalSensores", function(req, res) {
+  recintoController.pegarTotalSensores(req, res);
+})
+
+router.post("/pegarMaximoTemperatura", function(req, res) {
+  recintoController.pegarMaximoTemperatura(req, res);
+})
+
+router.post("/pegarMaximoUmidade", function(req, res) {
+  recintoController.pegarMaximoUmidade(req, res);
+})
+
+
 
 // router.post("/filtro", function(req, res){
 

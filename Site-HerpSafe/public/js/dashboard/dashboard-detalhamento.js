@@ -1,7 +1,9 @@
 const nomeUsuario = document.getElementById("nome_usuario");    
-nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO;
-
+const numeroSensoresRecinto = document.getElementById("numero-sensores-recinto"); 
 const botaoHistorico = document.getElementById("filter_historico");
+
+
+nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO;
 
 function filterHistorico() {
     window.location.href = "../../dashboard/dashboard-alertas.html";
@@ -16,7 +18,6 @@ function filterHistorico() {
     //     }
     // }
 }
-
 
 function pegarCapturasTemperatura(numeroSensor) {
     const header = {
@@ -44,9 +45,11 @@ function pegarCapturasTemperatura(numeroSensor) {
                     label: `Temperatura do sensor ${numeroSensor}`,
                     data: [json[0].temperatura, json[1].temperatura, json[2].temperatura,
                             json[3].temperatura, json[4].temperatura, json[5].temperatura
-                ],
+                    ],
                     borderWidth: 1,
-                }]
+                    backgroundColor: '#EA4949',
+                    borderColor: '#FFF'
+                }],
                 },
 
                 options: {
@@ -93,7 +96,7 @@ function pegarCapturasUmidade(numeroSensor){
                 labels: [`1`, `2`, `3`, `4`, `5`, `6`],
                 datasets: [{
 
-                  label: `Umidade do Sensor 1`,
+                  label: `Umidade do Sensor ${numeroSensor}`,
                   data: [json[0].umidade, json[1].umidade, json[2].umidade, json[3].umidade, json[4].umidade, json[5].umidade
                 ],
                   borderWidth: 1,
@@ -126,6 +129,89 @@ function pegarCapturasUmidade(numeroSensor){
 
     })
 
+}
+
+function pegarTotalSensoresPorRecinto() {
+    const header = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            idRecinto: sessionStorage.ID_RECINTO_INDIVIDUAL
+        })
+    }
+
+    fetch("http://localhost:3333/recinto/pegarTotalSensores", header)
+    .then((result) => {
+        if(result.ok) {
+            result.json()
+            .then((json) => {
+                numeroSensoresRecinto.innerHTML = json[0].Total;
+            })
+        }
+    })
+    .catch((error) => {
+        console.log("Erro: não foi possível pegar o total de sensores do recinto", error);
+    })
+}
+
+function pegarMaximoTemperatura() {
+    const temperaturaMaxima = document.getElementById("temperatura-maxima");
+    const jsonRecintos = JSON.parse(sessionStorage.RECINTOS_TODOS);
+
+    const header = {
+        method: "POST",
+        headers: {
+            "Content-Type": "Application/json"
+        },
+        body: JSON.stringify({
+            fk_sensor1: jsonRecintos[0].fk_sensor1,
+            fk_sensor2: jsonRecintos[0].fk_sensor2,
+        })
+    }
+
+    fetch("http://localhost:3333/recinto/pegarMaximoTemperatura", header)
+    .then((resultado) => {
+        if(resultado.ok) {
+            resultado.json()
+            .then((json) => {
+                temperaturaMaxima.innerHTML = json[0].temperatura;
+            })
+        }
+    })
+    .catch((erro) => {
+        console.log("Erro: não foi possível pegar o máximo de temperatura dos Sensores", erro);
+    })
+}
+
+function pegarMaximoUmidade() {
+    const umidadeMaxima = document.getElementById("umidade-maxima");
+    const jsonRecintos = JSON.parse(sessionStorage.RECINTOS_TODOS);
+
+    const header = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+           fk_sensor1: jsonRecintos[0].fk_sensor1,
+           fk_sensor2: jsonRecintos[0].fk_sensor2,
+        }) 
+    }
+
+    fetch("http://localhost:3333/recinto/pegarMaximoUmidade", header)
+    .then((result) => {
+        if(result.ok) {
+            result.json()
+            .then((json) => {
+                umidadeMaxima.innerHTML = `${json[0].umidade}%`;
+            })
+        }
+    })
+    .catch((erro) => {
+        console.log("Erro: não foi possível pegar o máximo de umidade", erro);
+    })
 }
 
 function alertas(){
@@ -198,4 +284,7 @@ pegarCapturasTemperatura(2);
 pegarCapturasUmidade(1);
 pegarCapturasUmidade(2);
 
+document.addEventListener("DOMContentLoaded", pegarTotalSensoresPorRecinto);
+document.addEventListener("DOMContentLoaded", pegarMaximoTemperatura);
+document.addEventListener("DOMContentLoaded", pegarMaximoUmidade);
 botaoHistorico.addEventListener('click', filterHistorico);
