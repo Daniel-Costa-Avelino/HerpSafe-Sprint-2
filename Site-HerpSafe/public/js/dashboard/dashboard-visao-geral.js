@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         })
         .catch(function (erro) {
-            console.error("Erro ao tentar login:", erro.message);
+            console.error("Erro ao buscar recintos monitorados:", erro.message);
             //document.getElementById("p_mensagem").innerText = "Erro: " + erro.message;
         });
 
@@ -213,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         })
         .catch(function (erro) {
-            console.error("Erro ao tentar login:", erro.message);
+            console.error("Erro ao buscar sensores ativos:", erro.message);
             //document.getElementById("p_mensagem").innerText = "Erro: " + erro.message;
         });
 });
@@ -256,7 +256,53 @@ document.addEventListener('DOMContentLoaded', function () {
 
         })
         .catch(function (erro) {
-            console.error("Erro ao tentar login:", erro.message);
+            console.error("Erro ao buscar alertas:", erro.message);
+            //document.getElementById("p_mensagem").innerText = "Erro: " + erro.message;
+        });
+
+
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    var corpo = {
+        fkEmpresaServer: sessionStorage.getItem("ID_EMPRESA")
+    };
+
+    fetch("/indicadores/buscarRecintosComProblemas", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(corpo)
+    })
+        .then(function (resposta) {
+            if (resposta.ok) {
+                return resposta.json();
+            } else {
+                return resposta.text().then(msg => {
+                    throw new Error(msg);
+                });
+            }
+        })
+        .then(function (dados) {
+            for (let i = 0; i < dados.length; i++) {
+                console.log(dados[i]);
+            }
+
+            console.log("Recintos com problemas:", dados);
+
+            sessionStorage.RECINTOS_COM_PROBLEMAS = JSON.stringify(dados);
+
+            console.log(dados);
+
+            var recintos_com_problemas = document.getElementById("div_qtdRecintosComProblemas");
+            recintos_com_problemas.innerHTML = `${dados[0].recintos_com_problemas}`;
+
+
+        })
+        .catch(function (erro) {
+            console.error("Erro ao buscar recintos com problema:", erro.message);
             //document.getElementById("p_mensagem").innerText = "Erro: " + erro.message;
         });
 
