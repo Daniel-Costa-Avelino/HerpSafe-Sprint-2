@@ -109,10 +109,27 @@ function pegarTotalSensores(req, res) {
   }
 }
 
+function pegarMaximoTemperatura(req, res) {
+  const fkSensor1 = req.body.fk_sensor1;
+  const fkSensor2 = req.body.fk_sensor2;
+
+  if(fkSensor1 == undefined || fkSensor2 == undefined) {
+    res.status(500).send("Sensores estão como indefinidos!");
+  }
+  else {
+    recintoModel.pegarMaximoTemperatura(fkSensor1, fkSensor2)
+    .then((result) => {
+      res.status(200).json(result);
+    })
+  }
+
+}
+
 module.exports = {
   cadastrar,
   buscarRecintosPorPrateleira,
   pegarCapturasTemperatura,
   pegarCapturasUmidade,
-  pegarTotalSensores
+  pegarTotalSensores,
+  pegarMaximoTemperatura
 }

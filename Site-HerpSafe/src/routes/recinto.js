@@ -23,4 +23,8 @@ router.post("/pegarTotalSensores", function(req, res) {
   recintoController.pegarTotalSensores(req, res);
 })
 
+router.post("/pegarMaximoTemperatura", function(req, res) {
+  recintoController.pegarMaximoTemperatura(req, res);
+})
+
 module.exports = router;

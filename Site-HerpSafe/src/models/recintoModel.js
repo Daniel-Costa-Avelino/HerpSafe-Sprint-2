@@ -38,10 +38,17 @@ function pegarTotalSensores(id_recinto) {
   return database.executar(instrucaoSql);
 }
 
+function pegarMaximoTemperatura(fk_sensor1, fk_sensor2) {
+  const instrucaoSql = `SELECT MAX(temperatura) AS 'temperatura' FROM captura WHERE fksensor IN (${fk_sensor1}, ${fk_sensor2});`;
+
+  return database.executar(instrucaoSql);
+}
+
 module.exports = {
   buscarRecintosPorPrateleira,
   cadastrar, 
   pegarCapturasTemperatura,
   pegarCapturasUmidade,
-  pegarTotalSensores
+  pegarTotalSensores,
+  pegarMaximoTemperatura
 }
