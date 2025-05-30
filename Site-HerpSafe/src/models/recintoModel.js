@@ -30,12 +30,18 @@ function pegarCapturasUmidade(id_recinto, numeroSensor){
       JOIN captura ON captura.fksensor = sensor.idSensor WHERE idrecinto = ${id_recinto};`
 
       return database.executar(instrucaoSql);
+}
 
+function pegarTotalSensores(id_recinto) {
+  const  instrucaoSql = `SELECT COUNT(fk_sensor1) + COUNT(fk_sensor2) AS 'Total' FROM recinto WHERE idrecinto = ${id_recinto};`
+
+  return database.executar(instrucaoSql);
 }
 
 module.exports = {
   buscarRecintosPorPrateleira,
   cadastrar, 
   pegarCapturasTemperatura,
-  pegarCapturasUmidade
+  pegarCapturasUmidade,
+  pegarTotalSensores
 }

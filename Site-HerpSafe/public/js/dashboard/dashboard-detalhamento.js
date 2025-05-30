@@ -1,7 +1,10 @@
 const nomeUsuario = document.getElementById("nome_usuario");    
+const botaoHistorico = document.getElementById("filter_historico");
+const numeroSensoresRecinto = document.getElementById("numero-sensores-recinto"); 
+
 nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-const botaoHistorico = document.getElementById("filter_historico");
+
 
 function filterHistorico() {
     window.location.href = "../../dashboard/dashboard-alertas.html";
@@ -16,7 +19,6 @@ function filterHistorico() {
     //     }
     // }
 }
-
 
 function pegarCapturasTemperatura(numeroSensor) {
     const header = {
@@ -130,9 +132,35 @@ function pegarCapturasUmidade(numeroSensor){
 
 }
 
+function pegarTotalSensoresPorRecinto() {
+    const header = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            idRecinto: sessionStorage.ID_RECINTO_INDIVIDUAL
+        })
+    }
+
+    fetch("http://localhost:3333/recinto/pegarTotalSensores", header)
+    .then((result) => {
+        if(result.ok) {
+            result.json()
+            .then((json) => {
+                numeroSensoresRecinto.innerHTML = json[0].Total;
+            })
+        }
+    })
+    .catch((error) => {
+        console.log("Erro: não foi possível pegar o total de sensores do recinto", error);
+    })
+}
+
 pegarCapturasTemperatura(1);
 pegarCapturasTemperatura(2);
 pegarCapturasUmidade(1);
 pegarCapturasUmidade(2);
 
+document.addEventListener("DOMContentLoaded", pegarTotalSensoresPorRecinto);
 botaoHistorico.addEventListener('click', filterHistorico);

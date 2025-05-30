@@ -95,9 +95,24 @@ function pegarCapturasUmidade(req, res){
 
 }
 
+function pegarTotalSensores(req, res) {
+  idRecinto = req.body.idRecinto;
+
+  if(idRecinto == undefined) {
+    res.status(500).send("O ID do seu recinto está indefinido!");
+  }
+  else {
+    recintoModel.pegarTotalSensores(idRecinto)
+    .then((result) => {
+      res.status(200).json(result);
+    })
+  }
+}
+
 module.exports = {
   cadastrar,
   buscarRecintosPorPrateleira,
   pegarCapturasTemperatura,
-  pegarCapturasUmidade
+  pegarCapturasUmidade,
+  pegarTotalSensores
 }
