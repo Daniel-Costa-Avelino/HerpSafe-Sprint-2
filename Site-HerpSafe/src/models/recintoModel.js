@@ -22,8 +22,20 @@ function pegarCapturasTemperatura(id_recinto, numeroSensor) {
   return database.executar(instrucaoSql);
 }
 
+function pegarCapturasUmidade(id_recinto, numeroSensor){
+
+  const instrucaoSql = 
+   `SELECT umidade FROM recinto
+      JOIN sensor ON recinto.fk_sensor${numeroSensor} = sensor.idSensor
+      JOIN captura ON captura.fksensor = sensor.idSensor WHERE idrecinto = ${id_recinto};`
+
+      return database.executar(instrucaoSql);
+
+}
+
 module.exports = {
   buscarRecintosPorPrateleira,
   cadastrar, 
-  pegarCapturasTemperatura
+  pegarCapturasTemperatura,
+  pegarCapturasUmidade
 }
