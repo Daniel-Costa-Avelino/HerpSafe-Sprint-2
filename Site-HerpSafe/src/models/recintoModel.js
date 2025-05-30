@@ -33,6 +33,24 @@ function pegarCapturasUmidade(id_recinto, numeroSensor){
 
 }
 
+function alertas(idRecinto, numeroSensor){
+
+  const intrucaoSql =
+    `SELECT alerta FROM captura
+    where idCaptura = ${id_caaptura} AND fksensor = ${fk_sensor}
+    AND DATE (dt_Hr_Captura) = CURDATE()`;
+
+}
+
+// function filtro(){
+
+//   const instrucaoSql = 
+//     `SELECT DATE(dt_Hr_Captura) AS 'Dia' FROM captura;`
+
+// }
+
+
+
 module.exports = {
   buscarRecintosPorPrateleira,
   cadastrar, 

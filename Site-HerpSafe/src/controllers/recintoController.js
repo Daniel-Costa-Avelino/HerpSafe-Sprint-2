@@ -95,6 +95,31 @@ function pegarCapturasUmidade(req, res){
 
 }
 
+function alertas(req,res){
+  const idRecinto = req.body.idRecinto;
+  const numeroSensor = req.body.fk_sensor;
+
+  if (idRecinto == undefined || numeroSensor == undefined) {
+    res.status(500).send(`Alguns dos seus componentes estão como indefinidos!`);
+  } else {
+    alertasModel.pegarAlertasUltimas24h(idRecinto, numeroSensor)
+      .then((result) => {
+        res.status(200).json(result);
+      })
+      .catch((error) => {
+        console.log(`Não foi possível pegar os alertas das últimas 24h`, error);
+        res.status(500).send("Erro ao buscar alertas");
+      });
+  }
+  
+}
+
+// function filtro (req, res){
+
+
+
+// }
+
 module.exports = {
   cadastrar,
   buscarRecintosPorPrateleira,

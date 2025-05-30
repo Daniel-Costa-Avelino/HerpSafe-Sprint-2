@@ -18,4 +18,18 @@ router.post("/pegarCapturasTemperatura", function(req, res) {
 router.post("/pegarCapturasUmidade", function(req, res) {
   recintoController.pegarCapturasUmidade(req, res);
 })
+
+
+// router.post("/filtro", function(req, res){
+
+//   recintoController.filtro(req, res);
+
+// })
+
+router.post("ultimas24", function(req, res){
+
+  recintoController.ultimas24(req, res);
+
+})
+
 module.exports = router;

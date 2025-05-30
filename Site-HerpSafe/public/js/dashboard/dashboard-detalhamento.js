@@ -128,6 +128,71 @@ function pegarCapturasUmidade(numeroSensor){
 
 }
 
+function alertas(){
+
+  const idRecinto = sessionStorage.ID_RECINTO_INDIVIDUAL;
+  const fk_sensor = numeroSensor;
+
+  fetch ("/recinto/ultimas24", {
+
+    method: "POST",
+    headers: {
+
+      "Content-type": "application/json"
+
+    },
+    body: JSON.stringify({
+
+      idRecinto,
+      fk_sensor
+
+    })
+    
+  })
+
+  .then(res => res.json())
+  .then(json => {
+
+    console.log("Alestas:", json);
+    document.getElementById("resultado").innerText = JSON.stringify(json, null, 2);
+
+  })
+
+  .catch (err => {
+
+    console.error("Erro:", err);
+
+  })
+
+}
+
+// function filtro(filtro){
+
+//   const header = {
+//     method: "POST",
+//       headers: {
+//         "Content-type": "Application/json"
+//       },
+//       body: JSON.stringify({
+//         idRecinto: sessionStorage.ID_RECINTO_INDIVIDUAL,
+//         fk_sensor: numeroSensor
+//       })
+//   }
+
+//   fetch("/recinto/filtro", header)
+//     .then((result) => {
+
+//       result.json()
+//       .then(json) => {
+
+//         const de = document.getElementById(`De${filtro}`)
+
+//       }
+
+//     })
+
+// }
+
 pegarCapturasTemperatura(1);
 pegarCapturasTemperatura(2);
 pegarCapturasUmidade(1);
