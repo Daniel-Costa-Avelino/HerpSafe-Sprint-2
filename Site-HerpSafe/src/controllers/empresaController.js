@@ -1,7 +1,5 @@
 var empresaModel = require("../models/empresaModel");
 
-
-
 function buscarPorCnpj(req, res) {
   var cnpj = req.query.cnpj;
 
@@ -25,20 +23,21 @@ function buscarPorId(req, res) {
 }
 
 function buscarPorCodigo(req, res) {
-    var codigo = req.params.codigo;
+  var codigo = req.params.codigo;
 
-    empresaModel.buscarPorCodigo(codigo)
-        .then(function (resultado) {
-            if (resultado.length > 0) {
-                res.status(200).json(resultado[0]);
-            } else {
-                res.status(404).send("Código de ativação inválido.");
-            }
-        })
-        .catch(function (erro) {
-            console.log(erro);
-            res.status(500).json(erro.sqlMessage);
-        });
+  empresaModel
+    .buscarPorCodigo(codigo)
+    .then(function (resultado) {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado[0]);
+      } else {
+        res.status(404).send("Código de ativação inválido.");
+      }
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      res.status(500).json(erro.sqlMessage);
+    });
 }
 
 function cadastrar(req, res) {

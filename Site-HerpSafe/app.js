@@ -1,7 +1,7 @@
 // var ambiente_processo = 'producao';
-var ambiente_processo = 'desenvolvimento';
+var ambiente_processo = "desenvolvimento";
 
-var caminho_env = ambiente_processo === 'desenvolvimento' ? '.env.dev' : '.env';
+var caminho_env = ambiente_processo === "desenvolvimento" ? ".env.dev" : ".env";
 // Acima, temos o uso do operador ternário para definir o caminho do arquivo .env
 // A sintaxe do operador ternário é: condição ? valor_se_verdadeiro : valor_se_falso
 
@@ -42,7 +42,7 @@ app.use("/empresas", empresasRouter);
 app.use("/alertas", alertaRouter);
 
 app.listen(PORTA_APP, function () {
-    console.log(`
+  console.log(`
     ##   ##  ######   #####             ####       ##     ######     ##              ##  ##    ####    ######  
     ##   ##  ##       ##  ##            ## ##     ####      ##      ####             ##  ##     ##         ##  
     ##   ##  ##       ##  ##            ##  ##   ##  ##     ##     ##  ##            ##  ##     ##        ##   

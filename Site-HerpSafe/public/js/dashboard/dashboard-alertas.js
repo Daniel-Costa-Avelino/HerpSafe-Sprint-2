@@ -40,13 +40,13 @@ document.addEventListener("DOMContentLoaded", function () {
         var tipoCaptura = "";
         var captura = "";
 
-                if (dados[i].mensagem.includes(`Umidade`)) {
-                    tipoCaptura = "Umidade";
-                    captura = `${dados[i].umidade}%`;
-                } else {
-                    tipoCaptura = "Temperatura";
-                    captura = `${dados[i].temperatura}° graus`;
-                }
+        if (dados[i].mensagem.includes(`Umidade`)) {
+          tipoCaptura = "Umidade";
+          captura = `${dados[i].umidade}%`;
+        } else {
+          tipoCaptura = "Temperatura";
+          captura = `${dados[i].temperatura}° graus`;
+        }
 
         section_alertas.innerHTML += `
                 <div class="principal-alertas-scroll-container">
@@ -65,30 +65,23 @@ document.addEventListener("DOMContentLoaded", function () {
                         </div>
                     </div>
                 `;
-            }
-
-        })
-        .catch(function (erro) {
-            console.error("Erro ao tentar login:", erro.message);
-            //document.getElementById("p_mensagem").innerText = "Erro: " + erro.message;
-        });
-
-
+      }
+    })
+    .catch(function (erro) {
+      console.error("Erro ao tentar login:", erro.message);
+      //document.getElementById("p_mensagem").innerText = "Erro: " + erro.message;
+    });
 });
 
 function filtro() {
+  var nome_recinto = input_nome_recinto.value;
+  var data = input_data.value;
+  var tipo_alerta = select_tipo_alerta.value;
 
-    var nome_recinto = input_nome_recinto.value
-    var data = input_data.value
-    var tipo_alerta = select_tipo_alerta.value
-
-    if(nome_recinto != "" || data != "" || tipo_alerta != ""){
-
-        if(nome_recinto != ""){
-            
-        }
-
-    } else {
-        alert(`Preencha pelo menos um dos campos para prosseguir`)
+  if (nome_recinto != "" || data != "" || tipo_alerta != "") {
+    if (nome_recinto != "") {
     }
+  } else {
+    alert(`Preencha pelo menos um dos campos para prosseguir`);
+  }
 }
