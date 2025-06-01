@@ -52,20 +52,21 @@
             <div class="div_campos">
                 <div class="cadastro-recinto-input">
                     Nome do recinto:
-                    <input type="text" id="input_nomeCadastro">
-                </div>
-                <div class="cadastro-recinto-input">
-                    Número ID do sensor 1:
-                    <input type="text" id="input_n1Cadastro">
-                </div>
-                <div class="cadastro-recinto-input">
-                    Número ID do sensor 2:
-                    <input type="text" id="input_n2Cadastro">
+                    <input type="text" id="input_nomeRecinto">
                 </div>
                 <div class="cadastro-recinto-input">
                     Inserir na Prateleira:
                     <input type="text" id="input_fkPrateleira">
                 </div>
+                <div class="cadastro-recinto-input">
+                    Espécie:
+                    <select id="select_recinto">
+                        <option value="Piton Real">Piton Real</option>
+                        <option value="Jiboia Arco-Íris">Jiboia Arco-Íris</option>
+                        <option value="Jiboia">Jiboia</option>
+                    </select>
+                </div>
+
                 <button id="cadastro-recinto-button" onclick="cadastrar()">Cadastrar</button>
 
             </div>

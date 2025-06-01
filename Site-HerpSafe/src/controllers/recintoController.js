@@ -20,24 +20,34 @@ function buscarRecintosPorPrateleira(req, res) {
 }
 
 function cadastrar(req, res) {
-  var nome_recinto = req.body.nome_cadastro;
-  var n1Cadastro = req.body.n1Cadastro;
-  var n2Cadastro = req.body.n2Cadastro;
-  var fkPrateleira = req.body.fkPrateleira;
+  const nomeRecinto = req.body.nomeRecinto;
+  const fkPrateleira = req.body.fkPrateleira;
 
-  if (nome_recinto == undefined) {
+  const nomeEspecie = req.body.especie;
+  const fkMetricaTemperatura = req.body.metricaTemperatura;
+  const fkMetricaUmidade = req.body.metricaUmidade;
+
+  if (nomeRecinto == undefined) {
     res.status(400).send("nome_recinto está undefined!");
-  } else if (n1Cadastro == undefined) {
-    res.status(400).send("n1Cadastro está undefined!");
-  } else if (n2Cadastro == undefined) {
-    res.status(400).send("n2Cadastro está undefined!");
   } else if (fkPrateleira == undefined) {
     res.status(400).send("fkPrateleira está undefined");
+  } else if (fkMetricaTemperatura == undefined) {
+    res.status(400).send("Métrica de Temperatura está undefined");
+  } else if (fkMetricaUmidade == undefined) {
+    res.status(400).send("Métrica de Umidade está undefined");
+  } else if (nomeEspecie == undefined) {
+    res.status(400).send("Nome da Espécie está undefined");
   } else {
     recintoModel
-      .cadastrar(nome_recinto, n1Cadastro, n2Cadastro, fkPrateleira)
+      .cadastrar(
+        nomeRecinto,
+        fkPrateleira,
+        nomeEspecie,
+        fkMetricaTemperatura,
+        fkMetricaUmidade
+      )
       .then((resultado) => {
-        res.status(201).json(resultado);
+        res.status(200).json(resultado);
       })
       .catch((erro) => {
         console.log(erro);

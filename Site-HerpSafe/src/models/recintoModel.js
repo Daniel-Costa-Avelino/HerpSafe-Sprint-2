@@ -6,8 +6,20 @@ function buscarRecintosPorPrateleira(idPrateleira) {
   return database.executar(instrucaoSql);
 }
 
-function cadastrar(nome_recinto, fk_sensor, fk_sensor2, fkPrateleira) {
-  const instrucaoSql = `INSERT INTO recinto (nome_recinto, fk_sensor1, fk_sensor2, fkPrateleira)  VALUES ('${nome_recinto}', ${fk_sensor}, ${fk_sensor2}, ${fkPrateleira})`;
+function cadastrar(
+  nome_recinto,
+  fkPrateleira,
+  nomeEspecie,
+  temperatura,
+  umidade
+) {
+  const instrucaoSql = `
+  
+  INSERT INTO recinto (nome_recinto, fkPrateleira) VALUES ('${nome_recinto}', ${fkPrateleira});
+
+  INSERT INTO especie (fkIdRecinto, nome, fkMetricasTemperatura, fkMetricasUmidade) 
+  VALUES (LAST_INSERT_ID(), '${nomeEspecie}', ${temperatura}, ${umidade});
+  `;
   return database.executar(instrucaoSql);
 }
 
