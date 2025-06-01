@@ -184,19 +184,18 @@ INSERT INTO metricas (tipo, min_ok, max_ok, min_atencao, max_atencao, min_emerge
 
 -- -----------------------------------------------------------------------------------------------------------------------------------------------
 CREATE TABLE especie(
-fkIdRecinto INT,
-fkIdMetricas INT,
-nome VARCHAR(45),
-CONSTRAINT pkComposta PRIMARY KEY (fkIdRecinto, fkIdMetricas),
-CONSTRAINT fkMetricasIdRecinto FOREIGN KEY (fkIdRecinto)
-REFERENCES recinto(idRecinto),
-CONSTRAINT fkMetricasIdMetricas FOREIGN KEY (fkIdMetricas)
-REFERENCES metricas(idMetricas)
-); 
-INSERT INTO especie (fkIdRecinto, fkIdMetricas, nome) VALUES
-(1, 1, 'Especie A'),
-(2, 2, 'Especie B');
-
+    fkIdRecinto INT,
+    fkMetricasTemperatura INT,
+    fkMetricasUmidade INT,
+    nome VARCHAR(45),
+    CONSTRAINT pkComposta PRIMARY KEY (fkIdRecinto, fkMetricasTemperatura, fkMetricasUmidade),
+    CONSTRAINT fkMetricasIdRecinto FOREIGN KEY (fkIdRecinto)
+    REFERENCES recinto(idRecinto),
+    CONSTRAINT fkMetricasIdTemperatura FOREIGN KEY (fkMetricasTemperatura)
+    REFERENCES metricas(idMetricas),
+    CONSTRAINT fkMetricasIdUmidade FOREIGN KEY (fkMetricasUmidade)
+    REFERENCES metricas(idMetricas)
+);
 
 -- -----------------------------------------------------------------------------------------------------------------------------------------------
 -- Inicio da Trigger
@@ -363,14 +362,23 @@ INSERT INTO captura (temperatura, umidade, alerta, mensagem, fksensor) VALUES
 (28.5, 55.2, 0, 'Leitura dentro dos padrões', 1),  
 (36.0, 70.0, 2, 'Temperatura acima do limite!', 2);
 
+-- Píton Real
+INSERT INTO metricas (tipo, min_ok, max_ok, min_atencao, max_atencao, min_emergencia, max_emergencia) 
+VALUES 
+('Temperatura', 27, 32, 25, 33, 20, 35),
+('Umidade', 50, 60, 45, 65, 30, 70);
 
-INSERT INTO metricas (tipo, min_ok, max_ok, min_atencao, max_atencao, min_emergencia, max_emergencia) VALUES
-('Temperatura', 15.0, 30.0, 10.0, 35.0, 5.0, 40.0),
-('Umidade', 40.0, 60.0, 30.0, 70.0, 20.0, 80.0);
+-- Jiboia Arco-Íris
+INSERT INTO metricas (tipo, min_ok, max_ok, min_atencao, max_atencao, min_emergencia, max_emergencia) 
+VALUES 
+('Temperatura', 26, 30, 24, 32, 20, 35),
+('Umidade', 75, 85, 70, 90, 60, 95);
 
-INSERT INTO especie (fkIdRecinto, fkIdMetricas, nome) VALUES
-(1, 1, 'Especie A'),
-(2, 2, 'Especie B');
+-- Jiboia
+INSERT INTO metricas (tipo, min_ok, max_ok, min_atencao, max_atencao, min_emergencia, max_emergencia) 
+VALUES 
+('Temperatura', 26, 30, 24, 32, 20, 35),
+('Umidade', 60, 70, 55, 75, 40, 80);
 
 
 
