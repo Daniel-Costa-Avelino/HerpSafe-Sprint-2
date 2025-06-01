@@ -35,18 +35,18 @@ document.addEventListener("DOMContentLoaded", function () {
       var section_alertas = document.querySelector(".principal-alertas-scroll");
 
       for (var i = 0; i < dados.length; i++) {
-        var data = new Date(dados[i].dt_Hr_Alerta);
+        var data = new Date(dados[i].dt_Hr_Captura);
         var dataFormatada = data.toLocaleDateString("pt-BR");
         var tipoCaptura = "";
         var captura = "";
 
-        if (dados[i].tipo == "DHT11") {
-          tipoCaptura = "Umidade";
-          captura = `${dados[i].umidade}%`;
-        } else {
-          tipoCaptura = "Temperatura";
-          captura = `${dados[i].temperatura}° graus`;
-        }
+                if (dados[i].mensagem.includes(`Umidade`)) {
+                    tipoCaptura = "Umidade";
+                    captura = `${dados[i].umidade}%`;
+                } else {
+                    tipoCaptura = "Temperatura";
+                    captura = `${dados[i].temperatura}° graus`;
+                }
 
         section_alertas.innerHTML += `
                 <div class="principal-alertas-scroll-container">
@@ -58,17 +58,37 @@ document.addEventListener("DOMContentLoaded", function () {
                             <img src="../assets/icons/icon-status-recinto-vermelho.svg" alt="Status Recinto">
                             <div>
                                 <h1>${dados[i].nome_recinto}:</h1>
-                                <p>${dados[i].tipo}: ${tipoCaptura} em <span style="color: #AB3030;">${captura}</span>
+                                <p>${tipoCaptura} em <span style="color: #AB3030;">${captura}</span> - 
                                 ${dados[i].mensagem}
                                 </p>
                             </div>
                         </div>
                     </div>
                 `;
-      }
-    })
-    .catch(function (erro) {
-      console.error("Erro ao tentar login:", erro.message);
-      //document.getElementById("p_mensagem").innerText = "Erro: " + erro.message;
-    });
+            }
+
+        })
+        .catch(function (erro) {
+            console.error("Erro ao tentar login:", erro.message);
+            //document.getElementById("p_mensagem").innerText = "Erro: " + erro.message;
+        });
+
+
 });
+
+function filtro() {
+
+    var nome_recinto = input_nome_recinto.value
+    var data = input_data.value
+    var tipo_alerta = select_tipo_alerta.value
+
+    if(nome_recinto != "" || data != "" || tipo_alerta != ""){
+
+        if(nome_recinto != ""){
+            
+        }
+
+    } else {
+        alert(`Preencha pelo menos um dos campos para prosseguir`)
+    }
+}

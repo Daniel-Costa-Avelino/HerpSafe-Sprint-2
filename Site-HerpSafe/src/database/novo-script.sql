@@ -79,6 +79,11 @@ fkPrateleira INT NOT NULL,
 CONSTRAINT fkPrateleiraRecinto FOREIGN KEY (fkPrateleira) REFERENCES prateleira(idPrateleira)
 );
 
+INSERT INTO recinto (nome_recinto, status_recinto, fkPrateleira) VALUES
+('Recinto Cobra 1', 'Ativo', 1),
+('Recinto Cobra 2', 'Alerta', 2),
+('Recinto Cobra 3', 'Ativo', 1);
+
 SELECT * FROM recinto;
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
 CREATE TABLE sensor (
@@ -86,11 +91,15 @@ idSensor INT PRIMARY KEY AUTO_INCREMENT,
 numero_Serie CHAR(8) NOT NULL,
 status_Sensor VARCHAR(10) NOT NULL,
       CONSTRAINT chk_StatusSensor
-             CHECK (Status_Sensor IN('Ativo', 'Manutenção', 'Inativo')),
+             CHECK (Status_Sensor IN('Ativo', 'Alerta', 'Urgente')),
 fkRecinto INT,
 CONSTRAINT fkSensorRecinto
 FOREIGN KEY (fkRecinto) REFERENCES recinto(idRecinto)
 );
+
+INSERT INTO sensor (numero_Serie, status_Sensor, fkRecinto) VALUES
+('SNSR0001', 'Ativo', 1),
+('SNSR0002', 'Alerta', 2);
 
 SELECT * FROM sensor;
 
@@ -108,6 +117,18 @@ CONSTRAINT fkCapturaSensor FOREIGN KEY (fksensor)
     REFERENCES sensor(idsensor)
 );
 ALTER TABLE captura MODIFY COLUMN mensagem VARCHAR(255);
+
+INSERT INTO captura (temperatura, umidade, dt_Hr_Captura, alerta, mensagem, fksensor) VALUES
+(25.3, 60.1, '2025-05-30 14:00:00', 0, NULL, 3),
+(26.8, 62.5, '2025-05-30 14:05:00', 0, NULL, 3),
+(24.9, 59.7, '2025-05-30 14:10:00', 0, NULL, 3),
+(27.5, 65.2, '2025-05-30 14:15:00', 1, 'Temperatura elevada detectada!', 3),
+(23.1, 55.8, '2025-05-30 14:20:00', 0, NULL, 4),
+(25.0, 61.0, '2025-05-30 14:25:00', 0, NULL, 4),
+(26.1, 63.3, '2025-05-30 14:30:00', 0, NULL, 4),
+(24.5, 58.9, '2025-05-30 14:35:00', 0, NULL, 3),
+(28.0, 66.0, '2025-05-30 14:40:00', 1, 'Alerta: Umidade alta!', 4),
+(22.8, 54.5, '2025-05-30 14:45:00', 0, NULL, 3);
 
 SELECT * FROM captura;
 -- ----------------------------------------------------------------------------------------------------------------------------------------------
@@ -189,8 +210,3 @@ SELECT * FROM captura;
 SELECT * FROM funcionario;
 SELECT * FROM endereco;
 SELECT * FROM metricas;
-
-
-
-
-

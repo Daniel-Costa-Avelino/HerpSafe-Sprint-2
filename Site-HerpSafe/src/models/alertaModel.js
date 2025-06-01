@@ -3,27 +3,12 @@ var database = require("../database/config");
 function buscarAlertas(fkEmpresa) {
 
     var instrucaoSql = `
-    SELECT * FROM alertas
-    JOIN sensor ON fkSensor = idSensor
-    JOIN captura ON captura.fkSensor = sensor.idSensor
-    JOIN prateleira ON fkPrateleira = idPrateleira
-    JOIN empresa ON fkEmpresa_prateleira = idEmpresa
-    WHERE idEmpresa = ${fkEmpresa};
-    `;
-
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
-}
-
-function buscarAlertas(fkEmpresa) {
-
-    var instrucaoSql = `
-    SELECT * FROM captura
+    SELECT * FROM captura as c
     JOIN sensor ON fkSensor = idSensor
     JOIN recinto on fkRecinto = idRecinto
     JOIN prateleira ON fkPrateleira = idPrateleira
     JOIN empresa ON fkEmpresa_prateleira = idEmpresa
-    WHERE idEmpresa = ${fkEmpresa};
+    WHERE idEmpresa = ${fkEmpresa} AND c.alerta = 1;
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);

@@ -51,17 +51,17 @@
                 </div>
 
                 <form action="" class="principal-alertas-container-filtro">
-                    <input type="text" placeholder="Nome do Recinto">
-                    <input type="date" placeholder="Data">
+                    <input type="text" placeholder="Nome do Recinto" id="input_nome_recinto">
+                    <input type="date" placeholder="Data" id="input_data">
 
-                    <select name="sensores" id="">
-                        <option value="#">Tipo de sensor do Recinto</option>
-                        <option value="LM35">LM35</option>
-                        <option value="DH11">DH11</option>
+                    <select name="sensores" id="select_tipo_alerta">
+                        <option value="#">Tipo de alerta</option>
+                        <option value="LM35">Temperatura</option>
+                        <option value="DH11">Umidade</option>
                     </select>
 
-                    <button><img src="../assets/icons/icon-filtro.svg" alt="Icon Filtro">Filtrar</button>
-                    <button id="limpar-filtro">Limpar Filtro</button>
+                    <button><img src="../assets/icons/icon-filtro.svg" alt="Icon Filtro" onclick="filtrar()">Filtrar</button>
+                    <button id="limpar-filtro" onclick="limpar_filtro()">Limpar Filtro</button>
                 </form>
 
                 <section class="principal-alertas-scroll">

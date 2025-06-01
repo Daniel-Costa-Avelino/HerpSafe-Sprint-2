@@ -15,4 +15,8 @@ router.post("/buscarAlertas", function (req, res) {
     indicadorController.buscarAlertas(req, res);
 });
 
+router.post("/buscarRecintosComProblemas", function (req, res) {
+    indicadorController.buscarRecintosComProblemas(req, res);
+});
+
 module.exports = router;

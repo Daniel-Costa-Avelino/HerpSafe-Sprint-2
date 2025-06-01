@@ -34,25 +34,49 @@
 //     });
 // }
 
-// function buscarAlertas(req, res) {
-//     var fkEmpresa = req.body.fkEmpresaServer;
+function buscarAlertas(req, res) {
+  var fkEmpresa = req.body.fkEmpresaServer;
 
-//     indicadorModel.buscarAlertas(fkEmpresa).then((resultado) => {
-//         if (resultado.length > 0) {
-//             res.status(200).json(resultado);
-//             console.log(resultado)
-//         } else {
-//             res.status(204).json([]);
-//         }
-//     }).catch(function (erro) {
-//         console.log(erro);
-//         console.log("Houve um erro ao buscar os alertas: ", erro.sqlMessage);
-//         res.status(500).json(erro.sqlMessage);
-//     });
-// }
+  indicadorModel
+    .buscarAlertas(fkEmpresa)
+    .then((resultado) => {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+        console.log(resultado);
+      } else {
+        res.status(204).json([]);
+      }
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      console.log("Houve um erro ao buscar os alertas: ", erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+    });
+}
 
-// module.exports = {
-//     buscarRecintosMonitorados,
-//     buscarSensoresAtivos,
-//     buscarAlertas
-// }
+function buscarRecintosComProblemas(req, res) {
+  var fkEmpresa = req.body.fkEmpresaServer;
+
+  indicadorModel
+    .buscarRecintosComProblemas(fkEmpresa)
+    .then((resultado) => {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+        console.log(resultado);
+      } else {
+        res.status(204).json([]);
+      }
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      console.log("Houve um erro ao buscar os alertas: ", erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
+module.exports = {
+  buscarRecintosMonitorados,
+  buscarSensoresAtivos,
+  buscarAlertas,
+  buscarRecintosComProblemas,
+};
