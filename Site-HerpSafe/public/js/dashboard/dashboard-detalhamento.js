@@ -163,7 +163,7 @@ function pegarMaximoTemperatura() {
     .then((resultado) => {
       if (resultado.ok) {
         resultado.json().then((json) => {
-          // temperaturaMaxima.innerHTML = json[0].temperatura;
+          temperaturaMaxima.innerHTML = json[0].max_emergencia;
           console.log(json);
         });
       }
@@ -178,7 +178,7 @@ function pegarMaximoTemperatura() {
 
 function pegarMaximoUmidade() {
   const umidadeMaxima = document.getElementById("umidade-maxima");
-  const jsonRecintos = JSON.parse(sessionStorage.RECINTOS_TODOS);
+  const idRecinto = sessionStorage.ID_RECINTO_INDIVIDUAL;
 
   const header = {
     method: "POST",
@@ -186,8 +186,7 @@ function pegarMaximoUmidade() {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      fk_sensor1: jsonRecintos[0].fk_sensor1,
-      fk_sensor2: jsonRecintos[0].fk_sensor2,
+      idRecinto: idRecinto,
     }),
   };
 
@@ -195,7 +194,7 @@ function pegarMaximoUmidade() {
     .then((result) => {
       if (result.ok) {
         result.json().then((json) => {
-          umidadeMaxima.innerHTML = `${json[0].umidade}%`;
+          umidadeMaxima.innerHTML = `${json[0].max_emergencia}%`;
         });
       }
     })
@@ -335,6 +334,6 @@ function filtro() {
 }
 
 document.addEventListener("DOMContentLoaded", pegarTotalSensoresPorRecinto);
-// document.addEventListener("DOMContentLoaded", pegarMaximoTemperatura);
-// document.addEventListener("DOMContentLoaded", pegarMaximoUmidade);
+document.addEventListener("DOMContentLoaded", pegarMaximoTemperatura);
+document.addEventListener("DOMContentLoaded", pegarMaximoUmidade);
 // botaoHistorico.addEventListener("click", filterHistorico);

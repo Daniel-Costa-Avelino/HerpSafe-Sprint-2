@@ -151,26 +151,24 @@ function pegarTotalSensores(req, res) {
 }
 
 function pegarMaximoTemperatura(req, res) {
-  const fkSensor1 = req.body.fk_sensor1;
-  const fkSensor2 = req.body.fk_sensor2;
+  const idRecinto = req.body.idRecinto;
 
-  if (fkSensor1 == undefined || fkSensor2 == undefined) {
-    res.status(500).send("Sensores estão como indefinidos!");
+  if (idRecinto == undefined) {
+    res.status(500).send("Recinto esta como indefinido!");
   } else {
-    recintoModel.pegarMaximoTemperatura(fkSensor1, fkSensor2).then((result) => {
+    recintoModel.pegarMaximoTemperatura(idRecinto).then((result) => {
       res.status(200).json(result);
     });
   }
 }
 
 function pegarMaximoUmidade(req, res) {
-  const fkSensor1 = req.body.fk_sensor1;
-  const fkSensor2 = req.body.fk_sensor2;
+  const idRecinto = req.body.idRecinto;
 
-  if (fkSensor1 == undefined || fkSensor2 == undefined) {
-    res.status(500).send("Sensores estão como indefinidos!");
+  if (idRecinto == undefined) {
+    res.status(500).send("Recinto esta como indefinido!");
   } else {
-    recintoModel.pegarMaximoUmidade(fkSensor1, fkSensor2).then((result) => {
+    recintoModel.pegarMaximoUmidade(idRecinto).then((result) => {
       res.status(200).json(result);
     });
   }

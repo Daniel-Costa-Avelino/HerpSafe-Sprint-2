@@ -50,15 +50,19 @@ function pegarTotalSensores(id_recinto) {
   return database.executar(instrucaoSql);
 }
 
-function pegarMaximoTemperatura(fk_sensor1, fk_sensor2) {
-  const instrucaoSql = `SELECT MAX(temperatura) AS 'temperatura' FROM captura WHERE fksensor IN (${fk_sensor1}, ${fk_sensor2});`;
-
+function pegarMaximoTemperatura(idRecinto) {
+  const instrucaoSql = `
+    SELECT max_emergencia FROM especie 
+    JOIN metricas ON fkMetricasTemperatura = idMetricas WHERE fkIdRecinto = ${idRecinto};
+  ;`;
   return database.executar(instrucaoSql);
 }
 
-function pegarMaximoUmidade(fk_sensor1, fk_sensor2) {
-  const instrucaoSql = `SELECT MAX(umidade) AS 'umidade' FROM captura WHERE fksensor IN (${fk_sensor1}, ${fk_sensor2});`;
-
+function pegarMaximoUmidade(idRecinto) {
+  const instrucaoSql = `
+    SELECT max_emergencia FROM especie 
+    JOIN metricas ON fkMetricasUmidade = idMetricas WHERE fkIdRecinto = ${idRecinto};
+  ;`;
   return database.executar(instrucaoSql);
 }
 
