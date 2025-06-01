@@ -5,7 +5,6 @@ nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO;
 function button1(btn) {
   var div_prateleira = btn.parentElement;
   var id = div_prateleira.getAttribute("value");
-  console.log(id);
 
   var corpo = {
     fkPrateleiraServer: id,
@@ -28,20 +27,15 @@ function button1(btn) {
       }
     })
     .then(function (dados) {
-      for (let i = 0; i < dados.length; i++) {
-        console.log(dados[i].nome_recinto);
-      }
-
-      console.log("Recintos:", dados);
-
       sessionStorage.RECINTOS_TODOS = JSON.stringify(dados);
+      console.log(dados);
 
       var div_box_recinto = document.querySelector(".box-recinto");
       div_box_recinto.innerHTML = "";
 
       for (let i = 0; i < dados.length; i++) {
         div_box_recinto.innerHTML += `
-                                    <div class="recinto1-box" value = "${dados[i].idrecinto}" onclick = guardarIdRecinto(this)>
+                                    <div class="recinto1-box" value = "${dados[i].idRecinto}" onclick = guardarIdRecinto(this)>
                                         <p class="titulo-box-recinto">${dados[i].nome_recinto}</p class="titulo-box-recinto">
                                         <div class="temp-umidade">
                                             <div class="temperatura-recinto1">
@@ -69,7 +63,7 @@ function button1(btn) {
 
 function guardarIdRecinto(div) {
   var valor_div = div.getAttribute("value");
-  console.log(valor_div);
+  console.log(div);
 
   sessionStorage.ID_RECINTO_INDIVIDUAL = valor_div;
 
@@ -98,13 +92,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     })
     .then(function (dados) {
-      for (let i = 0; i < dados.length; i++) {
-        console.log(dados[i].nome);
-      }
-
-      console.log("Prateleiras:", dados);
-      //sessionStorage.ID_EMPRESA = dados.fkEmpresa;
-
       sessionStorage.PRATELEIRAS = JSON.stringify(dados);
 
       var div_prateleiras = document.querySelector(".Pratileiras");
@@ -149,12 +136,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     })
     .then(function (dados) {
-      for (let i = 0; i < dados.length; i++) {
-        console.log(dados[i]);
-      }
-
-      console.log("Recintos:", dados);
-
       sessionStorage.RECINTOS = JSON.stringify(dados);
 
       var div_qtdRecintosMonitorados = document.getElementById(
@@ -190,12 +171,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     })
     .then(function (dados) {
-      for (let i = 0; i < dados.length; i++) {
-        console.log(dados[i]);
-      }
-
-      console.log("Sensores ativos:", dados);
-
       sessionStorage.SENSORES = JSON.stringify(dados);
 
       var div_qtdSensoresAtivos = document.getElementById(
@@ -231,12 +206,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     })
     .then(function (dados) {
-      for (let i = 0; i < dados.length; i++) {
-        console.log(dados[i]);
-      }
-
-      console.log("Alertas nas últimas 24 horas:", dados);
-
       sessionStorage.ALERTAS_ULTIMAS_24_HORAS = JSON.stringify(dados);
 
       var div_qtdAlertas_ultimas_24_horas =
@@ -271,15 +240,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     })
     .then(function (dados) {
-      for (let i = 0; i < dados.length; i++) {
-        console.log(dados[i]);
-      }
-
-      console.log("Recintos com problemas:", dados);
-
       sessionStorage.RECINTOS_COM_PROBLEMAS = JSON.stringify(dados);
-
-      console.log(dados);
 
       var recintos_com_problemas = document.getElementById(
         "div_qtdRecintosComProblemas"
