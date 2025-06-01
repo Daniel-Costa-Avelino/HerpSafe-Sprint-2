@@ -40,7 +40,12 @@ function pegarCapturasUmidade(id_recinto, numeroSensor) {
 }
 
 function pegarTotalSensores(id_recinto) {
-  const instrucaoSql = `SELECT COUNT(fk_sensor1) + COUNT(fk_sensor2) AS 'Total' FROM recinto WHERE idrecinto = ${id_recinto};`;
+  const instrucaoSql = `
+  
+  SELECT COUNT(idSensor) AS 'sensores' FROM recinto JOIN sensor ON fkRecinto = idRecinto 
+  WHERE idRecinto = ${id_recinto};
+  
+  ;`;
 
   return database.executar(instrucaoSql);
 }
