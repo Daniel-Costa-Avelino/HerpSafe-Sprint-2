@@ -1,51 +1,54 @@
-document.addEventListener('DOMContentLoaded', function () {
+const nomeUsuario = document.getElementById("nome_usuario_alerta");
 
-    var corpo = {
-        fkEmpresaServer: sessionStorage.getItem("ID_EMPRESA")
-    };
+nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-    fetch("/alertas/buscarAlertas", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(corpo)
+document.addEventListener("DOMContentLoaded", function () {
+  var corpo = {
+    fkEmpresaServer: sessionStorage.getItem("ID_EMPRESA"),
+  };
+
+  fetch("/alertas/buscarAlertas", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(corpo),
+  })
+    .then(function (resposta) {
+      if (resposta.ok) {
+        return resposta.json();
+      } else {
+        return resposta.text().then((msg) => {
+          throw new Error(msg);
+        });
+      }
     })
-        .then(function (resposta) {
-            if (resposta.ok) {
-                return resposta.json();
-            } else {
-                return resposta.text().then(msg => {
-                    throw new Error(msg);
-                });
-            }
-        })
-        .then(function (dados) {
-            for (let i = 0; i < dados.length; i++) {
-                console.log(dados[i]);
-            }
+    .then(function (dados) {
+      for (let i = 0; i < dados.length; i++) {
+        console.log(dados[i]);
+      }
 
-            console.log("Alertas:", dados);
+      console.log("Alertas:", dados);
 
-            sessionStorage.ALERTAS = JSON.stringify(dados);
+      sessionStorage.ALERTAS = JSON.stringify(dados);
 
-            var section_alertas = document.querySelector(".principal-alertas-scroll");
+      var section_alertas = document.querySelector(".principal-alertas-scroll");
 
-            for (var i = 0; i < dados.length; i++) {
-                var data = new Date(dados[i].dt_Hr_Alerta);
-                var dataFormatada = data.toLocaleDateString('pt-BR');
-                var tipoCaptura = ''
-                var captura = '';
+      for (var i = 0; i < dados.length; i++) {
+        var data = new Date(dados[i].dt_Hr_Alerta);
+        var dataFormatada = data.toLocaleDateString("pt-BR");
+        var tipoCaptura = "";
+        var captura = "";
 
-                if (dados[i].tipo == 'DHT11') {
-                    tipoCaptura = "Umidade";
-                    captura = `${dados[i].umidade}%`;
-                } else {
-                    tipoCaptura = "Temperatura";
-                    captura = `${dados[i].temperatura}° graus`;
-                }
+        if (dados[i].tipo == "DHT11") {
+          tipoCaptura = "Umidade";
+          captura = `${dados[i].umidade}%`;
+        } else {
+          tipoCaptura = "Temperatura";
+          captura = `${dados[i].temperatura}° graus`;
+        }
 
-                section_alertas.innerHTML += `
+        section_alertas.innerHTML += `
                 <div class="principal-alertas-scroll-container">
                         <div class="principal-alertas-scroll-data">
                             <img src="../assets/icons/icon-data.svg" alt="Icon Data">
@@ -62,13 +65,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         </div>
                     </div>
                 `;
-            }
-
-        })
-        .catch(function (erro) {
-            console.error("Erro ao tentar login:", erro.message);
-            //document.getElementById("p_mensagem").innerText = "Erro: " + erro.message;
-        });
-
-
+      }
+    })
+    .catch(function (erro) {
+      console.error("Erro ao tentar login:", erro.message);
+      //document.getElementById("p_mensagem").innerText = "Erro: " + erro.message;
+    });
 });

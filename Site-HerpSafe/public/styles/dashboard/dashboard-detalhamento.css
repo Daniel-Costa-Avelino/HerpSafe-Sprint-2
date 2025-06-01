@@ -1,147 +1,152 @@
 * {
-    padding: 0;
-    margin: 0;
-    border: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
 
-    font-family: Inter, Helvetica, sans-serif;
+  font-family: Inter, Helvetica, sans-serif;
 }
 
 body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    color: white;
-    display: flex;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  display: flex;
 }
 
 .principal {
-    padding-left: 18em;
-    display: flex;
-    width: 100%;
-    height: 100%;
+  padding-left: 18em;
+  display: flex;
+  width: 100%;
+  height: 100%;
 }
 
 .principal-visao {
-    padding: 30px;
-    position: relative;
-    width: 100%;
+  padding: 30px;
+  position: relative;
+  width: 100%;
 }
 
 .section_boxes-monitoramento {
-    display: flex;
-    flex-direction: row;
-    gap: 3rem;
-    padding-bottom: 2.4rem;
-    width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+  padding-bottom: 2.4rem;
+  width: 100%;
 }
 
 .box-monitoramento {
-    background-color: #044036;
-    padding: 10px;
-    border-radius: 12px;
-    text-align: center;
-    font-size: 16px;
-    width: 250px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    height: 120px;
+  background-color: #044036;
+  padding: 10px;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 16px;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  height: 120px;
 }
 
 .titulo-box {
-    font-size: 17px;
-    font-weight: 600;
+  font-size: 17px;
+  font-weight: 600;
 }
 
 .numero-monitoramento {
-    font-size: 30px;
-    font-weight: 700;
-    color: #94E8B4;
+  font-size: 30px;
+  font-weight: 700;
+  color: #94e8b4;
 }
 
 .numero-monitoramento-alerta {
-    font-size: 30px;
-    font-weight: 700;
-    color: #F57777;
+  font-size: 30px;
+  font-weight: 700;
+  color: #f57777;
 }
 
 .sessao_filtro_historico {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .div_filtro {
-    display: flex;
-    background-color: #044036;
-    justify-content: space-around;
-    width: 40%;
-    padding: 8px;
-    border-radius: 8px;
-    align-items: center;
+  display: flex;
+  gap: 0.6rem;
+  background-color: #044036;
+  justify-content: space-around;
+  width: 55%;
+  padding: 8px;
+  border-radius: 8px;
+  align-items: center;
+
+  button {
+    padding: 0.5rem;
+    border-radius: 4px;
+    background-color: #94e8b4;
+    font-weight: bolder;
+    width: 5rem;
+
+    cursor: pointer;
+  }
 }
 
 .div_filtro input {
-    padding: 5px;
-    border-radius: 8px;
+  padding: 5px;
+  border-radius: 8px;
 }
 
 .btn_historico {
-    display: flex;
-    background-color: #044036;
-    justify-content: space-around;
-    width: 15%;
-    padding: 8px;
-    border-radius: 8px;
-    align-items: center;
-    color: white;
-    font-size: 18px;
+  display: flex;
+  background-color: #044036;
+  justify-content: space-around;
+  width: 15%;
+  padding: 8px;
+  border-radius: 8px;
+  align-items: center;
+  color: white;
+  font-size: 18px;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .btn_historico img {
-    width: 20px;
-    height: 20px;
+  width: 20px;
+  height: 20px;
 }
 
 .sessao_cards_graficos {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin-top: 30px;
-    gap: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 30px;
+  gap: 20px;
 }
 
 .div_sessao_graficos {
-    background-color: #044036;
-    width: 45%;
-    padding: 10px;
-    border-radius: 12px;
-    height: 250px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+  background-color: #044036;
+  width: 45%;
+  padding: 10px;
+  border-radius: 12px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
-
 .div_sessao_graficos h1 {
-    font-size: 20px;
-    height: 10%;
+  font-size: 20px;
+  height: 10%;
 }
 
 .div_sessao_graficos img {
-    width: 25px;
+  width: 25px;
 }
 
 .div_titulo {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.div_grafico {
-    height: 80%;
-    border: 1px solid white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }

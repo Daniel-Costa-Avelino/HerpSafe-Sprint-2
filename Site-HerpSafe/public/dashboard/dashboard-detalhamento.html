@@ -62,9 +62,10 @@
                     <img src="../assets/icons/icon-filtro.svg" alt="Ícone de filtro">
                     <p>Filtro:</p>
                     <p>De</p>
-                    <input type="date" id="data-de">
+                    <input type="date" id="data_de">
                     <p>a</p>
-                    <input type="date" id="data-a">
+                    <input type="date" id="data_ate">
+                    <button onclick="filtro()">Filtrar</button>
                 </div>
                 <button class="btn_historico" id="filter_historico">
                     <img src="../assets/icons/icon-alertas.png" alt="Ícone de alerta">
@@ -78,7 +79,7 @@
                         <h1>Sensor 1: Temperatura 1</h1>
                         <img src="../assets/icons/certoVerde.png" alt="Ícone">
                     </div>
-                    <div class="div_grafico">
+                    <div class="div_grafico" id="grafico_temperatura">
                         <canvas id="temperatura1"></canvas>
                     </div>
                 </div>
@@ -87,7 +88,7 @@
                         <h1>Sensor 1: Umidade 1</h1>
                         <img src="../assets/icons/certoVerde.png" alt="Ícone">
                     </div>
-                    <div class="div_grafico">
+                    <div class="div_grafico" id="grafico_umidade">
                         <canvas id="umidade1"></canvas>
                     </div>
                 </div>

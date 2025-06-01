@@ -1,5 +1,7 @@
 CREATE DATABASE HerpSafe;
-USE HerpSafe;-- --------------------------------------------------------------------------------------------------------------------------------------------------------
+USE HerpSafe;
+
+-- --------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE endereco (
 idEndereco INT PRIMARY KEY AUTO_INCREMENT,
@@ -57,6 +59,12 @@ VALUES
 ('João Silva', 'joao@empG.com', '123.456.789-00', 'senha123', 1),
 ('Maria Souza', 'maria@empP.com', '987.654.321-00', 'senha456', 2);
 
+SELECT alerta FROM captura
+    where idCaptura = 5 AND fksensor = 6
+    AND DATE (dt_Hr_Captura) = CURDATE();
+    
+    SELECT COUNT(mensagem) FROM captura WHERE (fksensor = 6 OR fksensor = 5);
+
 -- ------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE prateleira (
@@ -112,18 +120,21 @@ VALUES
 ('DEF67890', 'Manutenção', 'LM35');
 
 SELECT * FROM recinto;
-SELECT COUNT(fk_sensor1), COUNT(fk_sensor2) FROM recinto WHERE idrecinto = 2;
+SELECT COUNT(fk_sensor1) + COUNT(fk_sensor2) AS 'Total de Sensores no Recinto' FROM recinto WHERE idrecinto = 2;
 
--- Selecionando a temperatura e umidade máxima da captura
-SELECT MAX(temperatura) FROM captura WHERE fksensor = 5;
-SELECT MAX(temperatura) FROM captura WHERE fksensor = 6;
+-- Selecionando a temperatura máxima da captura
+SELECT MAX(temperatura) FROM captura WHERE fksensor IN (5, 6);
+
+-- Selecionando a Umidade máxima da captura
+SELECT MAX(umidade) FROM captura WHERE fksensor in (5, 6);
 
 SELECT MAX(umidade) FROM captura WHERE fksensor = 5;
 SELECT MAX(umidade) FROM captura WHERE fksensor = 6;
 
 
--- Exibir os alertas com base no sensor específico
-SELECT alerta, mensagem FROM captura WHERE fksensor = 5 OR fksensor = 6; 
+-- Exibir os alertas com base no sensor específico nas últiams 24 horas
+SELECT COUNT(alerta) AS 'alertas' FROM captura WHERE (fksensor = 5 OR fksensor = 6)
+AND dt_Hr_Captura >= NOW() - INTERVAL 1 DAY;
 
 UPDATE captura SET alerta = 2 WHERE idCaptura = 2;
 UPDATE captura SET mensagem = "LM35: Temperatura em 36 graus fora dos padrões estabelecidos. O limite é 25 graus.
@@ -167,12 +178,12 @@ SELECT umidade FROM recinto JOIN sensor ON recinto.fk_sensor2 = sensor.idSensor
 
 INSERT INTO captura (temperatura, umidade, fksensor)
 VALUES 
-(28.5, 70.2, 5),
-(29.5, 67.2, 5),
-(27.3, 68.6, 5),
-(27.7, 69.3, 5),
-(28.4, 70.3, 5),
-(29.2, 72.4, 5);
+(30.2, 70.2, 5),
+(29.9, 68.2, 5),
+(21.3, 60.6, 5),
+(26.7, 64.5, 5),
+(28.1, 71.3, 5),
+(27.7, 72.4, 5);
 
 INSERT INTO captura (temperatura, umidade, fksensor)
 VALUES 
@@ -196,6 +207,9 @@ VALUES
 (30.0, 15.0, 'DHT11'),
 (60.0, 20.0, 'LM35');
 
+select temperatura, umidade, date(dt_Hr_Captura) as "Data" FROM captura
+	where date(dt_Hr_Captura) between "2025-05-28" and "2025-05-29" and fksensor = 5 or fksensor = 6;
+
 -- -----------------------------------------------------------------------------------------------------------------------------------------------
 CREATE TABLE metricas_do_recinto(
 fkIdRecinto INT,
@@ -212,6 +226,8 @@ REFERENCES metricas(idMetricas)
 SELECT * FROM empresa;
 SELECT * FROM sensor;
 SELECT * FROM captura;
+
+SELECT DATE(dt_Hr_Captura) AS 'Dia' FROM captura;
 SELECT * FROM funcionario;
 SELECT * FROM endereco;
 SELECT * FROM local_instalacao;
