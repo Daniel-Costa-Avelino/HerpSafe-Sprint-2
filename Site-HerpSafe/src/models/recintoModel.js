@@ -78,9 +78,13 @@ function alertas(idRecinto) {
   return database.executar(instrucaoSql);
 }
 
-function filtro(data_inicio, data_fim, fksensor1, fksensor2) {
-  const instrucaoSql = `select temperatura, umidade, date(dt_Hr_Captura) as "Data" FROM captura
-	where date(dt_Hr_Captura) between "${data_inicio}" and "${data_fim}" and fksensor = ${fksensor1} or fksensor = ${fksensor2};`;
+function filtro(data_inicio, data_fim, idRecinto) {
+  const instrucaoSql = `
+  
+  SELECT temperatura, umidade, date(dt_Hr_Captura) AS "Data" FROM captura
+	  JOIN sensor ON fkSensor = idSensor 
+	WHERE DATE(dt_Hr_Captura) BETWEEN "${data_inicio}" AND "${data_fim}" AND fkRecinto = ${idRecinto};
+  `;
 
   return database.executar(instrucaoSql);
 }

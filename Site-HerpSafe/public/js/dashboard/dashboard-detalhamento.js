@@ -225,95 +225,96 @@ function filtro() {
   if (data_inicio == "" || data_fim == "") {
     alert("Preencha todos os campos");
   } else {
-    const recinto = JSON.parse(sessionStorage.RECINTOS_TODOS);
-
     const header = {
       method: "POST",
       headers: {
         "Content-type": "Application/json",
       },
       body: JSON.stringify({
-        fkSensor1: recinto[0].fk_sensor1,
-        fkSensor2: recinto[0].fk_sensor2,
         data_inicio: data_inicio,
         data_fim: data_fim,
+        idRecinto: sessionStorage.ID_RECINTO_INDIVIDUAL,
       }),
     };
 
     fetch("/recinto/filtro", header).then((result) => {
       result.json().then((json) => {
-        const divGraficoTemp = document.getElementById("grafico_temperatura");
-        const divGraficoUmi = document.getElementById("grafico_umidade");
+        console.log(json.length);
 
-        divGraficoTemp.innerHTML = "";
-        divGraficoTemp.innerHTML = `<canvas id="temperatura1"><canvas>`;
-        divGraficoUmi.innerHTML = "";
-        divGraficoUmi.innerHTML = `<canvas id="umidade1"><canvas>`;
+        if (json.length > 0) {
+          const divGraficoTemp = document.getElementById("grafico_temperatura");
+          const divGraficoUmi = document.getElementById("grafico_umidade");
 
-        const sensorTemp = document
-          .getElementById(`temperatura1`)
-          .getContext("2d");
+          divGraficoTemp.innerHTML = "";
+          divGraficoTemp.innerHTML = `<canvas id="temperatura"><canvas>`;
+          divGraficoUmi.innerHTML = "";
+          divGraficoUmi.innerHTML = `<canvas id="umidade"><canvas>`;
 
-        new Chart(sensorTemp, {
-          type: "line",
-          data: {
-            labels: ["1", "2", "3", "4", "5", "6"],
-            datasets: [
-              {
-                label: `Início: ${data_inicio} - Fim: ${data_fim}`,
-                data: [
-                  json[0].temperatura,
-                  json[1].temperatura,
-                  json[2].temperatura,
-                  json[3].temperatura,
-                  json[4].temperatura,
-                  json[5].temperatura,
-                ],
-                borderWidth: 1,
-                backgroundColor: "#EA4949",
-                borderColor: "#FFF",
-              },
-            ],
-          },
+          const sensorTemp = document
+            .getElementById(`temperatura`)
+            .getContext("2d");
 
-          options: {
-            scales: {
-              y: {
-                beginAtZero: true,
+          new Chart(sensorTemp, {
+            type: "line",
+            data: {
+              labels: ["1", "2", "3", "4", "5", "6"],
+              datasets: [
+                {
+                  label: `Início: ${data_inicio} - Fim: ${data_fim}`,
+                  data: [
+                    json[0].temperatura,
+                    json[1].temperatura,
+                    json[2].temperatura,
+                    json[3].temperatura,
+                    json[4].temperatura,
+                  ],
+                  borderWidth: 1,
+                  backgroundColor: "#EA4949",
+                  borderColor: "#FFF",
+                },
+              ],
+            },
+
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true,
+                },
               },
             },
-          },
-        });
-        const sensorUmi = document.getElementById(`umidade1`).getContext("2d");
+          });
+          const sensorUmi = document.getElementById(`umidade`).getContext("2d");
 
-        new Chart(sensorUmi, {
-          type: "line",
-          data: {
-            labels: ["1", "2", "3", "4", "5", "6"],
-            datasets: [
-              {
-                label: `Início: ${data_inicio} - Fim: ${data_fim}`,
-                data: [
-                  json[0].umidade,
-                  json[1].umidade,
-                  json[2].umidade,
-                  json[3].umidade,
-                  json[4].umidade,
-                  json[5].umidade,
-                ],
-                borderWidth: 1,
-              },
-            ],
-          },
+          new Chart(sensorUmi, {
+            type: "line",
+            data: {
+              labels: ["1", "2", "3", "4", "5", "6"],
+              datasets: [
+                {
+                  label: `Início: ${data_inicio} - Fim: ${data_fim}`,
+                  data: [
+                    json[0].umidade,
+                    json[1].umidade,
+                    json[2].umidade,
+                    json[3].umidade,
+                    json[4].umidade,
+                  ],
+                  borderWidth: 1,
+                },
+              ],
+            },
 
-          options: {
-            scales: {
-              y: {
-                beginAtZero: true,
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true,
+                },
               },
             },
-          },
-        });
+          });
+        } else {
+          alert("Não existem dados para a data selecionada!");
+        }
       });
     });
   }
@@ -325,5 +326,4 @@ document.addEventListener("DOMContentLoaded", pegarTotalSensoresPorRecinto);
 document.addEventListener("DOMContentLoaded", pegarMaximoTemperatura);
 document.addEventListener("DOMContentLoaded", pegarMaximoUmidade);
 document.addEventListener("DOMContentLoaded", alertas);
-
-// botaoHistorico.addEventListener("click", filterHistorico);
+botaoHistorico.addEventListener("click", filtro);

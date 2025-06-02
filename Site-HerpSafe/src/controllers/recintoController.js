@@ -192,22 +192,18 @@ function alertas(req, res) {
 function filtro(req, res) {
   const dataInicio = req.body.data_inicio;
   const dataFim = req.body.data_fim;
-  const fk_sensor1 = req.body.fkSensor1;
-  const fk_sensor2 = req.body.fkSensor2;
+  const idRecinto = req.body.idRecinto;
 
   if (
     dataInicio == undefined ||
     dataFim == undefined ||
-    fk_sensor1 == undefined ||
-    fk_sensor2 == undefined
+    idRecinto == undefined
   ) {
     res.status(500).send("Algum valor está indefinido!");
   } else {
-    recintoModel
-      .filtro(dataInicio, dataFim, fk_sensor1, fk_sensor2)
-      .then((result) => {
-        res.status(200).json(result);
-      });
+    recintoModel.filtro(dataInicio, dataFim, idRecinto).then((result) => {
+      res.status(200).json(result);
+    });
   }
 }
 
