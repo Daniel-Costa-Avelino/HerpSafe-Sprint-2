@@ -62,13 +62,12 @@ function cadastrar(req, res) {
 
 function pegarCapturasTemperatura(req, res) {
   const idRecinto = req.body.idRecinto;
-  const numeroSensor = req.body.fk_sensor;
 
-  if (idRecinto == undefined || numeroSensor == undefined) {
+  if (idRecinto == undefined) {
     res.status(500).send("Alguns dos seus componentes estão como indefinidos!");
   } else {
     recintoModel
-      .pegarCapturasTemperatura(idRecinto, numeroSensor)
+      .pegarCapturasTemperatura(idRecinto)
       .then((result) => {
         res.status(200).json(result);
       })
@@ -83,13 +82,12 @@ function pegarCapturasTemperatura(req, res) {
 
 function pegarCapturasUmidade(req, res) {
   const idRecinto = req.body.idRecinto;
-  const numeroSensor = req.body.fk_sensor;
 
-  if (idRecinto == undefined || numeroSensor == undefined) {
+  if (idRecinto == undefined) {
     res.status(500).send(`Alguns dos seus componentes estão como indefinidos!`);
   } else {
     recintoModel
-      .pegarCapturasUmidade(idRecinto, numeroSensor)
+      .pegarCapturasUmidade(idRecinto)
       .then((result) => {
         res.status(200).json(result);
       })
@@ -113,13 +111,12 @@ function pegarTotalSensores(req, res) {
 }
 
 function pegarMaximoTemperatura(req, res) {
-  const fkSensor1 = req.body.fk_sensor1;
-  const fkSensor2 = req.body.fk_sensor2;
+  const idRecinto = req.body.idRecinto;
 
-  if (fkSensor1 == undefined || fkSensor2 == undefined) {
-    res.status(500).send("Sensores estão como indefinidos!");
+  if (idRecinto == undefined) {
+    res.status(500).send("Recinto esta como indefinido!");
   } else {
-    recintoModel.pegarMaximoTemperatura(fkSensor1, fkSensor2).then((result) => {
+    recintoModel.pegarMaximoTemperatura(idRecinto).then((result) => {
       res.status(200).json(result);
     });
   }
@@ -176,13 +173,12 @@ function pegarMaximoUmidade(req, res) {
 
 function alertas(req, res) {
   const idRecinto = req.body.idRecinto;
-  const numeroSensor = req.body.fk_sensor;
 
-  if (idRecinto == undefined || numeroSensor == undefined) {
+  if (idRecinto == undefined) {
     res.status(500).send(`Alguns dos seus componentes estão como indefinidos!`);
   } else {
-    alertasModel
-      .pegarAlertasUltimas24h(idRecinto, numeroSensor)
+    recintoModel
+      .alertas(idRecinto)
       .then((result) => {
         res.status(200).json(result);
       })
@@ -222,7 +218,7 @@ module.exports = {
   pegarCapturasUmidade,
   pegarMaximoUmidade,
   pegarMaximoTemperatura,
-  alertas,
   filtro,
   pegarTotalSensores,
+  alertas,
 };

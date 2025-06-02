@@ -35,8 +35,8 @@ router.post("/filtro", function (req, res) {
   recintoController.filtro(req, res);
 });
 
-router.post("ultimas24", function (req, res) {
-  recintoController.ultimas24(req, res);
+router.post("/alertas", function (req, res) {
+  recintoController.alertas(req, res);
 });
 
 module.exports = router;

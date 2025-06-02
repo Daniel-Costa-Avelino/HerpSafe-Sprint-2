@@ -23,18 +23,21 @@ function cadastrar(
   return database.executar(instrucaoSql);
 }
 
-function pegarCapturasTemperatura(id_recinto, numeroSensor) {
-  const instrucaoSql = `SELECT temperatura FROM recinto 
-  JOIN sensor ON recinto.fk_sensor${numeroSensor} = sensor.idSensor 
-	JOIN captura ON captura.fksensor = sensor.idSensor WHERE idrecinto = ${id_recinto};`;
+function pegarCapturasTemperatura(id_recinto) {
+  const instrucaoSql = `
+    SELECT temperatura FROM captura 
+  JOIN sensor ON fkSensor = idSensor WHERE fkRecinto = ${id_recinto};
+  `;
 
   return database.executar(instrucaoSql);
 }
 
-function pegarCapturasUmidade(id_recinto, numeroSensor) {
-  const instrucaoSql = `SELECT umidade FROM recinto
-      JOIN sensor ON recinto.fk_sensor${numeroSensor} = sensor.idSensor
-      JOIN captura ON captura.fksensor = sensor.idSensor WHERE idrecinto = ${id_recinto};`;
+function pegarCapturasUmidade(id_recinto) {
+  const instrucaoSql = `
+    SELECT umidade FROM captura 
+    JOIN sensor ON fkSensor = idSensor WHERE fkRecinto = ${id_recinto};
+
+  `;
 
   return database.executar(instrucaoSql);
 }
@@ -66,10 +69,11 @@ function pegarMaximoUmidade(idRecinto) {
   return database.executar(instrucaoSql);
 }
 
-function alertas(id_captura, fk_sensor) {
-  const instrucaoSql = `SELECT alerta FROM captura
-    where idCaptura = ${id_captura} AND fksensor = ${fk_sensor}
-    AND DATE (dt_Hr_Captura) = CURDATE()`;
+function alertas(idRecinto) {
+  const instrucaoSql = `
+  SELECT COUNT(*) AS 'quantidade' FROM captura 
+	  JOIN sensor ON fksensor = idSensor 
+  WHERE alerta = 1  AND fkRecinto = ${idRecinto} AND dt_Hr_Captura >= NOW() - INTERVAL 1 DAY;`;
 
   return database.executar(instrucaoSql);
 }

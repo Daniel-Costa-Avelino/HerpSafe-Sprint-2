@@ -7,117 +7,111 @@ const botaoHistorico = document.getElementById("filter_historico");
 
 nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-// function pegarCapturasTemperatura(numeroSensor) {
-//   const header = {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "Application/json",
-//     },
-//     body: JSON.stringify({
-//       idRecinto: sessionStorage.ID_RECINTO_INDIVIDUAL,
-//       fk_sensor: numeroSensor,
-//     }),
-//   };
+function pegarCapturasTemperatura() {
+  const header = {
+    method: "POST",
+    headers: {
+      "Content-Type": "Application/json",
+    },
+    body: JSON.stringify({
+      idRecinto: sessionStorage.ID_RECINTO_INDIVIDUAL,
+    }),
+  };
 
-//   fetch("http://localhost:3333/recinto/pegarCapturasTemperatura", header)
-//     .then((result) => {
-//       result.json().then((json) => {
-//         const sensorTemp = document
-//           .getElementById(`temperatura${numeroSensor}`)
-//           .getContext("2d");
+  fetch("http://localhost:3333/recinto/pegarCapturasTemperatura", header)
+    .then((result) => {
+      result.json().then((json) => {
+        const sensorTemp = document
+          .getElementById(`temperatura`)
+          .getContext("2d");
 
-//         new Chart(sensorTemp, {
-//           type: "line",
-//           data: {
-//             labels: ["1", "2", "3", "4", "5", "6"],
-//             datasets: [
-//               {
-//                 label: `Temperatura do sensor ${numeroSensor}`,
-//                 data: [
-//                   json[0].temperatura,
-//                   json[1].temperatura,
-//                   json[2].temperatura,
-//                   json[3].temperatura,
-//                   json[4].temperatura,
-//                   json[5].temperatura,
-//                 ],
-//                 borderWidth: 1,
-//                 backgroundColor: "#EA4949",
-//                 borderColor: "#FFF",
-//               },
-//             ],
-//           },
+        new Chart(sensorTemp, {
+          type: "line",
+          data: {
+            labels: ["1", "2", "3", "4", "5"],
+            datasets: [
+              {
+                label: `Temperatura do sensor 1`,
+                data: [
+                  json[0].temperatura,
+                  json[1].temperatura,
+                  json[2].temperatura,
+                  json[3].temperatura,
+                  json[4].temperatura,
+                ],
+                borderWidth: 1,
+                backgroundColor: "#EA4949",
+                borderColor: "#FFF",
+              },
+            ],
+          },
 
-//           options: {
-//             scales: {
-//               y: {
-//                 beginAtZero: true,
-//               },
-//             },
-//           },
-//         });
-//       });
-//     })
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+      });
+    })
 
-//     .catch((error) => {
-//       console.log("Erro: não foi possível fazer a requisição", error);
-//     });
-// }
-// // Function para pegar as capturas de umidade
-// function pegarCapturasUmidade(numeroSensor) {
-//   const header = {
-//     method: "POST",
-//     headers: {
-//       "Content-type": "Application/json",
-//     },
-//     body: JSON.stringify({
-//       idRecinto: sessionStorage.ID_RECINTO_INDIVIDUAL,
-//       fk_sensor: numeroSensor,
-//     }),
-//   };
+    .catch((error) => {
+      console.log("Erro: não foi possível fazer a requisição", error);
+    });
+}
 
-//   fetch("http://localhost:3333/recinto/pegarCapturasUmidade", header)
-//     .then((result) => {
-//       result.json().then((json) => {
-//         const sensorUmi = document
-//           .getElementById(`umidade${numeroSensor}`)
-//           .getContext(`2d`);
+function pegarCapturasUmidade() {
+  const header = {
+    method: "POST",
+    headers: {
+      "Content-Type": "Application/json",
+    },
+    body: JSON.stringify({
+      idRecinto: sessionStorage.ID_RECINTO_INDIVIDUAL,
+    }),
+  };
 
-//         new Chart(sensorUmi, {
-//           type: `line`,
-//           data: {
-//             labels: [`1`, `2`, `3`, `4`, `5`, `6`],
-//             datasets: [
-//               {
-//                 label: `Umidade do Sensor ${numeroSensor}`,
-//                 data: [
-//                   json[0].umidade,
-//                   json[1].umidade,
-//                   json[2].umidade,
-//                   json[3].umidade,
-//                   json[4].umidade,
-//                   json[5].umidade,
-//                 ],
-//                 borderWidth: 1,
-//               },
-//             ],
-//           },
+  fetch("http://localhost:3333/recinto/pegarCapturasUmidade", header)
+    .then((result) => {
+      result.json().then((json) => {
+        const sensorTemp = document.getElementById(`umidade`).getContext("2d");
 
-//           options: {
-//             scales: {
-//               y: {
-//                 beginAtZero: true,
-//               },
-//             },
-//           },
-//         });
-//       });
-//     })
+        new Chart(sensorTemp, {
+          type: "line",
+          data: {
+            labels: ["1", "2", "3", "4", "5"],
+            datasets: [
+              {
+                label: `Umidade do sensor 1`,
+                data: [
+                  json[0].umidade,
+                  json[1].umidade,
+                  json[2].umidade,
+                  json[3].umidade,
+                  json[4].umidade,
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
 
-//     .catch((error) => {
-//       console.log(`Erro: Não foi possível fazer a requisição`, error);
-//     });
-// }
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+      });
+    })
+
+    .catch((error) => {
+      console.log("Erro: não foi possível fazer a requisição", error);
+    });
+}
 
 function pegarTotalSensoresPorRecinto() {
   const header = {
@@ -164,7 +158,6 @@ function pegarMaximoTemperatura() {
       if (resultado.ok) {
         resultado.json().then((json) => {
           temperaturaMaxima.innerHTML = json[0].max_emergencia;
-          console.log(json);
         });
       }
     })
@@ -205,26 +198,19 @@ function pegarMaximoUmidade() {
 
 function alertas() {
   const idRecinto = sessionStorage.ID_RECINTO_INDIVIDUAL;
-  const fk_sensor = numeroSensor;
 
-  fetch("/recinto/ultimas24", {
+  fetch("/recinto/alertas", {
     method: "POST",
     headers: {
       "Content-type": "application/json",
     },
     body: JSON.stringify({
       idRecinto,
-      fk_sensor,
     }),
   })
     .then((res) => res.json())
     .then((json) => {
-      console.log("Alertas:", json);
-      document.getElementById("resultado").innerText = JSON.stringify(
-        json,
-        null,
-        2
-      );
+      document.getElementById("24-alerta").innerHTML = json[0].quantidade;
     })
 
     .catch((err) => {
@@ -333,7 +319,11 @@ function filtro() {
   }
 }
 
+document.addEventListener("DOMContentLoaded", pegarCapturasTemperatura);
+document.addEventListener("DOMContentLoaded", pegarCapturasUmidade);
 document.addEventListener("DOMContentLoaded", pegarTotalSensoresPorRecinto);
 document.addEventListener("DOMContentLoaded", pegarMaximoTemperatura);
 document.addEventListener("DOMContentLoaded", pegarMaximoUmidade);
+document.addEventListener("DOMContentLoaded", alertas);
+
 // botaoHistorico.addEventListener("click", filterHistorico);
