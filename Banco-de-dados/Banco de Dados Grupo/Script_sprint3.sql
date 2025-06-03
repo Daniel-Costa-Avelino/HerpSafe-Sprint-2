@@ -56,7 +56,7 @@ VALUES
 CREATE TABLE prateleira (
 idPrateleira INT PRIMARY KEY AUTO_INCREMENT,
 nome VARCHAR(45),
-status_prateleira VARCHAR(10),
+status_prateleira TINYINT,
 fkEmpresa_prateleira INT,
 CONSTRAINT fkPrateleiraEmpresa FOREIGN KEY (fkEmpresa_prateleira)
     REFERENCES empresa(idEmpresa)
@@ -66,38 +66,40 @@ SELECT * FROM prateleira;
 
 INSERT INTO prateleira (nome, status_prateleira, fkEmpresa_prateleira)
 VALUES
-('Prateleira A', 'Ativa', 1),
-('Prateleira B', 'Inativa', 1);
+('Prateleira A', 0, 1),
+('Prateleira B', 0, 1);
 
 SELECT * FROM prateleira;
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 CREATE TABLE recinto(
 idRecinto INT PRIMARY KEY AUTO_INCREMENT,
 nome_recinto VARCHAR(40) NOT NULL,
-status_recinto VARCHAR(10),
+status_recinto TINYINT,
 fkPrateleira INT NOT NULL,
 CONSTRAINT fkPrateleiraRecinto FOREIGN KEY (fkPrateleira) REFERENCES prateleira(idPrateleira)
 );
 
 INSERT INTO recinto (nome_recinto, status_recinto, fkPrateleira) VALUES
-('Recinto 1', 'Ativo', 1),
-('Recinto 2', 'Inativo', 2);
+('Recinto Cobra 1', 0, 1),
+('Recinto Cobra 2', 1, 2),
+('Recinto Cobra 3', 2, 1);
 
 SELECT * FROM recinto;
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
 CREATE TABLE sensor (
 idSensor INT PRIMARY KEY AUTO_INCREMENT,
 numero_Serie CHAR(8) NOT NULL,
-status_Sensor VARCHAR(10) NOT NULL,
+status_Sensor TINYINT NOT NULL,
       CONSTRAINT chk_StatusSensor
-             CHECK (Status_Sensor IN('Ativo', 'Manutenção', 'Inativo')),
+             CHECK (Status_Sensor IN(0, 1, 2)),
 fkRecinto INT,
 CONSTRAINT fkSensorRecinto
 FOREIGN KEY (fkRecinto) REFERENCES recinto(idRecinto)
 ); 
 
 INSERT INTO sensor (numero_Serie, status_Sensor, fkRecinto) VALUES
-('ABC12345', 'Ativo', 1);
+('SNSR0001', 0, 1),
+('SNSR0002', 1, 2);
 
 SELECT * FROM sensor;
 
@@ -109,20 +111,23 @@ temperatura FLOAT NOT NULL,
 umidade FLOAT NOT NULL,
 dt_Hr_Captura DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
 alerta TINYINT,
-mensagem VARCHAR (100),
+mensagem VARCHAR (255),
 fksensor INT NOT NULL,
 CONSTRAINT fkCapturaSensor FOREIGN KEY (fksensor)
     REFERENCES sensor(idsensor)
 ); 
-ALTER TABLE captura MODIFY COLUMN mensagem VARCHAR(255);
 
-INSERT INTO captura (temperatura, umidade, alerta, mensagem, fksensor) 
-VALUES (28.0, 65.5, 0, 'Leitura dentro dos padrões', 1);
-
-INSERT INTO sensor (numero_Serie, status_Sensor, fkRecinto) VALUES ('XYZ67890', 'Ativo', 1);
-
-INSERT INTO captura (temperatura, umidade, alerta, mensagem, fksensor) 
-VALUES (9.0, 65.5, 1, 'Temperatura em nível de atenção! Ação recomendada.', 2);
+INSERT INTO captura (temperatura, umidade, alerta, mensagem, fksensor) VALUES
+(25.3, 60.1, '2025-05-30 14:00:00', 0, NULL, 3),
+(26.8, 62.5, '2025-05-30 14:05:00', 0, NULL, 3),
+(24.9, 59.7, '2025-05-30 14:10:00', 0, NULL, 3),
+(27.5, 65.2, '2025-05-30 14:15:00', 1, 'Temperatura elevada detectada!', 3),
+(23.1, 55.8, '2025-05-30 14:20:00', 0, NULL, 4),
+(25.0, 61.0, '2025-05-30 14:25:00', 0, NULL, 4),
+(26.1, 63.3, '2025-05-30 14:30:00', 0, NULL, 4),
+(24.5, 58.9, '2025-05-30 14:35:00', 0, NULL, 3),
+(28.0, 66.0, '2025-05-30 14:40:00', 1, 'Alerta: Umidade alta!', 4),
+(22.8, 54.5, '2025-05-30 14:45:00', 0, NULL, 3);
 
 SELECT * FROM captura;
 -- ----------------------------------------------------------------------------------------------------------------------------------------------
