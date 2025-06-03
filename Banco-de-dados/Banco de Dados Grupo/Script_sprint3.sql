@@ -1,5 +1,8 @@
 CREATE DATABASE HerpSafe;
 USE HerpSafe;
+
+SELECT * FROM captura;
+
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 CREATE TABLE endereco (
 idEndereco INT PRIMARY KEY AUTO_INCREMENT,
@@ -56,7 +59,7 @@ VALUES
 CREATE TABLE prateleira (
 idPrateleira INT PRIMARY KEY AUTO_INCREMENT,
 nome VARCHAR(45),
-status_prateleira TINYINT,
+status_prateleira VARCHAR(10),
 fkEmpresa_prateleira INT,
 CONSTRAINT fkPrateleiraEmpresa FOREIGN KEY (fkEmpresa_prateleira)
     REFERENCES empresa(idEmpresa)
@@ -66,40 +69,40 @@ SELECT * FROM prateleira;
 
 INSERT INTO prateleira (nome, status_prateleira, fkEmpresa_prateleira)
 VALUES
-('Prateleira A', 0, 1),
-('Prateleira B', 0, 1);
+('Prateleira A', 'Ativa', 1),
+('Prateleira B', 'Inativa', 1);
 
 SELECT * FROM prateleira;
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 CREATE TABLE recinto(
 idRecinto INT PRIMARY KEY AUTO_INCREMENT,
 nome_recinto VARCHAR(40) NOT NULL,
-status_recinto TINYINT,
+status_recinto VARCHAR(10),
 fkPrateleira INT NOT NULL,
 CONSTRAINT fkPrateleiraRecinto FOREIGN KEY (fkPrateleira) REFERENCES prateleira(idPrateleira)
 );
 
 INSERT INTO recinto (nome_recinto, status_recinto, fkPrateleira) VALUES
-('Recinto Cobra 1', 0, 1),
-('Recinto Cobra 2', 1, 2),
-('Recinto Cobra 3', 2, 1);
+('Recinto 1', 'Ativo', 1),
+('Recinto 2', 'Inativo', 2);
 
 SELECT * FROM recinto;
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
 CREATE TABLE sensor (
 idSensor INT PRIMARY KEY AUTO_INCREMENT,
 numero_Serie CHAR(8) NOT NULL,
-status_Sensor TINYINT NOT NULL,
+status_Sensor VARCHAR(10) NOT NULL,
       CONSTRAINT chk_StatusSensor
-             CHECK (Status_Sensor IN(0, 1, 2)),
+             CHECK (Status_Sensor IN('Ativo', 'Manutenção', 'Inativo')),
 fkRecinto INT,
 CONSTRAINT fkSensorRecinto
 FOREIGN KEY (fkRecinto) REFERENCES recinto(idRecinto)
 ); 
 
+SELECT * FROM funcionario;
+
 INSERT INTO sensor (numero_Serie, status_Sensor, fkRecinto) VALUES
-('SNSR0001', 0, 1),
-('SNSR0002', 1, 2);
+('ABC12345', 'Ativo', 1);
 
 SELECT * FROM sensor;
 
@@ -111,35 +114,34 @@ temperatura FLOAT NOT NULL,
 umidade FLOAT NOT NULL,
 dt_Hr_Captura DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
 alerta TINYINT,
-mensagem VARCHAR (255),
+mensagem VARCHAR (100),
 fksensor INT NOT NULL,
 CONSTRAINT fkCapturaSensor FOREIGN KEY (fksensor)
     REFERENCES sensor(idsensor)
 ); 
+ALTER TABLE captura MODIFY COLUMN mensagem VARCHAR(255);
 
-INSERT INTO captura (temperatura, umidade, alerta, mensagem, fksensor) VALUES
-(25.3, 60.1, '2025-05-30 14:00:00', 0, NULL, 3),
-(26.8, 62.5, '2025-05-30 14:05:00', 0, NULL, 3),
-(24.9, 59.7, '2025-05-30 14:10:00', 0, NULL, 3),
-(27.5, 65.2, '2025-05-30 14:15:00', 1, 'Temperatura elevada detectada!', 3),
-(23.1, 55.8, '2025-05-30 14:20:00', 0, NULL, 4),
-(25.0, 61.0, '2025-05-30 14:25:00', 0, NULL, 4),
-(26.1, 63.3, '2025-05-30 14:30:00', 0, NULL, 4),
-(24.5, 58.9, '2025-05-30 14:35:00', 0, NULL, 3),
-(28.0, 66.0, '2025-05-30 14:40:00', 1, 'Alerta: Umidade alta!', 4),
-(22.8, 54.5, '2025-05-30 14:45:00', 0, NULL, 3);
+INSERT INTO sensor (numero_Serie, status_Sensor, fkRecinto) VALUES ('XYZ67890', 'Ativo', 1);
+
+-- Supondo que exista o sensor com id 1
 
 SELECT * FROM captura;
+SELECT * FROM sensor;
+SELECT temperatura FROM captura 
+JOIN sensor ON fkSensor = idSensor WHERE fkRecinto = 1;
+
+SELECT umidade FROM captura 
+JOIN sensor ON fkSensor = idSensor WHERE fkRecinto = 1;
+
+SELECT * FROM captura 
+	JOIN sensor ON fksensor = idSensor 
+WHERE alerta = 1  AND fkRecinto =1 AND dt_Hr_Captura >= NOW() - INTERVAL 1 DAY;
+
+select temperatura, umidade, date(dt_Hr_Captura) as "Data" FROM captura
+	JOIN sensor ON fkSensor = idSensor 
+	where date(dt_Hr_Captura) between "2025-06-01" and "2025-06-01" and fkRecinto = 1;
+    
 -- ----------------------------------------------------------------------------------------------------------------------------------------------
-SELECT * FROM recinto;
--- SELECT COUNT(fk_sensor) FROM sensor WHERE idrecinto = 2;
-
--- Selecionando a temperatura e umidade máxima da captura
-SELECT MAX(temperatura) FROM captura WHERE fksensor = 5;
-SELECT MAX(temperatura) FROM captura WHERE fksensor = 6;
-
-SELECT MAX(umidade) FROM captura WHERE fksensor = 5;
-SELECT MAX(umidade) FROM captura WHERE fksensor = 6;
 
 -- Exibir os alertas com base no sensor específico
 SELECT alerta, mensagem FROM captura WHERE fksensor = 5 OR fksensor = 6;
@@ -186,7 +188,6 @@ INSERT INTO metricas (tipo, min_ok, max_ok, min_atencao, max_atencao, min_emerge
 ('Temperatura', 28.0, 30.0, 26.0, 32.0, 24.0, 34.0),
 ('Umidade', 60.0, 70.0, 50.0, 80.0, 40.0, 85.0);
 
-
 -- -----------------------------------------------------------------------------------------------------------------------------------------------
 CREATE TABLE especie(
     fkIdRecinto INT,
@@ -201,6 +202,8 @@ CREATE TABLE especie(
     CONSTRAINT fkMetricasIdUmidade FOREIGN KEY (fkMetricasUmidade)
     REFERENCES metricas(idMetricas)
 );
+
+SELECT * FROM especie JOIN recinto ON idRecinto = fkIdRecinto;
 
 -- -----------------------------------------------------------------------------------------------------------------------------------------------
 -- Inicio da Trigger
@@ -385,7 +388,6 @@ VALUES
 ('Temperatura', 26, 30, 24, 32, 20, 35),
 ('Umidade', 60, 70, 55, 75, 40, 80);
 
+SELECT max_emergencia FROM especie JOIN metricas ON fkMetricasTemperatura = idMetricas WHERE fkIdRecinto = 1;
 
-
-
-
+SELECT * FROM captura;
