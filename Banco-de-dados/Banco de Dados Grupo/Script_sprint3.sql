@@ -90,8 +90,6 @@ CREATE TABLE sensor (
 idSensor INT PRIMARY KEY AUTO_INCREMENT,
 numero_Serie CHAR(8) NOT NULL,
 status_Sensor TINYINT NOT NULL,
-      CONSTRAINT chk_StatusSensor
-             CHECK (Status_Sensor IN(0, 1, 2)),
 fkRecinto INT,
 CONSTRAINT fkSensorRecinto
 FOREIGN KEY (fkRecinto) REFERENCES recinto(idRecinto)
@@ -151,22 +149,7 @@ Plano de ação: Ligar camisas de resfriamento" WHERE idCaptura = 2;
 select * from captura;
 SELECT * FROM sensor;
 
--- ----------------------------------------------------------------------------------------------------------------------------------------------------
--- Pegando Captura de Temperatura do Sensor 1 para Plotar no gráfico
--- SELECT temperatura, umidade FROM recinto JOIN sensor ON recinto.fk_sensor = sensor.idSensor // Tabela no sensor gr
-                      -- JOIN captura ON captura.fksensor = sensor.idSensor WHERE idrecinto = 1;
 
--- Pegando Captura de Umidade do sensor 1 para Plotar no gráfico
--- SELECT umidade FROM recinto JOIN sensor ON recinto.fk_sensor = sensor.idSensor
-                   --   JOIN captura ON captura.fksensor = sensor.idSensor WHERE idrecinto = 1;                      
- 
--- Pegando Captura de Temperatura do sensor 2 para Plotar no gráfico                      
--- SELECT temperatura FROM recinto JOIN sensor ON recinto.fk_sensor2 = sensor.idSensor
-                  --    JOIN captura ON captura.fksensor = sensor.idSensor WHERE idrecinto = 1;
- 
--- Pegando Captura de Umidade do sensor 2 para Plotar no gráfico                      
--- SELECT umidade FROM recinto JOIN sensor ON recinto.fk_sensor2 = sensor.idSensor
-                --      JOIN captura ON captura.fksensor = sensor.idSensor WHERE idrecinto = 1;
 -- ------------------------------------------------------------------------------------------------------------------------------------------------------
 CREATE TABLE metricas (
     idMetricas INT PRIMARY KEY AUTO_INCREMENT,
@@ -207,102 +190,34 @@ CREATE TABLE especie(
 
 DELIMITER $$
 
-CREATE TRIGGER trigger_captura_alerta
-AFTER INSERT ON captura
+CREATE TRIGGER trigger_atualiza_alerta
+AFTER UPDATE ON captura
 FOR EACH ROW
 BEGIN
-    -- Declaração de variáveis
-    DECLARE v_temp_status INT DEFAULT 0;
-    DECLARE v_umi_status INT DEFAULT 0;
-    DECLARE v_alerta_status INT DEFAULT 0;
-    DECLARE v_idRecinto INT DEFAULT NULL;
-    DECLARE v_idPrateleira INT DEFAULT NULL;
+        -- Atualizando o status na tabela sensor com base no alerta atualizado na captura
+        UPDATE sensor 
+        SET status_Sensor = NEW.alerta
+        WHERE idSensor = NEW.fksensor;
 
-    -- Declaração de variáveis para os valores das métricas de temperatura
-    DECLARE v_temp_min_ok FLOAT;
-    DECLARE v_temp_max_ok FLOAT;
-    DECLARE v_temp_min_atencao FLOAT;
-    DECLARE v_temp_max_atencao FLOAT;
-    DECLARE v_temp_min_emergencia FLOAT;
-    DECLARE v_temp_max_emergencia FLOAT;
+        -- Obtendo o idRecinto relacionado ao sensor
+        SET @v_idRecinto = (SELECT fkRecinto FROM sensor WHERE idSensor = NEW.fksensor LIMIT 1);
 
-    -- Declaração de variáveis para os valores das métricas de umidade
-    DECLARE v_umi_min_ok FLOAT;
-    DECLARE v_umi_max_ok FLOAT;
-    DECLARE v_umi_min_atencao FLOAT;
-    DECLARE v_umi_max_atencao FLOAT;
-    DECLARE v_umi_min_emergencia FLOAT;
-    DECLARE v_umi_max_emergencia FLOAT;
+        -- Atualizando o status na tabela recinto
+        IF @v_idRecinto IS NOT NULL THEN
+            UPDATE recinto 
+            SET status_recinto = NEW.alerta
+            WHERE idRecinto = @v_idRecinto;
+        END IF;
 
-    -- Buscando limites para Temperatura
-    SELECT min_ok, max_ok, min_atencao, max_atencao, min_emergencia, max_emergencia 
-    INTO v_temp_min_ok, v_temp_max_ok, v_temp_min_atencao, v_temp_max_atencao, v_temp_min_emergencia, v_temp_max_emergencia
-    FROM metricas WHERE tipo = 'Temperatura'
-    LIMIT 1;
+        -- Obtendo o idPrateleira relacionado ao recinto
+        SET @v_idPrateleira = (SELECT fkPrateleira FROM recinto WHERE idRecinto = @v_idRecinto LIMIT 1);
 
-    -- Buscando limites para Umidade
-    SELECT min_ok, max_ok, min_atencao, max_atencao, min_emergencia, max_emergencia 
-    INTO v_umi_min_ok, v_umi_max_ok, v_umi_min_atencao, v_umi_max_atencao, v_umi_min_emergencia, v_umi_max_emergencia
-    FROM metricas WHERE tipo = 'Umidade'
-    LIMIT 1;
-
-    -- Determinando status da Temperatura
-    IF NEW.temperatura BETWEEN v_temp_min_atencao AND v_temp_max_atencao THEN
-        SET v_temp_status = 1;
-    ELSEIF NEW.temperatura BETWEEN v_temp_min_emergencia AND v_temp_max_emergencia THEN
-        SET v_temp_status = 2;
-    ELSE
-        SET v_temp_status = 0;
-    END IF;
-
-    -- Determinando status da Umidade
-    IF NEW.umidade BETWEEN v_umi_min_atencao AND v_umi_max_atencao THEN
-        SET v_umi_status = 1;
-    ELSEIF NEW.umidade BETWEEN v_umi_min_emergencia AND v_umi_max_emergencia THEN
-        SET v_umi_status = 2;
-    ELSE
-        SET v_umi_status = 0;
-    END IF;
-
-    -- Garantindo que status final do alerta seja corretamente definido
-    SET v_alerta_status = GREATEST(IFNULL(v_temp_status, 0), IFNULL(v_umi_status, 0));
-
-    -- Atualizando o status na tabela captura
-    UPDATE captura 
-    SET status = v_alerta_status
-    WHERE idCaptura = NEW.idCaptura;
-
-    -- Propagando status para sensor
-    UPDATE sensor 
-    SET status_Sensor = v_alerta_status
-    WHERE idSensor = NEW.fkSensor;  -- Corrigindo para fkSensor
-
-    -- Obtendo o idRecinto relacionado ao sensor
-    SELECT fkRecinto INTO v_idRecinto 
-    FROM sensor 
-    WHERE idSensor = NEW.fkSensor  -- Corrigindo para fkSensor
-    LIMIT 1;
-
-    -- Atualizando o status na tabela recinto
-    IF v_idRecinto IS NOT NULL THEN
-        UPDATE recinto 
-        SET status_recinto = v_alerta_status
-        WHERE idRecinto = v_idRecinto;
-    END IF;
-
-    -- Obtendo o idPrateleira relacionado ao recinto
-    SELECT fkPrateleira INTO v_idPrateleira 
-    FROM recinto 
-    WHERE idRecinto = v_idRecinto
-    LIMIT 1;
-
-    -- Atualizando o status na tabela prateleira
-    IF v_idPrateleira IS NOT NULL THEN
-        UPDATE prateleira 
-        SET statusPrateleira = v_alerta_status
-        WHERE idPrateleira = v_idPrateleira;
-    END IF;
-
+        -- Atualizando o status na tabela prateleira
+        IF @v_idPrateleira IS NOT NULL THEN
+            UPDATE prateleira 
+            SET status_prateleira = NEW.alerta
+            WHERE idPrateleira = @v_idPrateleira;
+        END IF;
 END $$
 
 DELIMITER ;
@@ -310,7 +225,12 @@ DELIMITER ;
 
 -- Final da Trigger 
 
+DROP TRIGGER IF EXISTS trigger_atualiza_alerta;
+SHOW TRIGGERS LIKE 'captura';
 
+UPDATE captura 
+SET alerta = 1
+WHERE idCaptura = 1;
 -- -----------------------------------------------------------------------------------------------------------------------------------------------
 SELECT idCaptura as id,
 temperatura as temperatura,
@@ -334,6 +254,7 @@ SELECT * FROM captura;
 SELECT * FROM metricas;
 SELECT * FROM especie;
 
+-- ----------------------------------------------------------------------------------------------------------------------------------------------------
 
 INSERT INTO endereco (rua, numero, cidade, estado, cep) VALUES
 ('Rua das Flores', '123', 'Centro', 'São Paulo', 'SP', '01000-000'),
@@ -385,7 +306,7 @@ VALUES
 ('Temperatura', 26, 30, 24, 32, 20, 35),
 ('Umidade', 60, 70, 55, 75, 40, 80);
 
-
+-- ----------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
