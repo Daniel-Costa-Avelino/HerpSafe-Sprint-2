@@ -8,7 +8,7 @@
     <link rel="shortcut icon" href="./assets/icons/HerpSafe - logo - light.png" type="image/x-icon">
     <link rel="stylesheet" href="./styles/login-cadastro.css">
     <link rel="stylesheet" href="./styles/style.css">
-
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <title>HerpSafe - Login</title>
 </head>
 
@@ -30,7 +30,7 @@
             <div class="cadastro-box-campos">
                 <p><span>Senha</span></p><input type="password" id="input_senhaLogin" placeholder="Insira sua senha">
             </div>
-             <!-- <div class="cadastro-box-campos">
+            <!-- <div class="cadastro-box-campos">
                 <p><span>Código de Ativação</span></p><input type="password" id="input_codigoLogin" placeholder="Insira o código da empresa">
             </div> -->
             <p>Não possui uma conta? Faça seu <span><a href="cadastro.html">cadastro!</a></span></p>
@@ -43,57 +43,7 @@
         </div>
     </section>
 
-    <!-- Banner fim -->
+    <script src="./js/login.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
 </body>
-
-<script>
-    function login(){
-    var email = document.getElementById("input_emailLogin").value;
-    var senha = document.getElementById("input_senhaLogin").value;
-    // var codigo = document.getElementById("input_codigoLogin").value;
-
-
-
-    if (email == "" || senha == ""){
-        alert(`Preencha todos os campos para continuar.`); 
-        return;
-    }
-
-    var corpo = {
-        emailServer: email,
-        senhaServer: senha,
-        // codigoServer: codigo
-    };
-
-        fetch("/usuarios/autenticar", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(corpo)
-    })
-    .then(function (resposta) {
-        if (resposta.ok) {
-            return resposta.json();
-        } else {
-            return resposta.text().then(msg => {
-                throw new Error(msg);
-            });
-        }
-    })
-    .then(function (dados) {
-        alert("Login realizado com sucesso!");
-        console.log("Usuário logado:", dados);
-
-        sessionStorage.EMAIL_USUARIO = dados.email;
-        sessionStorage.NOME_USUARIO = dados.nome;
-        sessionStorage.ID_EMPRESA = dados.fkEmpresa;
-
-        window.location.href = "./dashboard/dashboard-visao-geral.html";
-    })
-    .catch(function (erro) {
-        console.error("Erro ao tentar login:", erro.message);
-        document.getElementById("p_mensagem").innerText = "Erro: " + erro.message;
-    });
-        }
-</script>
