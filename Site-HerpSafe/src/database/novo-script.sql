@@ -118,16 +118,16 @@ CONSTRAINT fkCapturaSensor FOREIGN KEY (fksensor)
 );
 
 INSERT INTO captura (temperatura, umidade, dt_Hr_Captura, alerta, mensagem, fksensor) VALUES
-(25.3, 60.1, '2025-05-30 14:00:00', 0, NULL, 3),
-(26.8, 62.5, '2025-05-30 14:05:00', 0, NULL, 3),
-(24.9, 59.7, '2025-05-30 14:10:00', 0, NULL, 3),
-(27.5, 65.2, '2025-05-30 14:15:00', 1, 'Temperatura elevada detectada!', 3),
-(23.1, 55.8, '2025-05-30 14:20:00', 0, NULL, 4),
-(25.0, 61.0, '2025-05-30 14:25:00', 0, NULL, 4),
-(26.1, 63.3, '2025-05-30 14:30:00', 0, NULL, 4),
-(24.5, 58.9, '2025-05-30 14:35:00', 0, NULL, 3),
-(28.0, 66.0, '2025-05-30 14:40:00', 1, 'Alerta: Umidade alta!', 4),
-(22.8, 54.5, '2025-05-30 14:45:00', 0, NULL, 3);
+(25.3, 60.1, '2025-05-30 14:00:00', 0, NULL, 1),
+(26.8, 62.5, '2025-05-30 14:05:00', 0, NULL, 1),
+(24.9, 59.7, '2025-05-30 14:10:00', 0, NULL, 1),
+(27.5, 65.2, '2025-05-30 14:15:00', 1, 'Temperatura elevada detectada!', 1),
+(23.1, 55.8, '2025-05-30 14:20:00', 0, NULL, 2),
+(25.0, 61.0, '2025-05-30 14:25:00', 0, NULL, 2),
+(26.1, 63.3, '2025-05-30 14:30:00', 0, NULL, 2),
+(24.5, 58.9, '2025-05-30 14:35:00', 0, NULL, 2),
+(28.0, 66.0, '2025-05-30 14:40:00', 1, 'Alerta: Umidade alta!', 2),
+(22.8, 54.5, '2025-05-30 14:45:00', 0, NULL, 1);
 
 SELECT * FROM captura;
 -- ----------------------------------------------------------------------------------------------------------------------------------------------
@@ -168,30 +168,39 @@ SELECT * FROM sensor;
 -- SELECT umidade FROM recinto JOIN sensor ON recinto.fk_sensor2 = sensor.idSensor
                 --      JOIN captura ON captura.fksensor = sensor.idSensor WHERE idrecinto = 1;
 -- ------------------------------------------------------------------------------------------------------------------------------------------------------
-CREATE TABLE metricas(
-idMetricas INT PRIMARY KEY AUTO_INCREMENT,
-max FLOAT NOT NULL,
-min FLOAT NOT NULL,
-tipo VARCHAR(45),
-CONSTRAINT cktipo CHECK (tipo in ("DHT11", "LM35"))
+CREATE TABLE metricas (
+    idMetricas INT PRIMARY KEY AUTO_INCREMENT,
+    tipo VARCHAR(45) NOT NULL,
+    min_ok FLOAT NOT NULL,
+    max_ok FLOAT NOT NULL,
+    min_atencao FLOAT NOT NULL,
+    max_atencao FLOAT NOT NULL,
+    min_emergencia FLOAT NOT NULL,
+    max_emergencia FLOAT NOT NULL,
+    CONSTRAINT cktipo CHECK (tipo IN ("Umidade", "Temperatura"))
 );
 
-INSERT INTO metricas (max, min, tipo)
-VALUES
-(30.0, 15.0, 'DHT11'),
-(60.0, 20.0, 'LM35');
+INSERT INTO metricas (tipo, min_ok, max_ok, min_atencao, max_atencao, min_emergencia, max_emergencia) VALUES
+('Temperatura', 28.0, 30.0, 26.0, 32.0, 24.0, 34.0),
+('Umidade', 60.0, 70.0, 50.0, 80.0, 40.0, 85.0);
 
 -- -----------------------------------------------------------------------------------------------------------------------------------------------
 CREATE TABLE especie(
-fkIdRecinto INT,
-fkIdMetricas INT,
-nome VARCHAR(45),
-CONSTRAINT pkComposta PRIMARY KEY (fkIdRecinto, fkIdMetricas),
-CONSTRAINT fkMetricasIdRecinto FOREIGN KEY (fkIdRecinto)
-REFERENCES recinto(idRecinto),
-CONSTRAINT fkMetricasIdMetricas FOREIGN KEY (fkIdMetricas)
-REFERENCES metricas(idMetricas)
+    fkIdRecinto INT,
+    fkMetricasTemperatura INT,
+    fkMetricasUmidade INT,
+    nome VARCHAR(45),
+    CONSTRAINT pkComposta PRIMARY KEY (fkIdRecinto, fkMetricasTemperatura, fkMetricasUmidade),
+    CONSTRAINT fkMetricasIdRecinto FOREIGN KEY (fkIdRecinto)
+    REFERENCES recinto(idRecinto),
+    CONSTRAINT fkMetricasIdTemperatura FOREIGN KEY (fkMetricasTemperatura)
+    REFERENCES metricas(idMetricas),
+    CONSTRAINT fkMetricasIdUmidade FOREIGN KEY (fkMetricasUmidade)
+    REFERENCES metricas(idMetricas)
 );
+
+INSERT INTO especie VALUES
+(1, 1, 2, "Cobra 1");
 
 -- -----------------------------------------------------------------------------------------------------------------------------------------------
 SELECT idCaptura as id,
