@@ -15,32 +15,100 @@ function cadastro() {
     senha == "" ||
     fkEmpresa == ""
   ) {
-    alert(`Prencha todos os campos.`);
+    Toastify({
+      text: "Erro: Por favor, preencha todos os campos",
+      duration: 3000,
+      destination: "https://github.com/apvarun/toastify-js",
+      newWindow: true,
+      close: true,
+      gravity: "top",
+      position: "right",
+      stopOnFocus: true,
+      style: {
+        background: "#0B371F",
+      },
+    }).showToast();
   } else if (senha !== confirmarsenha) {
-    alert(`As senhas não coincidem.`);
+    Toastify({
+      text: "Erro: As senhas não coincidem",
+      duration: 3000,
+      destination: "https://github.com/apvarun/toastify-js",
+      newWindow: true,
+      close: true,
+      gravity: "top",
+      position: "right",
+      stopOnFocus: true,
+      style: {
+        background: "#0B371F",
+      },
+    }).showToast();
   } else if (nome.length <= 3 || nome.indexOf(" ") == -1) {
-    //validação nome
-    alert(`Nome - Deve conter nome e sobrenome\n`);
+    Toastify({
+      text: "Erro: É necessário ter nome e sobrenome",
+      duration: 3000,
+      destination: "https://github.com/apvarun/toastify-js",
+      newWindow: true,
+      close: true,
+      gravity: "top",
+      position: "right",
+      stopOnFocus: true,
+      style: {
+        background: "#0B371F",
+      },
+    }).showToast();
   } else if (
     email == "" ||
     email.indexOf("@") == -1 ||
     email.indexOf(".com") == -1
   ) {
     // validação email
-    alert(`Email - Deve estar no formato correto\n`);
+    Toastify({
+      text: "Erro: O e-mail deve estar no formato correto",
+      duration: 3000,
+      destination: "https://github.com/apvarun/toastify-js",
+      newWindow: true,
+      close: true,
+      gravity: "top",
+      position: "right",
+      stopOnFocus: true,
+      style: {
+        background: "#0B371F",
+      },
+    }).showToast();
   } else if (
     senha == "" ||
     senha.length < 8 ||
     senha == senha.toLowerCase(senha) ||
     senha == senha.toUpperCase(senha)
   ) {
-    // validação senha
-    alert(
-      `Senha - Deve ter pelo menos 8 dígitos, 1 letra minúscula e 1 letra maiúscula \n`
-    );
+    Toastify({
+      text: "Erro: As senha Deve ter pelo menos 8 dígitos, 1 letra minúscula e 1 letra maiúscula",
+      duration: 3000,
+      destination: "https://github.com/apvarun/toastify-js",
+      newWindow: true,
+      close: true,
+      gravity: "top",
+      position: "right",
+      stopOnFocus: true,
+      style: {
+        background: "#0B371F",
+      },
+    }).showToast();
   } else if (cpf == "" || cpf.length != 11) {
     //validação CPF
-    alert(`CPF - Deve ter 11 dígitos`);
+    Toastify({
+      text: "Erro: O CPF deve ter 11 dígitos",
+      duration: 3000,
+      destination: "https://github.com/apvarun/toastify-js",
+      newWindow: true,
+      close: true,
+      gravity: "top",
+      position: "right",
+      stopOnFocus: true,
+      style: {
+        background: "#0B371F",
+      },
+    }).showToast();
   }
 
   //Requisições
@@ -65,13 +133,38 @@ function cadastro() {
           alert("Cadastro realizado com sucesso!");
           window.location.href = "login.html";
         } else {
-          resposta.text().then((msg) => {
-            alert("Erro ao cadastrar: " + msg);
-          });
+          Toastify({
+            text: "Erro: Não foi possível realizar o cadastro",
+            duration: 3000,
+            destination: "https://github.com/apvarun/toastify-js",
+            newWindow: true,
+            close: true,
+            gravity: "top",
+            position: "right",
+            stopOnFocus: true,
+            style: {
+              background: "#0B371F",
+            },
+          }).showToast();
+          console.log(resposta);
         }
       })
       .catch(function (erro) {
-        console.error("Erro na requisição:", erro);
+        Toastify({
+          text: "Erro: Houve um problema na requisição",
+          duration: 3000,
+          destination: "https://github.com/apvarun/toastify-js",
+          newWindow: true,
+          close: true,
+          gravity: "top",
+          position: "right",
+          stopOnFocus: true,
+          style: {
+            background: "#0B371F",
+          },
+        }).showToast();
+
+        console.log(erro);
       });
   }
 }
