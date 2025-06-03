@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Adamina&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Sarala:wght@400;700&display=swap');
 
 * {
     padding: 0;
@@ -7,216 +6,8 @@
     border: none;
     list-style: none;
     text-decoration: none;
-    font-family: Inter;
-}
-
-/* Header */
-
-.cabecalho {
-    border-top: 46px solid var(--green);
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 1px;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-    box-shadow: 0px 10px 10px var(--green);
-}
-
-.cabecalho .logo img {
-    margin-left: 60px;
-    width: 162px;
-    height: 162px;
-}
-
-.cabecalho .menu {
-    display: flex;
-    justify-content: space-evenly;
-    width: 80%;
-}
-
-.cabecalho .menu ul {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: space-evenly;
-    font-weight: bold;
-    font-size: 20px;
-}
-
-.cabecalho .menu ul li a {
-    display: flex;
-    color: black;
-    font-size: 20px;
-}
-
-.cabecalho .menu ul li a img {
-    width: 22px;
-    filter: brightness(0%);
-    height: auto;
-}
-
-.cabecalho .menu .agora {
-    color: var(--green7);
-}
-
-.cabecalho .menu .agora img {
-    filter: brightness(60%);
-}
-
-
-
-/* Banner */
-
-.banner {
-    color: white;
-    background: url(../assets/imgs/HerpSafe\ -\ home\ -\ banner.png);
-    height: 500px;
-    display: flex;
-    flex-direction: column;
-}
-
-.banner h1 {
-    padding-left: 4%;
-    padding-top: 2%;
-    width: 900px;
-    height: 300px;
-    font-size: 80px;
-    line-height: 0.9;
-}
-
-.banner button {
-    margin-left: 4%;
-    margin-top: 2%;
-    color: #7B7B7B;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 8px;
-    width: 163px;
-    height: 52px;
-    box-shadow: 0px 5px 5px #272727
-}
-
-body .container {
-    color: aquamarine;
-    display: flex;
-    height: auto;
-
-}
-
-.servicos .titulo-servico {
-    text-align: center;
-    font-size: 28px;
-    color: #2d6949;
-    margin: 60px 0 30px 0;
-    margin-bottom: 30px;
-    border-bottom: 2px solid #2d6949;
-    padding-bottom: 5px;
-}
-
-.caixas {
-    display: flex;
-    width: 100%;
-
-}
-
-.caixas {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.box {
-    flex: 1;
-    width: 100%;
-    max-width: 450px;
-    padding: 40px;
-    border-radius: 8px;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-
-}
-
-.monitoramento {
-    background-color: #4b8d7c;
-}
-
-.alertas {
-    background-color: #7aba7b;
-}
-
-.icone-servico {
-    width: 60px;
-    margin-bottom: 30px;
-}
-
-.box h3 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-
-.box p {
-    font-size: 16px;
-    margin-bottom: 20px;
-    max-width: 300px;
-}
-
-.box button {
-    padding: 10px 20px;
-    border: none;
-    background-color: white;
-    color: #2e7d32;
-    font-weight: bold;
-    border-radius: 6px;
-
-}
-
-
-
-.sobre {
-    text-align: center;
-    padding: 50px 20px;
-}
-
-.titulo-sobre {
-    font-size: 28px;
-    color: #2e7d50;
-    border-bottom: 2px solid #2e7d50;
-    display: inline-block;
-    padding-bottom: 5px;
-    margin-bottom: 30px;
-    font-weight: bold;
-}
-
-/* Card com fundo de folhas */
-.card-sobre {
-    background: url(../assets/imgs/cadastro-login-banner.png);
-    background-size: cover;
-    background-position: center;
-    border-radius: 15px;
-    padding: 120px 80px;
-    width: 800px;
-    margin: 0 auto;
-    color: white;
-    font-size: 18px;
-    line-height: 1.6;
-
-}
-
-/* Botão */
-.botao-sobre {
-    margin-top: 25px;
-    padding: 12px 30px;
-    background-color: white;
-    color: #2e7d50;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
+    overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 /* Telas de cadastro e login */
@@ -227,6 +18,7 @@ body .container {
     height: 100%;
     background-image: url(../assets/imgs/cadastro-login-banner.png);
     background-position-x: -4px;
+    background-size: cover;
     filter: brightness(1.5);
 }
 
@@ -237,27 +29,16 @@ body .container {
     justify-content: center;
     width: 100%;
     height: 100%;
-    display: flex;
-}
-
-.cadastro-box-completo{
-    height: 80%;
-    width: 50%;
-    /* background-color: rgba(203, 178, 228, 0.071); */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column; 
 }
 
 .cadastro-imagem-cobra {
-
     width: 100%;
     height: 100%;
-    left: -300px;
-    bottom: -100px;
 
     position: absolute;
+    bottom: -10vh;
+    left: -20vw;
+
     /* define como o elemento se relaciona com os outros elementos */
     z-index: 1;
     /* altera ordem em que os elementos serão carregados */
@@ -265,78 +46,75 @@ body .container {
 }
 
 .cadastro-imagem-logo {
-    width: 160px;
-    height: 160px;
+    width: 100px;
     position: fixed;
     right: 10px;
     top: 10px;
-
 }
 
 .cadastro-box {
     display: flex;
     flex-direction: column;
-    text-align: center;
     justify-content: space-between;
     align-self: center;
     justify-self: center;
     align-items: center;
     color: white;
     border-radius: 16px;
-    background-color: rgba(66, 42, 42, 0.8);
+    background-color: rgba(66, 42, 42, 0.96);
     /* rgb + opacidade */
-    width: 50%;
-    height: 75%;
-    padding-bottom: 40px;
     position: relative;
     z-index: 2;
+    padding: 0.5rem;
+
+    width: 50vw;
+    height: 80vh;
 }
 
 
 .cadastro-box h1 {
-    font-family: "Adamina";
-    font-size: 70px;
+    font-size: 3.4rem;
     color: #769F51;
-    font-weight: lighter;
+    font-weight: normal;
 }
 
 .cadastro-box-campos {
-    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 80%;
+
+    text-wrap: nowrap;
+    padding-bottom: 0.4rem;
 }
 
 .cadastro-box-campos span {
-
-    font-family: "Adamina";
+    display: flex;
+    padding: 0.4rem;
     font-size: 14px;
-
+    padding-bottom: 1rem;
 }
 
 .cadastro-box-campos input {
 
-    color: white;
-    font-size: medium;
     margin-left: 20px;
-    width: 80%;
+    width: 70%;
     height: 100%;
-    background-color: transparent;
-    border-bottom: 2px solid white;
-
+    background-color: transparent !important;
+    border-bottom: 2px solid white !important;
+    color: white;
 }
 
 .cadastro-box-campos input:focus {
-
+    background-color: transparent;
     outline: none;
     /* remover contorno do campo input */
 
 }
 
-.cadastro-box-campos p {
-    font-family: "Adamina";
-}
-
 .cadastro-box a {
     color: white;
-    font-family: "Adamina";
     font-size: 16px;
     text-decoration: underline;
 }
@@ -344,18 +122,27 @@ body .container {
 .cadastro-box-buttons {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    width: 30%;
-    height: 5%;
+    justify-content: center;
+    gap: 1rem;
 }
 
 .cadastro-box button {
-    background-color: rgba(118, 159, 81, 1);
+    display: flex;
+    align-items: center;
+    
+    background-color: rgb(55, 73, 39);
     border-radius: 8px;
-    width: 45%;
-    height: 145%;
-    font-family: "Adamina";
     color: white;
     font-size: 16px;
     filter: brightness(0.8);
+
+    font-weight: bold;
+    padding: 0.7rem;
+    margin-top: 0.5rem;
+}
+
+
+.cadastro-acoes {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
