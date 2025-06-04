@@ -17,16 +17,16 @@
             <div class="barra-lateral-perfil">
                 <img src="../assets/imgs/foto-perfil-dashboard.png" alt="Foto de Perfil da Dashboard">
                 <h1>Guilherme</h1>
-                <p>Gestor</p>
+                <p>Funcionário</p>
             </div>
 
             <!-- Navegação do usuário-->
             <div class="barra-lateral-navegacao">
-                <a href="dashboard-visao-geral.html">
+                <a href="dashboard-visao-geral.html" id="vector-ativo">
                     <img src="../assets/icons/icon-visao-geral.png" alt="Icon Visão Geral">
                     Visão geral
                 </a>
-                <a href="dashboard-alertas.html" id="vector-ativo">
+                <a href="dashboard-alertas.html">
                     <img src="../assets/icons/icon-alertas.png">
                     Alertas
                 </a>
@@ -40,16 +40,17 @@
 
     <!-- Parte principal do site -->
     <main class="principal">
+        <div class="div_link">
+            <a href="dashboard-visao-geral.html" id="link-voltar">
+                ⬅ Voltar
+            </a>
+        </div>
+
         <div class="cadastro-recinto-h1">
             <h1>Cadastro de Recintos</h1>
         </div>
 
         <section class="cadastro-recinto">
-
-            <div class="cadastro-recinto-img">
-                <img src="../assets/imgs/recinto.png" alt="">
-            </div>
-
             <div class="div_campos">
                 <div class="cadastro-recinto-input">
                     Nome do recinto:
