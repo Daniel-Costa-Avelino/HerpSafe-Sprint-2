@@ -3,10 +3,16 @@ const nomeUsuario = document.getElementById("nome_usuario");
 nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO;
 
 function button1(btn) {
-  var div_prateleira = btn.parentElement;
-  var id = div_prateleira.getAttribute("value");
+  const div_prateleira = btn.parentElement;
+  const id = div_prateleira.getAttribute("value");
 
-  var corpo = {
+  const div_box_recinto = document.querySelector(".box-recinto");
+  div_box_recinto.innerHTML = "";
+
+  const listarRecintos = document.querySelector(".expandir-recintos");
+  listarRecintos.classList.toggle("ativo");
+
+  const corpo = {
     fkPrateleiraServer: id,
   };
 
@@ -28,10 +34,6 @@ function button1(btn) {
     })
     .then(function (dados) {
       sessionStorage.RECINTOS_TODOS = JSON.stringify(dados);
-      console.log(dados);
-
-      var div_box_recinto = document.querySelector(".box-recinto");
-      div_box_recinto.innerHTML = "";
 
       for (let i = 0; i < dados.length; i++) {
         div_box_recinto.innerHTML += `
@@ -53,12 +55,8 @@ function button1(btn) {
     })
     .catch(function (erro) {
       console.error("Erro ao tentar login:", erro.message);
-      //document.getElementById("p_mensagem").innerText = "Erro: " + erro.message;
+      div_box_recinto.innerHTML = "<h1>Sem recintos cadastrados!</h1>";
     });
-
-  const listarRecintos = document.querySelector(".expandir-recintos");
-
-  listarRecintos.classList.toggle("ativo");
 }
 
 function guardarIdRecinto(div) {
@@ -101,8 +99,8 @@ document.addEventListener("DOMContentLoaded", function () {
                      <div class="Pratileira1" value = ${dados[i].idPrateleira}>
                                  <button class="button-pratileira1" onclick="button1(this)">${dados[i].nome}</button>
                                  <div class="expandir-recintos">
-                                 <div class="box-recinto">
-                                </div>
+                                  <div class="box-recinto">
+                                  </div>
                                  </div>
                     </div>
                      `;
