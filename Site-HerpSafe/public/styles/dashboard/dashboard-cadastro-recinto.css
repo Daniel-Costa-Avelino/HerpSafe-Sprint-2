@@ -8,7 +8,8 @@
     background-color: #044036;
     color: #FEFFFB;
     padding: 2rem;
-    width: 55%;
+    width: 50vw;
+    height: 70vh;
 
     border-radius: 4px;
 }
@@ -16,9 +17,13 @@
 input{
 background-color: #759A84;
 border-radius: 3px;
+padding: 0.4rem;
 
 }
-/* #5E8C61 */
+
+select {
+    padding: 0.4rem;
+}
 
 #cadastro-recinto-button{
     background-color: #FFFFFF;
@@ -26,12 +31,16 @@ border-radius: 3px;
     border-radius: 3px;
     width: 11rem;
     align-self: center;
+
+    margin-top: 2rem;
+    font-weight: bold;
+    padding: 0.7rem;
 }
 
 .cadastro-recinto-input{
     display: flex;
     flex-direction: column;
-    width: 15rem;
+    width: 20rem;
     padding: 0.5rem;
 }
 
@@ -40,7 +49,7 @@ border-radius: 3px;
     justify-content: flex-start;
     background-color: #FFFFFF;
     color: #20673E;
-    padding: 1rem;
+    padding-bottom: 2rem;
 }
 
 .principal{
@@ -51,21 +60,6 @@ border-radius: 3px;
 
     padding: 2rem;
     padding-left: 16rem;
-
-    height: 75vh;
-}
-
-.cadastro-recinto-img{
-    align-self: flex-start;
-}
-
-.cadastro-recinto-img img{
-    position: absolute;
-    width: 12rem;
-    padding-right: 6rem;
-
-    left: 40%;
-
 }
 
 .div_campos{
@@ -75,16 +69,16 @@ border-radius: 3px;
     align-items: center;   
 }
 
-/* Rodapé do cadastro do recinto */
+.div_link {
+    width: 70vw;
+    height: 100%;
+}
 
-.rodape {
-    background-color: var(--green6);
-    color: white;
-    padding: 30px 20px;
-    text-align: center;
-    height: 230px;
-    display: flex;
-    justify-content: space-around;
-    position: relative;
-    z-index: 1;
+#link-voltar {
+    text-decoration: none;
+    font-size: 30px;
+
+    color: #044036;
+    font-weight: bold;
+    padding-bottom: 1rem;
 }

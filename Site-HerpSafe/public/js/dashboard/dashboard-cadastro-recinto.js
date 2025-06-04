@@ -6,7 +6,19 @@ function cadastrar() {
   let fkMetrica2 = 0;
 
   if (nomeRecinto == "" || fkPrateleira == "" || especie == "") {
-    alert("Por favor, preencha todos os componentes!");
+    Toastify({
+      text: "Erro: Por favor, preencha todos os campos!",
+      duration: 2000,
+      destination: "https://github.com/apvarun/toastify-js",
+      newWindow: true,
+      close: true,
+      gravity: "top",
+      position: "right",
+      stopOnFocus: true,
+      style: {
+        background: "#0B371F",
+      },
+    }).showToast();
   } else {
     if (especie == "Piton Real") {
       fkMetrica1 = 1;
@@ -36,14 +48,52 @@ function cadastrar() {
     fetch("/recinto/cadastrar", header)
       .then((response) => {
         if (response.ok) {
-          alert("Cadastro de Recinto realizado com sucesso!");
+          Toastify({
+            text: "Cadastro de recinto realizado com sucesso!",
+            duration: 2000,
+            destination: "https://github.com/apvarun/toastify-js",
+            newWindow: true,
+            close: true,
+            gravity: "top",
+            position: "right",
+            stopOnFocus: true,
+            style: {
+              background: "#0B371F",
+            },
+          }).showToast();
           return response.json();
         } else {
+          Toastify({
+            text: "Erro: não foi possível fazer a requisição!",
+            duration: 2000,
+            destination: "https://github.com/apvarun/toastify-js",
+            newWindow: true,
+            close: true,
+            gravity: "top",
+            position: "right",
+            stopOnFocus: true,
+            style: {
+              background: "#0B371F",
+            },
+          }).showToast();
           throw new Error("Erro");
         }
       })
 
       .catch((error) => {
+        Toastify({
+          text: "Erro: não foi possível cadastrar o recinto!",
+          duration: 2000,
+          destination: "https://github.com/apvarun/toastify-js",
+          newWindow: true,
+          close: true,
+          gravity: "top",
+          position: "right",
+          stopOnFocus: true,
+          style: {
+            background: "#0B371F",
+          },
+        }).showToast();
         console.error("Erro na requisição:", error);
       });
   }
