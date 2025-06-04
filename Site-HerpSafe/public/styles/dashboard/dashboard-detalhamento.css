@@ -11,6 +11,8 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   color: white;
   display: flex;
+
+  background-color: #3C6A54;
 }
 
 .principal {
@@ -24,6 +26,10 @@ body {
   padding: 30px;
   position: relative;
   width: 100%;
+}
+
+#h1-recinto {
+  padding-bottom: 2rem;
 }
 
 .section_boxes-monitoramento {
@@ -55,13 +61,13 @@ body {
 }
 
 .numero-monitoramento {
-  font-size: 30px;
+  font-size: 40px;
   font-weight: 700;
   color: #94e8b4;
 }
 
 .numero-monitoramento-alerta {
-  font-size: 30px;
+  font-size: 40px;
   font-weight: 700;
   color: #f57777;
 }
@@ -130,7 +136,6 @@ body {
   width: 45%;
   padding: 10px;
   border-radius: 12px;
-  height: 250px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -149,4 +154,11 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+
+#temperatura, #umidade {
+  padding: 1rem;
+  border-radius: 4px;
+  margin: 1rem;
 }

@@ -9,7 +9,8 @@
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #20402E;
+    background-color: #3C6A54;
+
     color: white;
     display: flex;
 }
@@ -46,40 +47,68 @@ body {
 }
 
 .box-monitoramento {
-    background-color: #3C6A54;
     padding: 20px;
     border-radius: 12px;
     text-align: center;
     font-size: 16px;
     width: 100%;
+
+    background-color: #20402E;
 }
 
 .titulo-box {
     font-weight: bold;
     margin-bottom: 8px;
+    text-wrap: nowrap;
+    
 }
 
 .numero-monitoramento {
-    font-size: 30px;
+    font-size: 40px;
+}
+
+#div_qtdRecintosMonitorados, #div_qtdSensoresAtivos {
+  color: #94e8b4;
+  font-weight: bold;
+}
+
+#div_qtdRecintosComProblemas, #div_qtdAlertas {
+  color: #f57777;
+  font-weight: bold;
+}
+
+/* 
+                    <div class="numero-monitoramento" id="div_qtdRecintosMonitorados"></div>
+                    <div class="numero-monitoramento" id="div_qtdSensoresAtivos"></div>
+                    <div class="titulo-box">Recintos com Problemas</div>
+                    <div class="numero-monitoramento" id="div_qtdRecintosComProblemas"></div>
+                    <div class="numero-monitoramento" id="div_qtdAlertas"></div>
+                </div> */
+
+.section-visao-prateleiras {
+    width: 73.3vw;
+    height: 50vh;
+    background-color: #20402E;
+    
+    padding: 1rem;
+
+    border-radius: 4px;
+
+    h1 {
+        display: flex;
+        justify-content: center;
+        padding-bottom: 2rem;
+    }
 }
 
 .Pratileiras {
     font-weight: bold;
     color: white;
-    cursor: pointer;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
     align-items: center;
     width: 100%;
-}
-
-.Pratileira1{
-    width: 100%;
-}
-
-.section_visao-recintos {
-    width: 100%;
+    gap: 2rem;
 }
 
 .button-pratileira1 {
@@ -91,14 +120,22 @@ body {
     width: 14rem;
     border: solid #5b4702 3px;
     color: white;
+
+    cursor: pointer;
+}
+
+.button-pratileira1:hover {
+    background-color: #524412;
+    transition-duration: 1s;
+    margin-bottom: 0.1rem;
 }
 
 .expandir-recintos,
 .expandir-recintos2 {
     display: none;
     position: absolute;
-    top: 26rem;
-    left: 1.25rem;
+    top: 79vh;
+    left: 2.2vw;
     z-index: 10;
 }
 
@@ -109,19 +146,15 @@ body {
 .box-recinto {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
     align-items: center;
-    width: 65rem;
-    height: 18rem;
+    width: 73.3vw;
+    height: 50vh;
     padding: 1rem;
     background-color: #15583c;
     margin-top: 1rem;
-}
 
-.box-recinto img {
-    width: 5rem;
-    height: 7rem;
-    margin-right: 10px;
+    border-radius: 4px;
+
 }
 
 .recinto1-box {
@@ -132,25 +165,42 @@ body {
     width: 20rem;
     height: 16rem;
     padding: 1rem;
-    background-color: #6c8d7f;
+    background-color: #8c9918;
     margin-right: 20px;
-}
 
-.temperatura-recinto1 {
-    display: flex;
-    flex-direction: column;
-}
-
-.umidade-recinto1 {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 .temp-umidade {
     display: flex;
     flex-direction: row;
+
+    gap: 1rem;
+}
+
+.temperatura-recinto1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+
+    img {
+        padding-top: 1rem;
+        width: 3rem;
+    }
+}
+
+.umidade-recinto1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+
+    img {
+        padding-top: 1rem;
+        width: 3rem;
+    }
 }
 
 .titulo-box-recinto {
@@ -168,12 +218,14 @@ body {
 
 .section_btn_links button{
     height: 70%;
-    background-color: #6c8d7f;
+    background-color: #001B0A;
     border-radius: 10px;
     width: 20%;
     text-align: center;
     color: white;
     font-size: 18px;
+
+    cursor: pointer;
 }
 
 .section_btn_links button:hover{

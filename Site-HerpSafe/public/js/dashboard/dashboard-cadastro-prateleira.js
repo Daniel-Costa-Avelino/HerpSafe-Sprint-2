@@ -16,13 +16,52 @@ function cadastrar() {
   fetch("/prateleiras/cadastrar", header)
     .then((response) => {
       if (response.ok) {
+        Toastify({
+          text: "Prateleira Cadastrada com Sucesso!",
+          duration: 2000,
+          destination: "https://github.com/apvarun/toastify-js",
+          newWindow: true,
+          close: true,
+          gravity: "top",
+          position: "right",
+          stopOnFocus: true,
+          style: {
+            background: "#0B371F",
+          },
+        }).showToast();
+
         return response.json();
       } else {
+        Toastify({
+          text: "Erro: não foi possível cadastrar a prateleira!",
+          duration: 2000,
+          destination: "https://github.com/apvarun/toastify-js",
+          newWindow: true,
+          close: true,
+          gravity: "top",
+          position: "right",
+          stopOnFocus: true,
+          style: {
+            background: "#0B371F",
+          },
+        }).showToast();
         throw new Error("Erro");
       }
     })
-
     .catch((error) => {
+      Toastify({
+        text: "Erro: não foi possível fazer a requisição!",
+        duration: 2000,
+        destination: "https://github.com/apvarun/toastify-js",
+        newWindow: true,
+        close: true,
+        gravity: "top",
+        position: "right",
+        stopOnFocus: true,
+        style: {
+          background: "#0B371F",
+        },
+      }).showToast();
       console.error("Erro na requisição:", error);
     });
 }

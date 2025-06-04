@@ -42,7 +42,7 @@ function login() {
     .then(function (dados) {
       Toastify({
         text: "Login Realizado com Sucesso!",
-        duration: 250,
+        duration: 2000,
         destination: "https://github.com/apvarun/toastify-js",
         newWindow: true,
         close: true,
@@ -58,7 +58,9 @@ function login() {
       sessionStorage.NOME_USUARIO = dados.nome;
       sessionStorage.ID_EMPRESA = dados.fkEmpresa;
 
-      window.location.href = "./dashboard/dashboard-visao-geral.html";
+      setTimeout(() => {
+        window.location.href = "./dashboard/dashboard-visao-geral.html";
+      }, 2000);
     })
     .catch(function (erro) {
       Toastify({
