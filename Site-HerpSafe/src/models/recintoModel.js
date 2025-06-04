@@ -91,7 +91,7 @@ function filtro(data_inicio, data_fim, idRecinto) {
 
 function abrirHistorico(id_recinto) {
   const instrucaoSql = `
-  SELECT temperatura, umidade, mensagem FROM captura JOIN sensor ON idSensor = fksensor WHERE alerta = 1 AND fkRecinto = ${id_recinto};
+    SELECT temperatura, umidade, mensagem, dt_Hr_Captura FROM captura JOIN sensor ON idSensor = fksensor WHERE alerta = 1 AND fkRecinto = ${id_recinto};
   `;
 
   return database.executar(instrucaoSql);

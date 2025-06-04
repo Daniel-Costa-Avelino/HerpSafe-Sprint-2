@@ -240,8 +240,6 @@ function filtro() {
 
     fetch("/recinto/filtro", header).then((result) => {
       result.json().then((json) => {
-        console.log(json.length);
-
         if (json.length > 0) {
           const divGraficoTemp = document.getElementById("grafico_temperatura");
           const divGraficoUmi = document.getElementById("grafico_umidade");
@@ -321,7 +319,13 @@ function filtro() {
   }
 }
 
+function botaoHistorico() {
+  sessionStorage.setItem("Abrir_Botao_Historico", "false");
+}
+
 function abrirHistorico() {
+  sessionStorage.Abrir_Botao_Historico = "true";
+
   const header = {
     method: "POST",
     headers: {
@@ -341,11 +345,13 @@ function abrirHistorico() {
             let temperatura = alertaMensagemIndividual.temperatura;
             let umidade = alertaMensagemIndividual.umidade;
             let alertaMensagem = alertaMensagemIndividual.mensagem;
+            let dtHoraCaptura = alertaMensagemIndividual.dt_Hr_Captura;
 
             let alertaRecintoInformacoes = {
               temperatura,
               umidade,
               alertaMensagem,
+              dtHoraCaptura,
             };
 
             alertasRecinto.push(alertaRecintoInformacoes);
@@ -372,5 +378,6 @@ document.addEventListener("DOMContentLoaded", pegarTotalSensoresPorRecinto);
 document.addEventListener("DOMContentLoaded", pegarMaximoTemperatura);
 document.addEventListener("DOMContentLoaded", pegarMaximoUmidade);
 document.addEventListener("DOMContentLoaded", alertas);
+document.addEventListener("DOMContentLoaded", botaoHistorico);
 botaoFiltrar.addEventListener("click", filtro);
 filterHistorico.addEventListener("click", abrirHistorico);
