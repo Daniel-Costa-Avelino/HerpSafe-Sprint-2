@@ -23,11 +23,11 @@ const serial = async (
     // correta do banco (Ainda não funciona devido a não ter o Banco de dados)
     let poolBancoDados = mysql.createPool(
         {
-            host: '127.0.0.1', //Colocar o nome do host (Conexão) do banco de dados
-            user: 'aluno', //Colocar o usuário do banco de dados
-            password: 'Sptech#2024', //Colocar a senha (Caso tenha) 
-            database: 'herpsafe', //Dizer qual é o banco de dados
-            port: 3307 //Porta do seu banco de dados
+            host: 'localhost', //Colocar o nome do host (Conexão) do banco de dados
+            user: 'dadosaqui', //Colocar o usuário do banco de dados
+            password: 'dadosaqui', //Colocar a senha (Caso tenha) 
+            database: 'dadosaqui', //Dizer qual é o banco de dados
+            port: 3306 //Porta do seu banco de dados
         }
     ).promise();
 
@@ -74,7 +74,7 @@ const serial = async (
             // É um código de mysql para insersão de dados
             await poolBancoDados.execute(
                 `INSERT INTO captura (temperatura, umidade, fkSensor) VALUES (?, ?, ?)`,
-                [sensorAnalogico, sensorDigital, 2]
+                [sensorAnalogico, sensorDigital, 1]
             );
             // Dizendo o que vai mostrar no console caso os valores sejam inseridos
             console.log("valores inseridos no banco: ", sensorDigital + ", " + sensorAnalogico + " 2 ");

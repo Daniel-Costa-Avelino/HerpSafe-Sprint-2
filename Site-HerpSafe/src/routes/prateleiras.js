@@ -7,6 +7,14 @@ router.post("/buscarPrateleirasPorEmpresa", function (req, res) {
   prateleiraController.buscarPrateleirasPorEmpresa(req, res);
 });
 
+router.post("/realizarUpdateTabelaCaptura", function (req, res) {
+  prateleiraController.realizarUpdateTabelaCaptura(req, res);
+});
+
+router.post("/buscarCapturasPorPrateleira_Empresa", function (req, res) {
+  prateleiraController.buscarCapturasPorPrateleira_Empresa(req, res);
+});
+
 router.post("/cadastrar", function (req, res) {
   prateleiraController.cadastrar(req, res);
 });

@@ -252,3 +252,80 @@ document.addEventListener("DOMContentLoaded", function () {
       //document.getElementById("p_mensagem").innerText = "Erro: " + erro.message;
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  var corpo = {
+    fkEmpresaServer: sessionStorage.getItem("ID_EMPRESA"),
+  };
+
+  fetch("/prateleiras/buscarCapturasPorPrateleira_Empresa", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(corpo),
+  })
+    .then(function (resposta) {
+      if (resposta.ok) {
+        return resposta.json();
+      } else {
+        return resposta.text().then((msg) => {
+          throw new Error(msg);
+        });
+      }
+    })
+    .then(function (dados) {
+      console.log(dados);
+
+      for (let i = 0; i < dados.length; i++) {
+        var status = 0;
+        var idCaptura = dados[i].idCaptura;
+        if (
+          (dados[i].temperatura >= dados[i].minOkTemp && dados[i].temperatura <= dados[i].maxOkTemp)
+          ||
+          (dados[i].umidade >= dados[i].minOkUmid && dados[i].umidade <= dados[i].maxOkUmid)
+        ) {
+          status = 0;
+          console.log(status);
+
+        } else if (
+          (dados[i].temperatura >= dados[i].minAtencaoTemp && dados[i].temperatura <= dados[i].maxAtencaoTemp)
+          ||
+          (dados[i].umidade >= dados[i].minAtencaoUmid && dados[i].umidade <= dados[i].maxAtencaoUmid)
+        ) {
+          status = 1;
+          console.log(status);
+
+        } else {
+          status = 2;
+          console.log(status);
+        }
+
+        var corpo = {
+          fkSensorServer: dados[i].idSensor,
+          statusServer: status,
+          idCapturaServer: idCaptura
+        };
+
+        fetch("/prateleiras/realizarUpdateTabelaCaptura", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(corpo),
+        }).then(function (resposta) {
+          if (resposta.ok) {
+            return resposta.json();            
+          } else {
+            return resposta.text().then((msg) => {
+              throw new Error(msg);
+            });
+          }
+        })
+
+      }
+    })
+    .catch(function (erro) {
+      console.error("Erro ao buscar recintos com problema:", erro.message);
+    });
+});

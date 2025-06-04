@@ -20,6 +20,48 @@ function buscarPrateleirasPorEmpresa(req, res) {
     });
 }
 
+function buscarCapturasPorPrateleira_Empresa(req, res) {
+  var fkEmpresa = req.body.fkEmpresaServer;
+
+  prateleiraModel
+    .buscarCapturasPorPrateleira_Empresa(fkEmpresa)
+    .then((resultado) => {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+        console.log(resultado);
+      } else {
+        res.status(204).json([]);
+      }
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      console.log("Houve um erro ao buscar as prateleiras: ", erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function realizarUpdateTabelaCaptura(req, res) {
+  var fkSensor = req.body.fkSensorServer;
+  var status = req.body.statusServer;
+  var idCaptura = req.body.idCapturaServer;
+
+  prateleiraModel
+    .realizarUpdateTabelaCaptura(fkSensor, status, idCaptura)
+    .then((resultado) => {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+        console.log(resultado);
+      } else {
+        res.status(204).json([]);
+      }
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      console.log("Houve um erro ao buscar as prateleiras: ", erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
 function cadastrar(req, res) {
   var idPrateleira = req.body.idPrateleira;
   var nome_prateleira = req.body.nome_cadastro;
@@ -51,4 +93,6 @@ function cadastrar(req, res) {
 module.exports = {
   cadastrar,
   buscarPrateleirasPorEmpresa,
+  buscarCapturasPorPrateleira_Empresa,
+  realizarUpdateTabelaCaptura
 };
