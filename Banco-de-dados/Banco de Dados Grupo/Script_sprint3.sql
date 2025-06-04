@@ -138,19 +138,6 @@ WHERE alerta = 1  AND fkRecinto =1 AND dt_Hr_Captura >= NOW() - INTERVAL 1 DAY;
 select temperatura, umidade, date(dt_Hr_Captura) as "Data" FROM captura
 	JOIN sensor ON fkSensor = idSensor 
 	where date(dt_Hr_Captura) between "2025-06-01" and "2025-06-01" and fkRecinto = 1;
-    
--- ----------------------------------------------------------------------------------------------------------------------------------------------
-
--- Exibir os alertas com base no sensor específico
-SELECT alerta, mensagem FROM captura WHERE fksensor = 5 OR fksensor = 6;
-
-UPDATE captura SET alerta = 2 WHERE idCaptura = 2;
-UPDATE captura SET mensagem = "LM35: Temperatura em 36 graus fora dos padrões estabelecidos. O limite é 25 graus.
-Plano de ação: Ligar camisas de resfriamento" WHERE idCaptura = 2;
-
-select * from captura;
-SELECT * FROM sensor;
-
 
 -- ------------------------------------------------------------------------------------------------------------------------------------------------------
 CREATE TABLE metricas (
@@ -224,8 +211,6 @@ BEGIN
 END $$
 
 DELIMITER ;
-
-
 -- Final da Trigger 
 
 DROP TRIGGER IF EXISTS trigger_atualiza_alerta;
@@ -312,4 +297,9 @@ VALUES
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+SELECT temperatura, umidade, mensagem FROM captura JOIN sensor ON idSensor = fksensor WHERE alerta = 1 AND fkRecinto = 1;
 
+SELECT * FROM recinto;
+SELECT * FROM sensor;
+SELECT * FROM captura;
+SELECT * FROM captura;

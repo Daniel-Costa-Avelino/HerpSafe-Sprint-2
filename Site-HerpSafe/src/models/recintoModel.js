@@ -89,6 +89,14 @@ function filtro(data_inicio, data_fim, idRecinto) {
   return database.executar(instrucaoSql);
 }
 
+function abrirHistorico(id_recinto) {
+  const instrucaoSql = `
+  SELECT temperatura, umidade, mensagem FROM captura JOIN sensor ON idSensor = fksensor WHERE alerta = 1 AND fkRecinto = ${id_recinto};
+  `;
+
+  return database.executar(instrucaoSql);
+}
+
 module.exports = {
   buscarRecintosPorPrateleira,
   cadastrar,
@@ -99,4 +107,5 @@ module.exports = {
   pegarMaximoUmidade,
   alertas,
   filtro,
+  abrirHistorico,
 };

@@ -2,8 +2,9 @@ const nomeUsuario = document.getElementById("nome_usuario");
 const numeroSensoresRecinto = document.getElementById(
   "numero-sensores-recinto"
 );
+const filterHistorico = document.getElementById("filter_historico");
 
-const botaoHistorico = document.getElementById("filter_historico");
+const botaoFiltrar = document.getElementById("filtrar_data");
 
 nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO;
 
@@ -320,10 +321,56 @@ function filtro() {
   }
 }
 
+function abrirHistorico() {
+  const header = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      idRecinto: sessionStorage.ID_RECINTO_INDIVIDUAL,
+    }),
+  };
+
+  fetch("http://localhost:3333/recinto/abrirHistorico", header)
+    .then((resultado) => {
+      if (resultado.ok) {
+        resultado.json().then((alerta) => {
+          let alertasRecinto = [];
+          alerta.forEach((alertaMensagemIndividual) => {
+            let temperatura = alertaMensagemIndividual.temperatura;
+            let umidade = alertaMensagemIndividual.umidade;
+            let alertaMensagem = alertaMensagemIndividual.mensagem;
+
+            let alertaRecintoInformacoes = {
+              temperatura,
+              umidade,
+              alertaMensagem,
+            };
+
+            alertasRecinto.push(alertaRecintoInformacoes);
+          });
+
+          const alertasRecintoSession = JSON.stringify(alertasRecinto);
+          sessionStorage.setItem(
+            "Alertas_Recinto_Individual",
+            alertasRecintoSession
+          );
+        });
+      }
+    })
+    .catch((error) => {
+      console.log("Erro: não foi possível pegar os alertas do recinto", error);
+    });
+
+  window.location.href = "../../dashboard/dashboard-alertas.html";
+}
+
 document.addEventListener("DOMContentLoaded", pegarCapturasTemperatura);
 document.addEventListener("DOMContentLoaded", pegarCapturasUmidade);
 document.addEventListener("DOMContentLoaded", pegarTotalSensoresPorRecinto);
 document.addEventListener("DOMContentLoaded", pegarMaximoTemperatura);
 document.addEventListener("DOMContentLoaded", pegarMaximoUmidade);
 document.addEventListener("DOMContentLoaded", alertas);
-botaoHistorico.addEventListener("click", filtro);
+botaoFiltrar.addEventListener("click", filtro);
+filterHistorico.addEventListener("click", abrirHistorico);
