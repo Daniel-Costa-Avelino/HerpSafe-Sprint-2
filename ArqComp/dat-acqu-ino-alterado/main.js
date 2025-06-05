@@ -23,11 +23,11 @@ const serial = async (
     // correta do banco (Ainda não funciona devido a não ter o Banco de dados)
     let poolBancoDados = mysql.createPool(
         {
-            host: 'localhost', //Colocar o nome do host (Conexão) do banco de dados
-            user: 'dadosaqui', //Colocar o usuário do banco de dados
-            password: 'dadosaqui', //Colocar a senha (Caso tenha) 
-            database: 'dadosaqui', //Dizer qual é o banco de dados
-            port: 3306 //Porta do seu banco de dados
+            host: '10.18.32.145', //Colocar o nome do host (Conexão) do banco de dados
+            user: 'herpsafe', //Colocar o usuário do banco de dados
+            password: '@Herpsafe123', //Colocar a senha (Caso tenha) 
+            database: 'herpsafe', //Dizer qual é o banco de dados
+            port: 3307 //Porta do seu banco de dados
         }
     ).promise();
 

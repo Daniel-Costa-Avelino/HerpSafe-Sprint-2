@@ -41,12 +41,12 @@ function buscarCapturasPorPrateleira_Empresa(req, res) {
 }
 
 function realizarUpdateTabelaCaptura(req, res) {
-  var fkSensor = req.body.fkSensorServer;
   var status = req.body.statusServer;
   var idCaptura = req.body.idCapturaServer;
+  var mensagem = req.body.mensagemServer;
 
   prateleiraModel
-    .realizarUpdateTabelaCaptura(fkSensor, status, idCaptura)
+    .realizarUpdateTabelaCaptura(status, idCaptura, mensagem)
     .then((resultado) => {
       if (resultado.length > 0) {
         res.status(200).json(resultado);

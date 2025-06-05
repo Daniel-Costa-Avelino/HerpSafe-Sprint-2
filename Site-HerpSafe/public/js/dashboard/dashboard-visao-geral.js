@@ -34,19 +34,22 @@ function button1(btn) {
     })
     .then(function (dados) {
       sessionStorage.RECINTOS_TODOS = JSON.stringify(dados);
+      console.log(dados);
+
 
       for (let i = 0; i < dados.length; i++) {
+
         div_box_recinto.innerHTML += `
                                     <div class="recinto1-box" value = "${dados[i].idRecinto}" onclick = guardarIdRecinto(this)>
                                         <p class="titulo-box-recinto">${dados[i].nome_recinto}</p class="titulo-box-recinto">
                                         <div class="temp-umidade">
                                             <div class="temperatura-recinto1">
                                                 <p>Temperatura</p>
-                                                <img src="../assets/imgs/tempMedia.png" alt="Temperatura">
+                                                <img src="" alt="Temperatura">
                                             </div>
                                             <div class="umidade-recinto1">
                                                 <p>Umidade</p>
-                                                <img src="../assets/imgs/UmiMedia.png" alt="Umidade">
+                                                <img src="" alt="Umidade">
                                             </div>
                                         </div>
                                     </div>
@@ -95,15 +98,38 @@ document.addEventListener("DOMContentLoaded", function () {
       var div_prateleiras = document.querySelector(".Pratileiras");
 
       for (let i = 0; i < dados.length; i++) {
-        div_prateleiras.innerHTML += `
+
+        if (dados[i].status_prateleira == 0) {
+          div_prateleiras.innerHTML += `
                      <div class="Pratileira1" value = ${dados[i].idPrateleira}>
-                                 <button class="button-pratileira1" onclick="button1(this)">${dados[i].nome}</button>
+                                 <button style = "background-color: green;"class="button-pratileira1" onclick="button1(this)">${dados[i].nome}</button>
                                  <div class="expandir-recintos">
                                   <div class="box-recinto">
                                   </div>
                                  </div>
                     </div>
                      `;
+        } else if (dados[i].status_prateleira == 1) {
+          div_prateleiras.innerHTML += `
+                     <div class="Pratileira1" value = ${dados[i].idPrateleira}>
+                                 <button style = "background-color: yellow;"class="button-pratileira1" onclick="button1(this)">${dados[i].nome}</button>
+                                 <div class="expandir-recintos">
+                                  <div class="box-recinto">
+                                  </div>
+                                 </div>
+                    </div>
+                     `;
+        } else if (dados[i].status_prateleira == 2) {
+          div_prateleiras.innerHTML += `
+                     <div class="Pratileira1" value = ${dados[i].idPrateleira}>
+                                 <button style = "background-color: red;"class="button-pratileira1" onclick="button1(this)">${dados[i].nome}</button>
+                                 <div class="expandir-recintos">
+                                  <div class="box-recinto">
+                                  </div>
+                                 </div>
+                    </div>
+                     `;
+        }
       }
     })
     .catch(function (erro) {
@@ -278,31 +304,60 @@ document.addEventListener("DOMContentLoaded", function () {
       for (let i = 0; i < dados.length; i++) {
         var status = 0;
         var idCaptura = dados[i].idCaptura;
+        var mensagem = '';
+        var temp;
+        var umid;
+
+        console.log("minOkTemp" + dados[i].minOkTemp)
+        console.log("maxOkTemp" + dados[i].maxOkTemp)
+        console.log("minAtencaoTemp" + dados[i].minAtencaoTemp)
+        console.log("maxAtencaoTemp" + dados[i].maxAtencaoTemp)
+        console.log("minEmergenciaTemp" + dados[i].minEmergenciaTemp)
+        console.log("maxEmergenciaTemp" + dados[i].maxEmergenciaTemp)
+
         if (
           (dados[i].temperatura >= dados[i].minOkTemp && dados[i].temperatura <= dados[i].maxOkTemp)
-          ||
+          &&
           (dados[i].umidade >= dados[i].minOkUmid && dados[i].umidade <= dados[i].maxOkUmid)
         ) {
           status = 0;
-          console.log(status);
-
-        } else if (
-          (dados[i].temperatura >= dados[i].minAtencaoTemp && dados[i].temperatura <= dados[i].maxAtencaoTemp)
-          ||
-          (dados[i].umidade >= dados[i].minAtencaoUmid && dados[i].umidade <= dados[i].maxAtencaoUmid)
-        ) {
-          status = 1;
-          console.log(status);
-
+          temp = "estável";
+          umid = "estável";
         } else {
-          status = 2;
-          console.log(status);
-        }
 
-        var corpo = {
-          fkSensorServer: dados[i].idSensor,
+          if ((dados[i].temperatura >= dados[i].minOkTemp && dados[i].temperatura <= dados[i].maxOkTemp)) {
+            temp = "estável";
+          } else if (dados[i].temperatura >= dados[i].minAtencaoTemp && dados[i].temperatura <= dados[i].maxAtencaoTemp) {
+            temp = "em nível de atenção"
+            status = 1;
+          } else {
+            temp = "em nível de urgência"
+            status = 2
+          }
+
+          if ((dados[i].umidade >= dados[i].minOkUmid && dados[i].umidade <= dados[i].maxOkUmid)) {
+            umid = "estável";
+          } else if (dados[i].umidade >= dados[i].minAtencaoUmid && dados[i].umidade <= dados[i].maxAtencaoUmid) {
+            umid = "em nível de atenção"
+
+            if (status < 1) {
+              status = 1;
+            }
+          }
+          else {
+            umid = "em nível de urgência"
+            status = 2;
+          }
+
+          mensagem = `Atenção! há um problema no recinto ${dados[i].idRecinto} - ${dados[i].nome_recinto}.
+          A temperatura está ${temp} e a umidade está ${umid}.
+          `;
+
+        }
+        var corpo2 = {
           statusServer: status,
-          idCapturaServer: idCaptura
+          idCapturaServer: idCaptura,
+          mensagemServer: mensagem
         };
 
         fetch("/prateleiras/realizarUpdateTabelaCaptura", {
@@ -310,10 +365,10 @@ document.addEventListener("DOMContentLoaded", function () {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(corpo),
+          body: JSON.stringify(corpo2),
         }).then(function (resposta) {
           if (resposta.ok) {
-            return resposta.json();            
+            return resposta.json();
           } else {
             return resposta.text().then((msg) => {
               throw new Error(msg);
