@@ -31,6 +31,14 @@ router.post("/pegarMaximoUmidade", function (req, res) {
   recintoController.pegarMaximoUmidade(req, res);
 });
 
+router.post("/pegarMetricasTemperatura", function (req, res) {
+  recintoController.pegarMetricasTemperatura(req, res);
+});
+
+router.post("/pegarMetricasUmidade", function (req, res) {
+  recintoController.pegarMetricasTemperatura(req, res);
+});
+
 router.post("/filtro", function (req, res) {
   recintoController.filtro(req, res);
 });

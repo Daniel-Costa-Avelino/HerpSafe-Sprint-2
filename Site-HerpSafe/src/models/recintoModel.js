@@ -68,6 +68,25 @@ function pegarMaximoUmidade(idRecinto) {
   ;`;
   return database.executar(instrucaoSql);
 }
+function pegarMetricasTemperatura(idRecinto) {
+  const instrucaoSql = `
+    SELECT min_ok, max_ok, min_atencao, max_atencao, min_emergencia, max_emergencia, tipo 
+    FROM metricas
+    JOIN especie as e ON fkMetricasTemperatura = idMetricas
+    WHERE e.fkRecinto = ${idRecinto};
+  ;`;
+  return database.executar(instrucaoSql);
+}
+
+function pegarMetricasUmidade(idRecinto) {
+  const instrucaoSql = `
+    SELECT min_ok, max_ok, min_atencao, max_atencao, min_emergencia, max_emergencia, tipo 
+    FROM metricas
+    JOIN especie as e ON fkMetricasUmidade = idMetricas
+    WHERE e.fkRecinto = ${idRecinto};
+  ;`;
+  return database.executar(instrucaoSql);
+}
 
 function alertas(idRecinto) {
   const instrucaoSql = `
@@ -97,6 +116,8 @@ module.exports = {
   pegarTotalSensores,
   pegarMaximoTemperatura,
   pegarMaximoUmidade,
+  pegarMetricasTemperatura,
+  pegarMetricasUmidade,
   alertas,
   filtro,
 };
