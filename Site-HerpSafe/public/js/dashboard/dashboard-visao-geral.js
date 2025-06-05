@@ -39,17 +39,36 @@ function button1(btn) {
 
       for (let i = 0; i < dados.length; i++) {
 
+        var imgTemp;
+        var imgUmid;
+
+        if ((dados[i].mensagem).includes("A temperatura está estável")) {
+          imgTemp = '../assets/dashboard/temperatura-ok.svg';
+        } else if ((dados[i].mensagem).includes("A temperatura está em nível de atenção")) {
+          imgTemp = '../assets/dashboard/temperatura-atencao.svg';
+        } else {
+          imgTemp = '../assets/dashboard/temperatura-urgencia.svg';
+        }
+
+        if ((dados[i].mensagem).includes("a umidade está estável")) {
+          imgUmid = '../assets/dashboard/umidade-ok.svg';
+        } else if ((dados[i].mensagem).includes("a umidade está em nível de atenção")) {
+          imgUmid = '../assets/dashboard/umidade-atencao.svg';
+        } else {
+          imgUmid = '../assets/dashboard/umidade-urgencia.svg';
+        }
+
         div_box_recinto.innerHTML += `
                                     <div class="recinto1-box" value = "${dados[i].idRecinto}" onclick = guardarIdRecinto(this)>
                                         <p class="titulo-box-recinto">${dados[i].nome_recinto}</p class="titulo-box-recinto">
                                         <div class="temp-umidade">
                                             <div class="temperatura-recinto1">
                                                 <p>Temperatura</p>
-                                                <img src="" alt="Temperatura">
+                                                <img src="${imgTemp}" alt="Temperatura">
                                             </div>
                                             <div class="umidade-recinto1">
                                                 <p>Umidade</p>
-                                                <img src="" alt="Umidade">
+                                                <img src="${imgUmid}" alt="Umidade">
                                             </div>
                                         </div>
                                     </div>

@@ -1,7 +1,13 @@
 const database = require("../database/config");
 
 function buscarRecintosPorPrateleira(idPrateleira) {
-  const instrucaoSql = `SELECT * FROM recinto WHERE fkPrateleira = ${idPrateleira}`;
+  const instrucaoSql = `
+  SELECT * FROM recinto 
+  JOIN sensor ON fkRecinto = idRecinto
+  JOIN captura ON fkSensor = idSensor
+  WHERE fkPrateleira = ${idPrateleira}
+  ORDER BY dt_Hr_Captura DESC LIMIT 1;
+  `;
 
   return database.executar(instrucaoSql);
 }
