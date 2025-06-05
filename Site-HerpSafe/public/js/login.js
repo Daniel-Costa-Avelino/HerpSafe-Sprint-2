@@ -65,7 +65,7 @@ function login() {
     .catch(function (erro) {
       Toastify({
         text: "Erro: Não foi possível realizar a requisição",
-        duration: 250,
+        duration: 3000,
         destination: "https://github.com/apvarun/toastify-js",
         newWindow: true,
         close: true,
