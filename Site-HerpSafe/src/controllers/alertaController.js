@@ -22,17 +22,17 @@ function buscarAlertas(req, res) {
 function filtrarAlertas(req, res) {
   const nome_recinto = req.body.nomeRecinto;
   const dataAlerta = req.body.data;
-  const tipoAlerta = req.body.tipo_alerta;
+  const idEmpresa = req.body.idEmpresa;
 
   if (
     nome_recinto == undefined ||
     dataAlerta == undefined ||
-    tipoAlerta == undefined
+    idEmpresa == undefined
   ) {
     res.status(500).send("Erro: alguns de seus componentes estão indefinidos!");
   } else {
     alertaModel
-      .filtrarAlertas(nome_recinto, data, tipoAlerta)
+      .filtrarAlertas(nome_recinto, dataAlerta, idEmpresa)
       .then((result) => {
         res.status(200).json(result);
       })

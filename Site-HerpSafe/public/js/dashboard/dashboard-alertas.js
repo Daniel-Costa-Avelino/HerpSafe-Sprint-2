@@ -1,5 +1,3 @@
-const { head } = require("../../../src/routes");
-
 const nomeUsuario = document.getElementById("nome_usuario_alerta");
 [];
 nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO;
@@ -113,12 +111,12 @@ if (sessionStorage.Alertas_Recinto_Individual == undefined) {
   }
 }
 
-function filtro() {
+const botaoFiltrar = document.getElementById("botao-filtrar");
+function filtrar() {
   const nome_recinto = input_nome_recinto.value;
-  const data = input_data.value;
-  const tipo_alerta = select_tipo_alerta.value;
+  const dataFiltro = input_data.value;
 
-  if (nome_recinto != "" && data != "" && tipo_alerta != "") {
+  if (nome_recinto != "" && dataFiltro != "") {
     const header = {
       method: "POST",
       headers: {
@@ -126,15 +124,46 @@ function filtro() {
       },
       body: JSON.stringify({
         nomeRecinto: nome_recinto,
-        data: data,
-        tipoAlerta: tipo_alerta,
+        data: dataFiltro,
+        idEmpresa: sessionStorage.ID_EMPRESA,
       }),
     };
+
     fetch("http://localhost:3333/alertas/filtrarAlertas", header)
       .then((result) => {
         if (result.ok) {
           result.json().then((dadosFiltrados) => {
-            console.log(dadosFiltrados);
+            let mensagem = "";
+            const section_alertas = document.querySelector(
+              ".principal-alertas-scroll"
+            );
+
+            section_alertas.innerHTML = "";
+            dadosFiltrados.forEach((alertaFiltrado) => {
+              mensagem += `              
+                              <div class="principal-alertas-scroll-container">
+                        <div class="principal-alertas-scroll-data">
+                            <img src="../assets/icons/icon-data.svg" alt="Icon Data">
+                            <p>${alertaFiltrado.data.substring(0, 10)}</p>
+                        </div>
+                        <div class="alertas-recinto-texto">
+                            <img src="../assets/icons/icon-status-recinto-vermelho.svg" alt="Status Recinto">
+                            <div>
+                                <h1>Alerta Urgente:</h1>
+                                <p>Temperatura: ${
+                                  alertaFiltrado.temperatura
+                                } graus <br>
+                                   Umidade: ${alertaFiltrado.umidade}% <br> 
+                                   <span style="color: #AB3030;"></span>
+                                   Mensagem:
+                                ${alertaFiltrado.mensagem}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+              `;
+            });
+            section_alertas.innerHTML = mensagem;
           });
         }
       })
@@ -153,3 +182,4 @@ function setarStatusFalso() {
   sessionStorage.Abrir_Botao_Historico = "false";
 }
 window.addEventListener("beforeunload", setarStatusFalso);
+botaoFiltrar.addEventListener("click", filtrar);

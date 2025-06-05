@@ -9,15 +9,23 @@ function buscarAlertas(fkEmpresa) {
     JOIN empresa ON fkEmpresa_prateleira = idEmpresa
     WHERE idEmpresa = ${fkEmpresa} AND c.alerta = 1;
     `;
-
-  console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
 
-function filtrarAlertas(id_usu) {
-  const 
+function filtrarAlertas(nome_recinto, data, id_empresa) {
+  const instrucaoSql = `
+    SELECT temperatura, umidade, DATE(dt_Hr_Captura) AS 'data', mensagem, nome_recinto FROM captura
+      JOIN sensor ON fksensor = idsensor  
+      JOIN recinto ON fkRecinto = idRecinto 
+      JOIN prateleira ON fkPrateleira = idPrateleira 
+    WHERE alerta = 1 AND fkEmpresa_prateleira = ${id_empresa} AND nome_recinto = "${nome_recinto}" 
+    AND DATE(dt_hr_Captura) = '${data}';
+  `;
+
+  return database.executar(instrucaoSql);
 }
 
 module.exports = {
   buscarAlertas,
+  filtrarAlertas,
 };
