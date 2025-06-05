@@ -23,6 +23,12 @@ body {
     flex-direction: column;
 }
 
+.section-titulo{
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+}
+
 .principal-visao {
     padding: 30px;
     position: relative;
@@ -34,7 +40,7 @@ body {
     font-weight: bold;
     margin-bottom: 40px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
 }
 
@@ -46,6 +52,7 @@ body {
     width: 100%;
 }
 
+
 .box-monitoramento {
     padding: 20px;
     border-radius: 12px;
@@ -54,6 +61,52 @@ body {
     width: 100%;
 
     background-color: #20402E;
+}
+
+.box-metricas{
+    border: 2px solid #001608;
+    border-radius: 6px;
+    padding: 5px;
+    background-color: #beeccf4a;
+}
+
+.box-metricas h2{
+    margin-bottom: 6px;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+}
+
+.metricas-prateleira{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.metricas-prateleira h1{
+    display: flex;
+    font-size: 28px;
+    margin-bottom: 6px;
+    justify-self: center;
+    align-self: center;
+    margin-left: 43%;
+}
+
+.foto-metrica {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.foto-metrica img{
+    width: 1rem;
+    height: 1rem;
+}
+
+.status-legenda{
+    font-size: 18px;
+    margin-bottom: 2px;
+    margin-left: 4px;
 }
 
 .titulo-box {

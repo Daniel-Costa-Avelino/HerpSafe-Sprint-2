@@ -54,103 +54,15 @@
                     <input type="text" placeholder="Nome do Recinto" id="input_nome_recinto">
                     <input type="date" placeholder="Data" id="input_data">
 
-                    <select name="sensores" id="select_tipo_alerta">
-                        <option value="#">Tipo de alerta</option>
-                        <option value="LM35">Temperatura</option>
-                        <option value="DH11">Umidade</option>
-                    </select>
-
-                    <button><img src="../assets/icons/icon-filtro.svg" alt="Icon Filtro"
-                            onclick="filtrar()">Filtrar</button>
-                    <button id="limpar-filtro" onclick="limpar_filtro()">Limpar Filtro</button>
+                    <span id="botao-filtrar"><img src="../assets/icons/icon-filtro.svg" alt="Icon Filtro">Filtrar</span>
+                    <span id="limpar-filtro" onclick="limpar_filtro()">Limpar Filtro</span>
                 </form>
 
                 <section class="principal-alertas-scroll">
-                    <!-- <div class="principal-alertas-scroll-container">
-                        <div class="principal-alertas-scroll-data">
-                            <img src="../assets/icons/icon-data.svg" alt="Icon Data">
-                            <p>02/05/2025</p>
-                        </div>
-                        <div class="alertas-recinto-texto">
-                            <img src="../assets/icons/icon-status-recinto-vermelho.svg" alt="Status Recinto">
-                            <div>
-                                <h1>Recinto 2:</h1>
-                                <p>LM35: Temperatura em <span style="color: #AB3030;">36 graus</span> fora dos padrões
-                                    estabelecidos o limite é
-                                    30 graus.
-                                    Plano de ação: Ligar camisas de resfriamento</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="principal-alertas-scroll-container">
-                        <div class="principal-alertas-scroll-data">
-                            <img src="../assets/icons/icon-data.svg" alt="Icon Data">
-                            <p>01/05/2025</p>
-                        </div>
-                        <div class="alertas-recinto-texto">
-                            <img src="../assets/icons/icon-status-recinto-amarelo.svg" alt="Status Recinto">
-                            <div>
-                                <h1>Recinto 3:</h1>
-                                <p>DHT11: Umidade em <span style="color: #5e5e1d; font-weight: bold;">35%</span> fora
-                                    dos padrões
-                                    estabelecidos, o mínimo é 40%.
-                                    Plano de ação: Aumente a umidade do recinto</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="principal-alertas-scroll-container">
-                        <div class="principal-alertas-scroll-data">
-                            <img src="../assets/icons/icon-data.svg" alt="Icon Data">
-                            <p>02/05/2025</p>
-                        </div>
-                        <div class="alertas-recinto-texto">
-                            <img src="../assets/icons/icon-status-recinto-vermelho.svg" alt="Status Recinto">
-                            <div>
-                                <h1>Recinto 2:</h1>
-                                <p>LM35: Temperatura em <span style="color: #AB3030;">36 graus</span> fora dos padrões
-                                    estabelecidos o limite é
-                                    30 graus.
-                                    Plano de ação: Ligar camisas de resfriamento</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="principal-alertas-scroll-container">
-                        <div class="principal-alertas-scroll-data">
-                            <img src="../assets/icons/icon-data.svg" alt="Icon Data">
-                            <p>01/05/2025</p>
-                        </div>
-                        <div class="alertas-recinto-texto">
-                            <img src="../assets/icons/icon-status-recinto-amarelo.svg" alt="Status Recinto">
-                            <div>
-                                <h1>Recinto 3:</h1>
-                                <p>DHT11: Umidade em <span style="color: #5e5e1d; font-weight: bold;">35%</span> fora
-                                    dos padrões
-                                    estabelecidos, o mínimo é 40%.
-                                    Plano de ação: Aumente a umidade do recinto</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="principal-alertas-scroll-container">
-                        <div class="principal-alertas-scroll-data">
-                            <img src="../assets/icons/icon-data.svg" alt="Icon Data">
-                            <p>01/05/2025</p>
-                        </div>
-                        <div class="alertas-recinto-texto">
-                            <img src="../assets/icons/icon-status-recinto-amarelo.svg" alt="Status Recinto">
-                            <div>
-                                <h1>Recinto 3:</h1>
-                                <p>DHT11: Umidade em <span style="color: #5e5e1d; font-weight: bold;">35%</span> fora
-                                    dos padrões
-                                    estabelecidos, o mínimo é 40%.
-                                    Plano de ação: Aumente a umidade do recinto</p>
-                            </div>
-                        </div>
-                    </div> -->
                 </section>
+                <div id="alertas_gerais">
+
+                </div>
             </div>
         </section>
     </main>

@@ -36,7 +36,7 @@ CONSTRAINT fkendereco_Empresa FOREIGN KEY (fkEndereco)
 INSERT INTO empresa (razao_social, nomeFantasia, cnpj, porte, fkEndereco)
 VALUES
 ('Empresa Grande Ltda', 'EmpG', '00.000.000/0001-00', 'Grande', 1),
-('Empresa Pequena ME', 'EmpP', '11.111.111/0001-11', 'Pequeno', 2);
+('Empresa Pequena ME', 'EmpP', '11.111.111/0001-11', 'Pequeno', 2); 
 -------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE funcionario (
@@ -265,16 +265,17 @@ INSERT INTO recinto (nome_recinto, status_recinto, fkPrateleira) VALUES
 ('Recinto 2', 'Inativo', 2);
 
 INSERT INTO sensor (numero_Serie, status_Sensor, fkRecinto) VALUES
-('ABC12345', 'Ativo', 1),
-('XYZ67890', 'Manutenção', 2);
+('ABC12345', 1, 1),
+('XYZ67890', 1, 2);
 
 INSERT INTO captura (temperatura, umidade, alerta, mensagem, fksensor) VALUES
 (28.5, 55.2, 0, 'Leitura dentro dos padrões', 1),
-(36.0, 70.0, 2, 'Temperatura acima do limite!', 2);
+(36.0, 70.0, 1, 'Temperatura acima do limite!', 2);
+
 
 INSERT INTO captura (temperatura, umidade, alerta, mensagem, fksensor) VALUES  
 (28.5, 55.2, 0, 'Leitura dentro dos padrões', 1),  
-(36.0, 70.0, 2, 'Temperatura acima do limite!', 2);
+(36.0, 70.0, 1, 'Temperatura acima do limite!', 2);
 
 -- Píton Real
 INSERT INTO metricas (tipo, min_ok, max_ok, min_atencao, max_atencao, min_emergencia, max_emergencia) 

@@ -19,6 +19,30 @@ function buscarAlertas(req, res) {
     });
 }
 
+function filtrarAlertas(req, res) {
+  const nome_recinto = req.body.nomeRecinto;
+  const dataAlerta = req.body.data;
+  const idEmpresa = req.body.idEmpresa;
+
+  if (
+    nome_recinto == undefined ||
+    dataAlerta == undefined ||
+    idEmpresa == undefined
+  ) {
+    res.status(500).send("Erro: alguns de seus componentes estão indefinidos!");
+  } else {
+    alertaModel
+      .filtrarAlertas(nome_recinto, dataAlerta, idEmpresa)
+      .then((result) => {
+        res.status(200).json(result);
+      })
+      .catch((erro) => {
+        console.log("Erro: não foi possível filtrar os alertas", erro);
+      });
+  }
+}
+
 module.exports = {
   buscarAlertas,
+  filtrarAlertas,
 };
