@@ -103,19 +103,38 @@ body {
   border-radius: 8px;
 }
 
-.sessao_filtro_historico .div_metricas {
+.sessao_filtro_historico{
 
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   background-color: #044036;
   border-radius: 8px;
   padding: 0.5rem;
 
 }
 
+.metricas{
+
+  margin-top: 1.5rem;
+  background-color: #044036;
+  border-radius: 10px;
+  padding: 1rem;
+  width: fit-content;
+
+}
+
+.div_metricas {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+
 .metricas-titulo {
 
-  font-size: 0.7rem;
+  font-size: 1rem;
 
 }
 
@@ -133,6 +152,12 @@ body {
 
 }
 
+.titulo-umi{
+
+  margin-right: 2px;
+
+}
+
 .metricas-kpi .Emergencia {
 
   background-color: red;
@@ -140,9 +165,24 @@ body {
 
 }
 
+.metrica-ajeitada-vermelha{
+
+  margin-left: 5px;
+
+}
+
+#umi_boa{
+
+  margin-right: 5px;
+
+}
+
 .metricas_indicadores {
 
   display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 20px;
 
 }
 
@@ -157,13 +197,13 @@ body {
 }
 
 .metricas-kpi {
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 0.6rem;
-  flex-direction: row;
 
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.7rem;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .btn_historico {

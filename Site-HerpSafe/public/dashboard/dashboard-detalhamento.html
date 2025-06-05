@@ -69,48 +69,45 @@
                     <input type="date" id="data_ate">
                     <button onclick="filtro()" id="filtrar_data">Filtrar</button>
                 </div>
+                <button class="btn_historico" id="filter_historico">
+                    <img src="../assets/icons/icon-alertas.png" alt="Ícone de alerta">
+                    <p>Histórico</p>
+                </button>
+            </section>
+
+            <section class="metricas">
                 <div class="div_metricas">
                     <div class="metricas_indicadores">
                         <p class="metricas-titulo">Métricas Temp:</p>
                         <div class="metricas-kpi">
                             <div class="Boa">
                             </div>
-                            <p>24°C-34°C</p>
+                            <p id="temp_boa">24°C-34°C</p>
 
                             <div class="Piorando">
                             </div>
-                            <p>24°C-34°C</p>
+                            <p id="temp_cuidado">24°C-34°C</p>
 
                             <div class="Emergencia">
                             </div>
-                            <p>24°C-34°C</p>
+                            <p id="temp_urgente">24°C-34°C</p>
                         </div>
                     </div>
                     <div class="metricas_indicadores">
-                        <p class="metricas-titulo">Métricas Umid:</p>
+                        <p class="metricas-titulo titulo-umi">Métricas Umid:</p>
                         <div class="metricas-kpi">
                             <div class="Boa">
                             </div>
-                            <div>
-                                <p>60%-50%</p>
+                            <p id="umi_boa">60%-50%</p>
+                            <div class="Piorando metrica-ajeitada-amarela">
                             </div>
-                            <div class="Piorando">
+                            <p id="umi_cuidado">60%-50%</p>
+                            <div class="Emergencia metrica-ajeitada-vermelha">
                             </div>
-                            <div>
-                                <p>60%-50%</p>
-                            </div>
-                            <div class="Emergencia">
-                            </div>
-                            <div>
-                                <p>60%-50%</p>
-                            </div>
+                            <p id="umi_urgente" >60%-50%</p>
                         </div>
                     </div>
                 </div>
-                <button class="btn_historico" id="filter_historico">
-                    <img src="../assets/icons/icon-alertas.png" alt="Ícone de alerta">
-                    <p>Histórico</p>
-                </button>
             </section>
 
             <section class="sessao_cards_graficos">
