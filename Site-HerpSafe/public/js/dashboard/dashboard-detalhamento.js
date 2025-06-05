@@ -197,6 +197,36 @@ function pegarMaximoUmidade() {
     });
 }
 
+function pegarMetricasTemperatura() {
+  const header = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      idRecinto: sessionStorage.ID_RECINTO_INDIVIDUAL,
+    }),
+  };
+
+  fetch("http://localhost:3333/recinto/pegarMetricasTemperatura", header).then(resposta => {
+    console.log(resposta);
+  })
+}
+
+function pegarMetricasUmidade() {
+  const header = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      idRecinto: sessionStorage.ID_RECINTO_INDIVIDUAL,
+    }),
+  };
+
+  fetch("http://localhost:3333/recinto/pegarMetricasUmidade", header)  
+}
+
 function alertas() {
   const idRecinto = sessionStorage.ID_RECINTO_INDIVIDUAL;
 
@@ -378,6 +408,9 @@ document.addEventListener("DOMContentLoaded", pegarTotalSensoresPorRecinto);
 document.addEventListener("DOMContentLoaded", pegarMaximoTemperatura);
 document.addEventListener("DOMContentLoaded", pegarMaximoUmidade);
 document.addEventListener("DOMContentLoaded", alertas);
+document.addEventListener("DOMContentLoaded", pegarMetricasTemperatura);
+document.addEventListener("DOMContentLoaded", pegarMetricasUmidade);
 document.addEventListener("DOMContentLoaded", botaoHistorico);
+botaoHistorico.addEventListener("click", filtro);
 botaoFiltrar.addEventListener("click", filtro);
 filterHistorico.addEventListener("click", abrirHistorico);

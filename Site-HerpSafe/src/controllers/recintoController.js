@@ -171,6 +171,30 @@ function pegarMaximoUmidade(req, res) {
   }
 }
 
+function pegarMetricasTemperatura(req, res) {
+  const idRecinto = req.body.idRecinto;
+
+  if (idRecinto == undefined) {
+    res.status(500).send("Recinto esta como indefinido!");
+  } else {
+    recintoModel.pegarMetricasTemperatura(idRecinto).then((result) => {
+      res.status(200).json(result);
+    });
+  }
+}
+
+function pegarMetricasUmidade(req, res) {
+  const idRecinto = req.body.idRecinto;
+
+  if (idRecinto == undefined) {
+    res.status(500).send("Recinto esta como indefinido!");
+  } else {
+    recintoModel.pegarMetricasTemperatura(idRecinto).then((result) => {
+      res.status(200).json(result);
+    });
+  }
+}
+
 function alertas(req, res) {
   const idRecinto = req.body.idRecinto;
 
@@ -226,6 +250,8 @@ module.exports = {
   pegarCapturasUmidade,
   pegarMaximoUmidade,
   pegarMaximoTemperatura,
+  pegarMetricasTemperatura,
+  pegarMetricasUmidade,
   filtro,
   pegarTotalSensores,
   alertas,
