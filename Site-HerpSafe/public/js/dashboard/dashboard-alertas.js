@@ -1,15 +1,20 @@
+const { head } = require("../../../src/routes");
+
 const nomeUsuario = document.getElementById("nome_usuario_alerta");
 [];
 nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-const botaoHistorico = JSON.parse(sessionStorage.Alertas_Recinto_Individual);
-const botaoAberto = sessionStorage.Abrir_Botao_Historico;
+if (sessionStorage.Alertas_Recinto_Individual == undefined) {
+  sessionStorage.setItem("Alertas_Recinto_Individual", false);
+} else {
+  const botaoHistorico = JSON.parse(sessionStorage.Alertas_Recinto_Individual);
+  const botaoAberto = sessionStorage.Abrir_Botao_Historico;
 
-if (botaoAberto == "true") {
-  const section_alertas = document.querySelector(".principal-alertas-scroll");
+  if (botaoAberto == "true") {
+    const section_alertas = document.querySelector(".principal-alertas-scroll");
 
-  for (let i = 0; i < botaoHistorico.length; i++) {
-    section_alertas.innerHTML += `
+    for (let i = 0; i < botaoHistorico.length; i++) {
+      section_alertas.innerHTML += `
                 <div class="principal-alertas-scroll-container">
                         <div class="principal-alertas-scroll-data">
                             <img src="../assets/icons/icon-data.svg" alt="Icon Data">
@@ -34,51 +39,51 @@ if (botaoAberto == "true") {
                         </div>
                     </div>
                 `;
-  }
-} else {
-  document.addEventListener("DOMContentLoaded", function () {
-    var corpo = {
-      fkEmpresaServer: sessionStorage.getItem("ID_EMPRESA"),
-    };
+    }
+  } else {
+    document.addEventListener("DOMContentLoaded", function () {
+      var corpo = {
+        fkEmpresaServer: sessionStorage.getItem("ID_EMPRESA"),
+      };
 
-    fetch("/alertas/buscarAlertas", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(corpo),
-    })
-      .then(function (resposta) {
-        if (resposta.ok) {
-          return resposta.json();
-        } else {
-          return resposta.text().then((msg) => {
-            throw new Error(msg);
-          });
-        }
+      fetch("/alertas/buscarAlertas", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(corpo),
       })
-      .then(function (dados) {
-        sessionStorage.ALERTAS = JSON.stringify(dados);
-
-        var section_alertas = document.querySelector(
-          ".principal-alertas-scroll"
-        );
-
-        for (var i = 0; i < dados.length; i++) {
-          var data = new Date(dados[i].dt_Hr_Captura);
-          var dataFormatada = data.toLocaleDateString("pt-BR");
-          var tipoCaptura = "";
-          var captura = "";
-
-          if (dados[i].mensagem.includes(`Umidade`)) {
-            tipoCaptura = "Umidade";
-            captura = `${dados[i].umidade}%`;
+        .then(function (resposta) {
+          if (resposta.ok) {
+            return resposta.json();
           } else {
-            tipoCaptura = "Temperatura";
-            captura = `${dados[i].temperatura}° graus`;
+            return resposta.text().then((msg) => {
+              throw new Error(msg);
+            });
           }
+        })
+        .then(function (dados) {
+          sessionStorage.ALERTAS = JSON.stringify(dados);
 
-          section_alertas.innerHTML += `
+          const section_alertas = document.querySelector(
+            ".principal-alertas-scroll"
+          );
+
+          for (var i = 0; i < dados.length; i++) {
+            let data = new Date(dados[i].dt_Hr_Captura);
+            let dataFormatada = data.toLocaleDateString("pt-BR");
+            let tipoCaptura = "";
+            let captura = "";
+
+            if (dados[i].mensagem.includes(`Umidade`)) {
+              tipoCaptura = "Umidade";
+              captura = `${dados[i].umidade}%`;
+            } else {
+              tipoCaptura = "Temperatura";
+              captura = `${dados[i].temperatura}° graus`;
+            }
+
+            section_alertas.innerHTML += `
                 <div class="principal-alertas-scroll-container">
                         <div class="principal-alertas-scroll-data">
                             <img src="../assets/icons/icon-data.svg" alt="Icon Data">
@@ -95,24 +100,52 @@ if (botaoAberto == "true") {
                         </div>
                     </div>
                 `;
-        }
-      })
-      .catch(function (erro) {
-        console.error("Erro ao tentar login:", erro.message);
-      });
-  });
+          }
+        })
+        .catch(() => {
+          const section_alertas = document.querySelector(
+            ".principal-alertas-scroll"
+          );
+
+          section_alertas.innerHTML = `<p>Sem alertas no momento!</p>`;
+        });
+    });
+  }
 }
 
 function filtro() {
-  var nome_recinto = input_nome_recinto.value;
-  var data = input_data.value;
-  var tipo_alerta = select_tipo_alerta.value;
+  const nome_recinto = input_nome_recinto.value;
+  const data = input_data.value;
+  const tipo_alerta = select_tipo_alerta.value;
 
-  if (nome_recinto != "" || data != "" || tipo_alerta != "") {
-    if (nome_recinto != "") {
-    }
+  if (nome_recinto != "" && data != "" && tipo_alerta != "") {
+    const header = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nomeRecinto: nome_recinto,
+        data: data,
+        tipoAlerta: tipo_alerta,
+      }),
+    };
+    fetch("http://localhost:3333/alertas/filtrarAlertas", header)
+      .then((result) => {
+        if (result.ok) {
+          result.json().then((dadosFiltrados) => {
+            console.log(dadosFiltrados);
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(
+          "Erro: não foi possível filtrar os dados dos alertas",
+          error
+        );
+      });
   } else {
-    alert(`Preencha pelo menos um dos campos para prosseguir`);
+    alert(`Preencha todos os campos para prosseguir`);
   }
 }
 

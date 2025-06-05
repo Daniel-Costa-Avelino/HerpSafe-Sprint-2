@@ -1,7 +1,7 @@
-var database = require("../database/config");
+const database = require("../database/config");
 
 function buscarAlertas(fkEmpresa) {
-  var instrucaoSql = `
+  const instrucaoSql = `
     SELECT * FROM captura as c
     JOIN sensor ON fkSensor = idSensor
     JOIN recinto on fkRecinto = idRecinto
@@ -12,6 +12,10 @@ function buscarAlertas(fkEmpresa) {
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
+}
+
+function filtrarAlertas(id_usu) {
+  const 
 }
 
 module.exports = {
