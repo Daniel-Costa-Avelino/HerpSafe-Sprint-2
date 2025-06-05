@@ -33,12 +33,67 @@ function button1(btn) {
       }
     })
     .then(function (dados) {
-      sessionStorage.RECINTOS_TODOS = JSON.stringify(dados);
-      console.log(dados);
-
+      sessionStorage.RECINTOS_QTD = dados.length;
+      sessionStorage.RECINTOS_TODOS_INFOS = JSON.stringify(dados);
+      var dadosRecintos = dados;
 
       for (let i = 0; i < dados.length; i++) {
 
+        div_box_recinto.innerHTML += `
+             <div class="recinto1-box" value = "${dados[i].idRecinto}" onclick = guardarIdRecinto(this)>
+                                         <p class="titulo-box-recinto">${dados[i].nome_recinto}</p class="titulo-box-recinto">
+                                         <div class="temp-umidade">
+                                             <div class="temperatura-recinto1">
+                                                 <p>Temperatura</p>
+                                                 <img src="" alt="Temperatura">
+                                             </div>
+                                             <div class="umidade-recinto1">
+                                                 <p>Umidade</p>
+                                                 <img src="" alt="Umidade">
+                                             </div>
+                                         </div>
+                                     </div>                        
+        `;
+
+      }
+      buscarRecintosPorPrateleira_captura(id, dadosRecintos);
+    })
+    .catch(function (erro) {
+      console.error("Erro ao tentar login:", erro.message);
+      div_box_recinto.innerHTML = "<h1>Sem recintos cadastrados!</h1>";
+    });
+}
+
+function buscarRecintosPorPrateleira_captura(fkPrateleira, dados) {
+  var recintos = sessionStorage.RECINTOS_QTD;
+  var recintos_infos = [];
+  console.log(dados);
+
+  for (let i = 0; i < recintos; i++) {
+    recintos_infos.push(dados[i])
+
+    const corpo2 = {
+      fkPrateleiraServer: fkPrateleira,
+      idRecintoServer: recintos_infos[i].idRecinto
+    };
+
+    fetch("/recinto/buscarRecintosPorPrateleira_captura", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(corpo2),
+    })
+      .then(function (resposta) {
+        if (resposta.ok) {
+          return resposta.json();
+        } else {
+          return resposta.text().then((msg) => {
+            throw new Error(msg);
+          });
+        }
+      })
+      .then(function (dados) {
         var imgTemp;
         var imgUmid;
 
@@ -58,28 +113,27 @@ function button1(btn) {
           imgUmid = '../assets/dashboard/umidade-urgencia.svg';
         }
 
-        div_box_recinto.innerHTML += `
-                                    <div class="recinto1-box" value = "${dados[i].idRecinto}" onclick = guardarIdRecinto(this)>
-                                        <p class="titulo-box-recinto">${dados[i].nome_recinto}</p class="titulo-box-recinto">
-                                        <div class="temp-umidade">
-                                            <div class="temperatura-recinto1">
-                                                <p>Temperatura</p>
-                                                <img src="${imgTemp}" alt="Temperatura">
-                                            </div>
-                                            <div class="umidade-recinto1">
-                                                <p>Umidade</p>
-                                                <img src="${imgUmid}" alt="Umidade">
-                                            </div>
-                                        </div>
-                                    </div>
-                     `;
-      }
-    })
-    .catch(function (erro) {
-      console.error("Erro ao tentar login:", erro.message);
-      div_box_recinto.innerHTML = "<h1>Sem recintos cadastrados!</h1>";
-    });
+        var div_infos_temperatura = document.querySelector(".temperatura-recinto1");
+        var div_infos_umidade = document.querySelector(".umidade-recinto1");
+
+        div_infos_temperatura.innerHTML = `
+        <p>Temperatura</p>
+        <img src="${imgTemp}" alt="Temperatura">
+        `;
+
+        div_infos_umidade.innerHTML = `
+        <p>Umidade</p>
+        <img src="${imgUmid}" alt="Umidade">
+        `;
+
+      })
+      .catch(function (erro) {
+        console.error("Erro ao buscar recintos por prateleira", erro.message);
+        //div_box_recinto.innerHTML = "<h1>Sem recintos cadastrados!</h1>";
+      });
+  }
 }
+
 
 function guardarIdRecinto(div) {
   var valor_div = div.getAttribute("value");
@@ -120,34 +174,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (dados[i].status_prateleira == 0) {
           div_prateleiras.innerHTML += `
-                     <div class="Pratileira1" value = ${dados[i].idPrateleira}>
+          <div class="Pratileira1" value = ${dados[i].idPrateleira}>
                                  <button style = "background-color: green;"class="button-pratileira1" onclick="button1(this)">${dados[i].nome}</button>
                                  <div class="expandir-recintos">
                                   <div class="box-recinto">
                                   </div>
                                  </div>
-                    </div>
-                     `;
+                    </div >
+          `;
         } else if (dados[i].status_prateleira == 1) {
           div_prateleiras.innerHTML += `
-                     <div class="Pratileira1" value = ${dados[i].idPrateleira}>
+          <div class="Pratileira1" value = ${dados[i].idPrateleira}>
                                  <button style = "background-color: yellow;"class="button-pratileira1" onclick="button1(this)">${dados[i].nome}</button>
                                  <div class="expandir-recintos">
                                   <div class="box-recinto">
                                   </div>
                                  </div>
-                    </div>
-                     `;
+                    </div >
+          `;
         } else if (dados[i].status_prateleira == 2) {
           div_prateleiras.innerHTML += `
-                     <div class="Pratileira1" value = ${dados[i].idPrateleira}>
+          <div class="Pratileira1" value = ${dados[i].idPrateleira}>
                                  <button style = "background-color: red;"class="button-pratileira1" onclick="button1(this)">${dados[i].nome}</button>
                                  <div class="expandir-recintos">
                                   <div class="box-recinto">
                                   </div>
                                  </div>
-                    </div>
-                     `;
+                    </div >
+          `;
         }
       }
     })
@@ -184,7 +238,7 @@ document.addEventListener("DOMContentLoaded", function () {
       var div_qtdRecintosMonitorados = document.getElementById(
         "div_qtdRecintosMonitorados"
       );
-      div_qtdRecintosMonitorados.innerHTML = `${dados[0].qtdRecintosEmpresa}`;
+      div_qtdRecintosMonitorados.innerHTML = `${dados[0].qtdRecintosEmpresa} `;
     })
     .catch(function (erro) {
       console.error("Erro ao buscar recintos monitorados:", erro.message);
@@ -219,7 +273,7 @@ document.addEventListener("DOMContentLoaded", function () {
       var div_qtdSensoresAtivos = document.getElementById(
         "div_qtdSensoresAtivos"
       );
-      div_qtdSensoresAtivos.innerHTML = `${dados[0].qtdSensoresAtivos}`;
+      div_qtdSensoresAtivos.innerHTML = `${dados[0].qtdSensoresAtivos} `;
     })
     .catch(function (erro) {
       console.error("Erro ao buscar sensores ativos:", erro.message);
@@ -253,7 +307,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       var div_qtdAlertas_ultimas_24_horas =
         document.getElementById("div_qtdAlertas");
-      div_qtdAlertas_ultimas_24_horas.innerHTML = `${dados[0].total_alertas_24h}`;
+      div_qtdAlertas_ultimas_24_horas.innerHTML = `${dados[0].total_alertas_24h} `;
     })
     .catch(function (erro) {
       console.error("Erro ao buscar alertas:", erro.message);
@@ -288,7 +342,7 @@ document.addEventListener("DOMContentLoaded", function () {
       var recintos_com_problemas = document.getElementById(
         "div_qtdRecintosComProblemas"
       );
-      recintos_com_problemas.innerHTML = `${dados[0].recintos_com_problemas}`;
+      recintos_com_problemas.innerHTML = `${dados[0].recintos_com_problemas} `;
     })
     .catch(function (erro) {
       console.error("Erro ao buscar recintos com problema:", erro.message);
@@ -370,7 +424,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           mensagem = `Atenção! há um problema no recinto ${dados[i].idRecinto} - ${dados[i].nome_recinto}.
           A temperatura está ${temp} e a umidade está ${umid}.
-          `;
+        `;
 
         }
         var corpo2 = {

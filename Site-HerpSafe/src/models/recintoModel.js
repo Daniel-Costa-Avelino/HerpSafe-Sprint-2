@@ -3,14 +3,23 @@ const database = require("../database/config");
 function buscarRecintosPorPrateleira(idPrateleira) {
   const instrucaoSql = `
   SELECT * FROM recinto 
-  JOIN sensor ON fkRecinto = idRecinto
-  JOIN captura ON fkSensor = idSensor
-  WHERE fkPrateleira = ${idPrateleira}
-  ORDER BY dt_Hr_Captura DESC LIMIT 1;
+  WHERE fkPrateleira = ${idPrateleira};
   `;
 
   return database.executar(instrucaoSql);
 }
+
+ function buscarRecintosPorPrateleira_captura(idPrateleira, idRecinto) {
+   const instrucaoSql = `
+   SELECT * FROM recinto 
+   LEFT JOIN sensor ON fkRecinto = idRecinto
+   JOIN captura ON fkSensor = idSensor
+   WHERE fkPrateleira = ${idPrateleira} AND idRecinto = ${idRecinto}
+   ORDER BY dt_Hr_Captura DESC LIMIT 1;
+   `;
+
+   return database.executar(instrucaoSql);
+ }
 
 function cadastrar(
   nome_recinto,
@@ -135,4 +144,5 @@ module.exports = {
   alertas,
   filtro,
   abrirHistorico,
+  buscarRecintosPorPrateleira_captura
 };

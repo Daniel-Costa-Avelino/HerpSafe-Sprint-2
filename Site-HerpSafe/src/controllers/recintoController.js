@@ -19,6 +19,26 @@ function buscarRecintosPorPrateleira(req, res) {
     });
 }
 
+function buscarRecintosPorPrateleira_captura(req, res) {
+  var idPrateleira = req.body.fkPrateleiraServer;
+  var idRecinto = req.body.idRecintoServer;
+
+  recintoModel
+    .buscarRecintosPorPrateleira_captura(idPrateleira, idRecinto)
+    .then((resultado) => {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+      } else {
+        res.status(204).json([]);
+      }
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      console.log("Houve um erro ao buscar os recintos: ", erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
 function cadastrar(req, res) {
   const nomeRecinto = req.body.nomeRecinto;
   const fkPrateleira = req.body.fkPrateleira;
@@ -256,4 +276,5 @@ module.exports = {
   pegarTotalSensores,
   alertas,
   abrirHistorico,
+  buscarRecintosPorPrateleira_captura
 };

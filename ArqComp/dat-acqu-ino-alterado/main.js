@@ -18,12 +18,12 @@ const serial = async (
     valoresSensorAnalogico,
     valoresSensorDigital,
 ) => {
-
+ 
     // conexão com o banco de dados MySQL, sendo o principal a porta 
     // correta do banco (Ainda não funciona devido a não ter o Banco de dados)
     let poolBancoDados = mysql.createPool(
         {
-            host: '10.18.32.145', //Colocar o nome do host (Conexão) do banco de dados
+            host: '10.18.33.40', //Colocar o nome do host (Conexão) do banco de dados
             user: 'herpsafe', //Colocar o usuário do banco de dados
             password: '@Herpsafe123', //Colocar a senha (Caso tenha) 
             database: 'herpsafe', //Dizer qual é o banco de dados

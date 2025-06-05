@@ -7,6 +7,10 @@ router.post("/buscarRecintosPorPrateleira", function (req, res) {
   recintoController.buscarRecintosPorPrateleira(req, res);
 });
 
+router.post("/buscarRecintosPorPrateleira_captura", function (req, res) {
+  recintoController.buscarRecintosPorPrateleira_captura(req, res);
+});
+
 router.post("/cadastrar", function (req, res) {
   recintoController.cadastrar(req, res);
 });
