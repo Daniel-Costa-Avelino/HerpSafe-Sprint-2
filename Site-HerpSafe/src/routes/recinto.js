@@ -47,4 +47,8 @@ router.post("/alertas", function (req, res) {
   recintoController.alertas(req, res);
 });
 
+router.post("/abrirHistorico", function (req, res) {
+  recintoController.abrirHistorico(req, res);
+});
+
 module.exports = router;

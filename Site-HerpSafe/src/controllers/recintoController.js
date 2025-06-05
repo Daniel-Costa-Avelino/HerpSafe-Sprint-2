@@ -231,6 +231,18 @@ function filtro(req, res) {
   }
 }
 
+function abrirHistorico(req, res) {
+  const idRecinto = req.body.idRecinto;
+
+  if (idRecinto == undefined) {
+    res.status(500).send("ID Recinto Individual está indefinido!");
+  } else {
+    recintoModel.abrirHistorico(idRecinto).then((result) => {
+      res.status(200).json(result);
+    });
+  }
+}
+
 module.exports = {
   cadastrar,
   buscarRecintosPorPrateleira,
@@ -243,4 +255,5 @@ module.exports = {
   filtro,
   pegarTotalSensores,
   alertas,
+  abrirHistorico,
 };
