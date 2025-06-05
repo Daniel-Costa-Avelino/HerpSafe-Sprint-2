@@ -103,6 +103,69 @@ body {
   border-radius: 8px;
 }
 
+.sessao_filtro_historico .div_metricas {
+
+  display: flex;
+  flex-direction: column;
+  background-color: #044036;
+  border-radius: 8px;
+  padding: 0.5rem;
+
+}
+
+.metricas-titulo {
+
+  font-size: 0.7rem;
+
+}
+
+.metricas-kpi .Boa {
+
+  background-color: green;
+  border-radius: 50%;
+
+}
+
+.metricas-kpi .Piorando {
+
+  background-color: yellow;
+  border-radius: 50%;
+
+}
+
+.metricas-kpi .Emergencia {
+
+  background-color: red;
+  border-radius: 50%;
+
+}
+
+.metricas_indicadores {
+
+  display: flex;
+
+}
+
+.metricas-kpi>div {
+
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  width: 1rem;
+  height: 1rem;
+
+}
+
+.metricas-kpi {
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.6rem;
+  flex-direction: row;
+
+}
+
 .btn_historico {
   display: flex;
   background-color: #044036;
@@ -157,7 +220,8 @@ body {
 }
 
 
-#temperatura, #umidade {
+#temperatura,
+#umidade {
   padding: 1rem;
   border-radius: 4px;
   margin: 1rem;

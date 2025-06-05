@@ -39,7 +39,7 @@ body {
 }
 
 .section_boxes-monitoramento {
-    display: flex;
+    display: flex;  
     flex-direction: row;
     gap: 2rem;
     padding-bottom: 2.4rem;
