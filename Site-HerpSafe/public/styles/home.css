@@ -184,15 +184,13 @@
   align-items: center;
 }
 
-.div_nome,
-.div_email,
-.div_assunto {
-  width: 50%;
+.div_nome {  
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-top: 15px;
+  text-align: center;
 }
 
 .section_faleConosco div button {
@@ -230,11 +228,14 @@
 }
 
 .btn_enviar {
-  width: 9rem;
-  height: 2.5rem;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 1rem;
   background-color: #044036;
   color: white;
   font-size: 20px;
   border-radius: 8px;
-  margin-top: 30px;
 }

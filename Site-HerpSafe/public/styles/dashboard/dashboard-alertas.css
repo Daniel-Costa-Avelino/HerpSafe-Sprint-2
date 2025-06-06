@@ -125,3 +125,14 @@
 .alertas-recinto-texto p {
     padding-top: 1rem;
 }
+
+#supporte-jira {
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    img {
+        filter: invert(100%);
+        width: 5rem;
+    }
+}
