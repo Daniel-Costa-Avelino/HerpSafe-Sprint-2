@@ -209,7 +209,7 @@ function pegarMetricasUmidade(req, res) {
   if (idRecinto == undefined) {
     res.status(500).send("Recinto esta como indefinido!");
   } else {
-    recintoModel.pegarMetricasTemperatura(idRecinto).then((result) => {
+    recintoModel.pegarMetricasUmidade(idRecinto).then((result) => {
       res.status(200).json(result);
     });
   }

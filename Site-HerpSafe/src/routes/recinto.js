@@ -40,7 +40,7 @@ router.post("/pegarMetricasTemperatura", function (req, res) {
 });
 
 router.post("/pegarMetricasUmidade", function (req, res) {
-  recintoController.pegarMetricasTemperatura(req, res);
+  recintoController.pegarMetricasUmidade(req, res);
 });
 
 router.post("/filtro", function (req, res) {

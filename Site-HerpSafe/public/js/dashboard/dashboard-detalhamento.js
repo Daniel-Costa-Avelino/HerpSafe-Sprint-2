@@ -198,6 +198,13 @@ function pegarMaximoUmidade() {
 }
 
 function pegarMetricasTemperatura() {
+
+  const temp_urgente_min = document.getElementById("temp_urgente_min");
+  const temp_cuidado_min = document.getElementById("temp_cuidado_min");
+  const temp_boa = document.getElementById("temp_boa");
+  const temp_cuidado_max = document.getElementById("temp_cuidado_max");
+  const temp_urgente_max = document.getElementById("temp_urgente_max");
+
   const header = {
     method: "POST",
     headers: {
@@ -208,12 +215,31 @@ function pegarMetricasTemperatura() {
     }),
   };
 
-  fetch("http://localhost:3333/recinto/pegarMetricasTemperatura", header).then(resposta => {
-    console.log(resposta);
+  fetch("http://localhost:3333/recinto/pegarMetricasTemperatura", header)
+    .then(respostaTemp => {
+      if(respostaTemp.ok){
+        respostaTemp.json().then(metricasTemp => {
+
+          console.log(metricasTemp)
+
+          temp_urgente_min.innerHTML = `Menos de ${metricasTemp[0].min_atencao}ºC`
+          temp_cuidado_min.innerHTML = `${metricasTemp[0].min_atencao}ºC`
+          temp_boa.innerHTML = `${metricasTemp[0].min_ok}ºC - ${metricasTemp[0].max_ok}ºC`
+          temp_cuidado_max.innerHTML = `${metricasTemp[0].max_atencao}ºC`
+          temp_urgente_max.innerHTML = `Mais de ${metricasTemp[0].max_atencao}ºC`
+        })
+      }
   })
 }
 
 function pegarMetricasUmidade() {
+
+  const umi_urgente_min = document.getElementById("umi_urgente_min");
+  const umi_cuidado_min = document.getElementById("umi_cuidado_min");
+  const umi_boa = document.getElementById("umi_boa");
+  const umi_cuidado_max = document.getElementById("umi_cuidado_max");
+  const umi_urgente_max = document.getElementById("umi_urgente_max");
+
   const header = {
     method: "POST",
     headers: {
@@ -224,7 +250,22 @@ function pegarMetricasUmidade() {
     }),
   };
 
-  fetch("http://localhost:3333/recinto/pegarMetricasUmidade", header)  
+  fetch("http://localhost:3333/recinto/pegarMetricasUmidade", header)
+  .then(respostaUmi => {
+      if(respostaUmi.ok){
+        respostaUmi.json().then(metricasUmi => {
+
+          console.log(`Métricas umi:`)
+          console.log(metricasUmi)
+
+          umi_urgente_min.innerHTML = `Menos de ${metricasUmi[0].min_atencao}%`
+          umi_cuidado_min.innerHTML = `${metricasUmi[0].min_atencao}%`
+          umi_boa.innerHTML = `${metricasUmi[0].min_ok}% - ${metricasUmi[0].max_ok}%`
+          umi_cuidado_max.innerHTML = `${metricasUmi[0].max_atencao}%`
+          umi_urgente_max.innerHTML = `Mais de ${metricasUmi[0].max_atencao}%`
+        })
+      }
+  })  
 }
 
 function alertas() {

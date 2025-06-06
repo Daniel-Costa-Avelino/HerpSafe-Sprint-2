@@ -88,7 +88,7 @@ function pegarMetricasTemperatura(idRecinto) {
     SELECT min_ok, max_ok, min_atencao, max_atencao, min_emergencia, max_emergencia, tipo 
     FROM metricas
     JOIN especie as e ON fkMetricasTemperatura = idMetricas
-    WHERE e.fkRecinto = ${idRecinto};
+    WHERE e.fkIdRecinto = ${idRecinto};
   ;`;
   return database.executar(instrucaoSql);
 }
@@ -98,7 +98,7 @@ function pegarMetricasUmidade(idRecinto) {
     SELECT min_ok, max_ok, min_atencao, max_atencao, min_emergencia, max_emergencia, tipo 
     FROM metricas
     JOIN especie as e ON fkMetricasUmidade = idMetricas
-    WHERE e.fkRecinto = ${idRecinto};
+    WHERE e.fkIdRecinto = ${idRecinto};
   ;`;
   return database.executar(instrucaoSql);
 }
