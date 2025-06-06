@@ -285,3 +285,20 @@ body {
     background-color: #5b4702;
     transition: 0.5s;
 }
+
+.div_formulario_faleConosco {
+    a {
+        padding: 1rem;
+    }
+}
+
+#supporte-jira {
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    img {
+        filter: invert(100%);
+        width: 5rem;
+    }
+}
