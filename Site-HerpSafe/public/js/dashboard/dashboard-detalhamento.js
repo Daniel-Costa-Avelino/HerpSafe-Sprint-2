@@ -158,7 +158,9 @@ function pegarMaximoTemperatura() {
     .then((resultado) => {
       if (resultado.ok) {
         resultado.json().then((json) => {
-          temperaturaMaxima.innerHTML = json[0].max_emergencia;
+          console.log(`Retorno Temp Máxima`)
+          console.log(json);
+          temperaturaMaxima.innerHTML = json[0].max_temperatura;
         });
       }
     })
@@ -188,7 +190,9 @@ function pegarMaximoUmidade() {
     .then((result) => {
       if (result.ok) {
         result.json().then((json) => {
-          umidadeMaxima.innerHTML = `${json[0].max_emergencia}%`;
+          console.log(`Retorno Umidade Máxima`)
+          console.log(json)
+          umidadeMaxima.innerHTML = `${json[0].max_umidade}%`;
         });
       }
     })

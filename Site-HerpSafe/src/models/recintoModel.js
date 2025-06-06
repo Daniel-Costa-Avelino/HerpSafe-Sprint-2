@@ -70,7 +70,7 @@ function pegarTotalSensores(id_recinto) {
 
 function pegarMaximoTemperatura(idRecinto) {
   const instrucaoSql = `
-    SELECT MAX(temperatura) FROM captura 
+    SELECT MAX(temperatura) as max_temperatura FROM captura 
       JOIN sensor ON fkSensor = idSensor 
     WHERE fkRecinto = ${idRecinto} AND dt_Hr_Captura >= NOW() - INTERVAL 1 DAY;
   ;`;
@@ -79,7 +79,7 @@ function pegarMaximoTemperatura(idRecinto) {
 
 function pegarMaximoUmidade(idRecinto) {
   const instrucaoSql = `
-    SELECT MAX(umidade) FROM captura 
+    SELECT MAX(umidade) as max_umidade FROM captura 
       JOIN sensor ON fkSensor = idSensor 
     WHERE fkRecinto = ${idRecinto} AND dt_Hr_Captura >= NOW() - INTERVAL 1 DAY;
   ;`;
