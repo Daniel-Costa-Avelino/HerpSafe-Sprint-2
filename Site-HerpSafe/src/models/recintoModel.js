@@ -9,8 +9,8 @@ function buscarRecintosPorPrateleira(idPrateleira) {
   return database.executar(instrucaoSql);
 }
 
- function buscarRecintosPorPrateleira_captura(idPrateleira, idRecinto) {
-   const instrucaoSql = `
+function buscarRecintosPorPrateleira_captura(idPrateleira, idRecinto) {
+  const instrucaoSql = `
    SELECT * FROM recinto 
    LEFT JOIN sensor ON fkRecinto = idRecinto
    JOIN captura ON fkSensor = idSensor
@@ -18,8 +18,8 @@ function buscarRecintosPorPrateleira(idPrateleira) {
    ORDER BY dt_Hr_Captura DESC LIMIT 1;
    `;
 
-   return database.executar(instrucaoSql);
- }
+  return database.executar(instrucaoSql);
+}
 
 function cadastrar(
   nome_recinto,
@@ -70,16 +70,18 @@ function pegarTotalSensores(id_recinto) {
 
 function pegarMaximoTemperatura(idRecinto) {
   const instrucaoSql = `
-    SELECT max_emergencia FROM especie 
-    JOIN metricas ON fkMetricasTemperatura = idMetricas WHERE fkIdRecinto = ${idRecinto};
+    SELECT MAX(temperatura) FROM captura 
+      JOIN sensor ON fkSensor = idSensor 
+    WHERE fkRecinto = ${idRecinto} AND dt_Hr_Captura >= NOW() - INTERVAL 1 DAY;
   ;`;
   return database.executar(instrucaoSql);
 }
 
 function pegarMaximoUmidade(idRecinto) {
   const instrucaoSql = `
-    SELECT max_emergencia FROM especie 
-    JOIN metricas ON fkMetricasUmidade = idMetricas WHERE fkIdRecinto = ${idRecinto};
+    SELECT MAX(umidade) FROM captura 
+      JOIN sensor ON fkSensor = idSensor 
+    WHERE fkRecinto = ${idRecinto} AND dt_Hr_Captura >= NOW() - INTERVAL 1 DAY;
   ;`;
   return database.executar(instrucaoSql);
 }
@@ -144,5 +146,5 @@ module.exports = {
   alertas,
   filtro,
   abrirHistorico,
-  buscarRecintosPorPrateleira_captura
+  buscarRecintosPorPrateleira_captura,
 };
