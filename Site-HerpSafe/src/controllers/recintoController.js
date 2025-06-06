@@ -215,6 +215,40 @@ function pegarMetricasUmidade(req, res) {
   }
 }
 
+function atualizarStatusCaptura(req, res) {
+  const idRecinto = req.body.idRecinto;
+
+  if (idRecinto == undefined) {
+    res.status(500).send("Recinto esta como indefinido!");
+  } else {
+    recintoModel.atualizarStatusCaptura(idRecinto).then((result) => {
+      res.status(200).json(result);
+    });
+  }
+}
+
+function realizarUpdateTabelaCaptura(req, res) {
+  var status = req.body.statusServer;
+  var idCaptura = req.body.idCapturaServer;
+  var mensagem = req.body.mensagemServer;
+
+  recintoModel
+    .realizarUpdateTabelaCaptura(status, idCaptura, mensagem)
+    .then((resultado) => {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+        console.log(resultado);
+      } else {
+        res.status(204).json([]);
+      }
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      console.log("Houve um erro ao buscar as prateleiras: ", erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
 function alertas(req, res) {
   const idRecinto = req.body.idRecinto;
 
@@ -272,6 +306,8 @@ module.exports = {
   pegarMaximoTemperatura,
   pegarMetricasTemperatura,
   pegarMetricasUmidade,
+  atualizarStatusCaptura,
+  realizarUpdateTabelaCaptura,
   filtro,
   pegarTotalSensores,
   alertas,

@@ -43,6 +43,14 @@ router.post("/pegarMetricasUmidade", function (req, res) {
   recintoController.pegarMetricasUmidade(req, res);
 });
 
+router.post("/atualizarStatusCaptura", function (req, res) {
+  recintoController.atualizarStatusCaptura(req, res);
+});
+
+router.post("/realizarUpdateTabelaCaptura", function (req, res) {
+  recintoController.realizarUpdateTabelaCaptura(req, res);
+});
+
 router.post("/filtro", function (req, res) {
   recintoController.filtro(req, res);
 });

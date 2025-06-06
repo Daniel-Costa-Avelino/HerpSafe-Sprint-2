@@ -217,7 +217,7 @@ function pegarMetricasTemperatura() {
 
   fetch("http://localhost:3333/recinto/pegarMetricasTemperatura", header)
     .then(respostaTemp => {
-      if(respostaTemp.ok){
+      if (respostaTemp.ok) {
         respostaTemp.json().then(metricasTemp => {
 
           console.log(metricasTemp)
@@ -229,7 +229,7 @@ function pegarMetricasTemperatura() {
           temp_urgente_max.innerHTML = `Mais de ${metricasTemp[0].max_atencao}ºC`
         })
       }
-  })
+    })
 }
 
 function pegarMetricasUmidade() {
@@ -251,8 +251,8 @@ function pegarMetricasUmidade() {
   };
 
   fetch("http://localhost:3333/recinto/pegarMetricasUmidade", header)
-  .then(respostaUmi => {
-      if(respostaUmi.ok){
+    .then(respostaUmi => {
+      if (respostaUmi.ok) {
         respostaUmi.json().then(metricasUmi => {
 
           console.log(`Métricas umi:`)
@@ -265,8 +265,124 @@ function pegarMetricasUmidade() {
           umi_urgente_max.innerHTML = `Mais de ${metricasUmi[0].max_atencao}%`
         })
       }
-  })  
+    })
 }
+
+function atualizarStatusCaptura() {
+
+  let status = 0;
+  let mensagem = "";
+  let temp = "";
+  let umid = "";
+
+  var corpo = {
+    idRecinto: sessionStorage.getItem("ID_RECINTO_INDIVIDUAL"),
+  };
+
+  fetch("/recinto/atualizarStatusCaptura", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(corpo),
+  })
+    .then(function (resposta) {
+      if (resposta.ok) {
+        return resposta.json();
+      } else {
+        return resposta.text().then((msg) => {
+          throw new Error(msg);
+        });
+      }
+    })
+    .then(function (dados) {
+      console.log(dados);
+
+      let alertaTemp = document.getElementById("alertaTemp")
+      let alertaUmid = document.getElementById("alertaUmid")
+
+      console.log("minOkTemp" + dados[0].minOkTemp)
+      console.log("maxOkTemp" + dados[0].maxOkTemp)
+      console.log("minAtencaoTemp" + dados[0].minAtencaoTemp)
+      console.log("maxAtencaoTemp" + dados[0].maxAtencaoTemp)
+      console.log("minEmergenciaTemp" + dados[0].minEmergenciaTemp)
+      console.log("maxEmergenciaTemp" + dados[0].maxEmergenciaTemp)
+
+      let idCaptura = dados[0].idCaptura;
+
+      if (
+        (dados[0].temperatura >= dados[0].minOkTemp && dados[0].temperatura <= dados[0].maxOkTemp)
+        &&
+        (dados[0].umidade >= dados[0].minOkUmid && dados[0].umidade <= dados[0].maxOkUmid)
+      ) {
+        status = 0;
+        temp = "estável";
+        umid = "estável";
+        alertaTemp.src = "../assets/icons/certoVerde.png"
+        alertaUmid.src = "../assets/icons/certoVerde.png"
+      } else {
+
+        if ((dados[0].temperatura >= dados[0].minOkTemp && dados[0].temperatura <= dados[0].maxOkTemp)) {
+          temp = "estável";
+          alertaTemp.src = "../assets/icons/certoVerde.png";
+        } else if (dados[0].temperatura >= dados[0].minAtencaoTemp && dados[0].temperatura <= dados[0].maxAtencaoTemp) {
+          temp = "em nível de atenção"
+          status = 1;
+          alertaTemp.src = "../assets/icons/alertaAmarelo.png"
+        } else {
+          temp = "em nível de urgência"
+          status = 2
+          alertaTemp.src = "../assets/icons/alertaVermelho.png"
+        }
+
+        if ((dados[0].umidade >= dados[0].minOkUmid && dados[0].umidade <= dados[0].maxOkUmid)) {
+          umid = "estável";
+          alertaUmid.src = "../assets/icons/certoVerde.png";
+        } else if (dados[0].umidade >= dados[0].minAtencaoUmid && dados[0].umidade <= dados[0].maxAtencaoUmid) {
+          umid = "em nível de atenção"
+          alertaUmid.src = "../assets/icons/alertaAmarelo.png"
+
+          if (status < 1) {
+            status = 1;
+          }
+        }
+        else {
+          umid = "em nível de urgência"
+          alertaUmid.src = "../assets/icons/alertaVermelho.png"
+          status = 2;
+        }
+
+        mensagem = `Atenção! há um problema no recinto ${dados[0].idRecinto} - ${dados[0].nome_recinto}.
+          A temperatura está ${temp} e a umidade está ${umid}.
+        `;
+
+      }
+      var corpo2 = {
+        statusServer: status,
+        idCapturaServer: idCaptura,
+        mensagemServer: mensagem
+      };
+
+      fetch("/recinto/realizarUpdateTabelaCaptura", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(corpo2),
+      }).then(function (resposta) {
+        if (resposta.ok) {
+          return resposta.json();
+        } else {
+          return resposta.text().then((msg) => {
+            throw new Error(msg);
+          });
+        }
+      })
+    })
+    .catch(function (erro) {
+      console.error("Erro ao atualizar status da captura:", erro.message);
+    });
+};
 
 function alertas() {
   const idRecinto = sessionStorage.ID_RECINTO_INDIVIDUAL;
@@ -451,6 +567,7 @@ document.addEventListener("DOMContentLoaded", pegarMaximoUmidade);
 document.addEventListener("DOMContentLoaded", alertas);
 document.addEventListener("DOMContentLoaded", pegarMetricasTemperatura);
 document.addEventListener("DOMContentLoaded", pegarMetricasUmidade);
+document.addEventListener("DOMContentLoaded", atualizarStatusCaptura);
 document.addEventListener("DOMContentLoaded", botaoHistorico);
 botaoHistorico.addEventListener("click", filtro);
 botaoFiltrar.addEventListener("click", filtro);
