@@ -140,7 +140,7 @@ body {
 
 .section-visao-prateleiras {
     width: 73.3vw;
-    height: 50vh;
+    height: fit-content;
     background-color: #20402E;
     
     padding: 1rem;
@@ -162,6 +162,7 @@ body {
     align-items: center;
     width: 100%;
     gap: 2rem;
+    flex-wrap: wrap;
 }
 
 .button-pratileira1 {

@@ -40,8 +40,8 @@ function cadastrar(
 
 function pegarCapturasTemperatura(id_recinto) {
   const instrucaoSql = `
-    SELECT temperatura FROM captura 
-  JOIN sensor ON fkSensor = idSensor WHERE fkRecinto = ${id_recinto};
+     SELECT temperatura, concat(HOUR(dt_Hr_Captura),":",MINUTE(dt_Hr_Captura)) AS 'horario' FROM captura 
+    JOIN sensor ON fkSensor = idSensor WHERE fkRecinto = 1 ORDER BY dt_Hr_Captura DESC LIMIT 5;
   `;
 
   return database.executar(instrucaoSql);
@@ -49,8 +49,8 @@ function pegarCapturasTemperatura(id_recinto) {
 
 function pegarCapturasUmidade(id_recinto) {
   const instrucaoSql = `
-    SELECT umidade FROM captura 
-    JOIN sensor ON fkSensor = idSensor WHERE fkRecinto = ${id_recinto};
+    SELECT umidade, concat(HOUR(dt_Hr_Captura),":",MINUTE(dt_Hr_Captura)) AS 'horario' FROM captura 
+    JOIN sensor ON fkSensor = idSensor WHERE fkRecinto = 1 ORDER BY dt_Hr_Captura LIMIT 5;
 
   `;
 

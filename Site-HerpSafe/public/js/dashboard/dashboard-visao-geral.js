@@ -4,7 +4,7 @@ nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO;
 
 function button1(btn) {
   const div_prateleira = btn.parentElement;
-  const id = div_prateleira.getAttribute("value");
+  var id = div_prateleira.getAttribute("value");
 
   const div_box_recinto = document.querySelector(".box-recinto");
   div_box_recinto.innerHTML = "";
@@ -167,12 +167,24 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .then(function (dados) {
       sessionStorage.PRATELEIRAS = JSON.stringify(dados);
+      console.log(dados);
+
 
       var div_prateleiras = document.querySelector(".Pratileiras");
 
       for (let i = 0; i < dados.length; i++) {
 
-        if (dados[i].status_prateleira == 0) {
+        if (dados[i].status_prateleira == null) {
+          div_prateleiras.innerHTML += `
+          <div class="Pratileira1" value = ${dados[i].idPrateleira}>
+                                 <button style = "background-color: gray;"class="button-pratileira1" onclick="button1(this)">${dados[i].nome}</button>
+                                 <div class="expandir-recintos">
+                                  <div class="box-recinto">
+                                  </div>
+                                 </div>
+                    </div >
+          `;
+        } else if (dados[i].status_prateleira == 0) {
           div_prateleiras.innerHTML += `
           <div class="Pratileira1" value = ${dados[i].idPrateleira}>
                                  <button style = "background-color: green;"class="button-pratileira1" onclick="button1(this)">${dados[i].nome}</button>
@@ -204,6 +216,7 @@ document.addEventListener("DOMContentLoaded", function () {
           `;
         }
       }
+
     })
     .catch(function (erro) {
       console.error("Erro ao tentar login:", erro.message);
@@ -380,13 +393,6 @@ document.addEventListener("DOMContentLoaded", function () {
         var mensagem = '';
         var temp;
         var umid;
-
-        console.log("minOkTemp" + dados[i].minOkTemp)
-        console.log("maxOkTemp" + dados[i].maxOkTemp)
-        console.log("minAtencaoTemp" + dados[i].minAtencaoTemp)
-        console.log("maxAtencaoTemp" + dados[i].maxAtencaoTemp)
-        console.log("minEmergenciaTemp" + dados[i].minEmergenciaTemp)
-        console.log("maxEmergenciaTemp" + dados[i].maxEmergenciaTemp)
 
         if (
           (dados[i].temperatura >= dados[i].minOkTemp && dados[i].temperatura <= dados[i].maxOkTemp)

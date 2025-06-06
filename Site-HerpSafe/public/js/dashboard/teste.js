@@ -3,12 +3,10 @@ const numeroSensoresRecinto = document.getElementById(
   "numero-sensores-recinto"
 );
 const filterHistorico = document.getElementById("filter_historico");
+
 const botaoFiltrar = document.getElementById("filtrar_data");
 
 nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO;
-
-let chartTemperatura = null;
-let chartUmidade = null;
 
 function pegarCapturasTemperatura() {
   const header = {
@@ -24,28 +22,23 @@ function pegarCapturasTemperatura() {
   fetch("http://localhost:3333/recinto/pegarCapturasTemperatura", header)
     .then((result) => {
       result.json().then((json) => {
-        const ctx = document.getElementById("temperatura").getContext("2d");
+        const sensorTemp = document
+          .getElementById(`temperatura`)
+          .getContext("2d");
 
-        if (chartTemperatura) chartTemperatura.destroy(); 
-        chartTemperatura = new Chart(ctx, {
+        new Chart(sensorTemp, {
           type: "line",
           data: {
-            labels: [
-              json[4].horario,
-              json[3].horario,
-              json[2].horario,
-              json[1].horario,
-              json[0].horario,
-            ],
+            labels: ["1", "2", "3", "4", "5"],
             datasets: [
               {
                 label: `Temperatura do sensor 1`,
                 data: [
-                  json[4].temperatura,
-                  json[3].temperatura,
-                  json[2].temperatura,
-                  json[1].temperatura,
                   json[0].temperatura,
+                  json[1].temperatura,
+                  json[2].temperatura,
+                  json[3].temperatura,
+                  json[4].temperatura,
                 ],
                 borderWidth: 1,
                 backgroundColor: "#EA4949",
@@ -53,6 +46,7 @@ function pegarCapturasTemperatura() {
               },
             ],
           },
+
           options: {
             scales: {
               y: {
@@ -63,6 +57,7 @@ function pegarCapturasTemperatura() {
         });
       });
     })
+
     .catch((error) => {
       console.log("Erro: não foi possível fazer a requisição", error);
     });
@@ -82,34 +77,27 @@ function pegarCapturasUmidade() {
   fetch("http://localhost:3333/recinto/pegarCapturasUmidade", header)
     .then((result) => {
       result.json().then((json) => {
-        const ctx = document.getElementById("umidade").getContext("2d");
+        const sensorTemp = document.getElementById(`umidade`).getContext("2d");
 
-        if (chartUmidade) chartUmidade.destroy(); // <-- destruir gráfico anterior
-
-        chartUmidade = new Chart(ctx, {
+        new Chart(sensorTemp, {
           type: "line",
           data: {
-            labels: [
-              json[4].horario,
-              json[3].horario,
-              json[2].horario,
-              json[1].horario,
-              json[0].horario,
-            ],
+            labels: ["1", "2", "3", "4", "5"],
             datasets: [
               {
                 label: `Umidade do sensor 1`,
                 data: [
-                  json[4].umidade,
-                  json[3].umidade,
-                  json[2].umidade,
-                  json[1].umidade,
                   json[0].umidade,
+                  json[1].umidade,
+                  json[2].umidade,
+                  json[3].umidade,
+                  json[4].umidade,
                 ],
                 borderWidth: 1,
               },
             ],
           },
+
           options: {
             scales: {
               y: {
@@ -120,13 +108,11 @@ function pegarCapturasUmidade() {
         });
       });
     })
+
     .catch((error) => {
       console.log("Erro: não foi possível fazer a requisição", error);
     });
 }
-
-setInterval(pegarCapturasUmidade, 5000);
-setInterval(pegarCapturasTemperatura, 5000);
 
 function pegarTotalSensoresPorRecinto() {
   const header = {
@@ -172,7 +158,7 @@ function pegarMaximoTemperatura() {
     .then((resultado) => {
       if (resultado.ok) {
         resultado.json().then((json) => {
-          temperaturaMaxima.innerHTML = json[0].max_temperatura;
+          temperaturaMaxima.innerHTML = json[0].max_emergencia;
         });
       }
     })
@@ -202,7 +188,7 @@ function pegarMaximoUmidade() {
     .then((result) => {
       if (result.ok) {
         result.json().then((json) => {
-          umidadeMaxima.innerHTML = `${json[0].max_umidade}%`;
+          umidadeMaxima.innerHTML = `${json[0].max_emergencia}%`;
         });
       }
     })
@@ -210,180 +196,6 @@ function pegarMaximoUmidade() {
       console.log("Erro: não foi possível pegar o máximo de umidade", erro);
     });
 }
-
-function pegarMetricasTemperatura() {
-
-  const temp_urgente_min = document.getElementById("temp_urgente_min");
-  const temp_cuidado_min = document.getElementById("temp_cuidado_min");
-  const temp_boa = document.getElementById("temp_boa");
-  const temp_cuidado_max = document.getElementById("temp_cuidado_max");
-  const temp_urgente_max = document.getElementById("temp_urgente_max");
-
-  const header = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      idRecinto: sessionStorage.ID_RECINTO_INDIVIDUAL,
-    }),
-  };
-
-  fetch("http://localhost:3333/recinto/pegarMetricasTemperatura", header)
-    .then(respostaTemp => {
-      if (respostaTemp.ok) {
-        respostaTemp.json().then(metricasTemp => {
-
-          temp_urgente_min.innerHTML = `Menos de ${metricasTemp[0].min_atencao}ºC`
-          temp_cuidado_min.innerHTML = `${metricasTemp[0].min_atencao}ºC`
-          temp_boa.innerHTML = `${metricasTemp[0].min_ok}ºC - ${metricasTemp[0].max_ok}ºC`
-          temp_cuidado_max.innerHTML = `${metricasTemp[0].max_atencao}ºC`
-          temp_urgente_max.innerHTML = `Mais de ${metricasTemp[0].max_atencao}ºC`
-        })
-      }
-    })
-}
-
-function pegarMetricasUmidade() {
-
-  const umi_urgente_min = document.getElementById("umi_urgente_min");
-  const umi_cuidado_min = document.getElementById("umi_cuidado_min");
-  const umi_boa = document.getElementById("umi_boa");
-  const umi_cuidado_max = document.getElementById("umi_cuidado_max");
-  const umi_urgente_max = document.getElementById("umi_urgente_max");
-
-  const header = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      idRecinto: sessionStorage.ID_RECINTO_INDIVIDUAL,
-    }),
-  };
-
-  fetch("http://localhost:3333/recinto/pegarMetricasUmidade", header)
-    .then(respostaUmi => {
-      if (respostaUmi.ok) {
-        respostaUmi.json().then(metricasUmi => {
-
-          umi_urgente_min.innerHTML = `Menos de ${metricasUmi[0].min_atencao}%`
-          umi_cuidado_min.innerHTML = `${metricasUmi[0].min_atencao}%`
-          umi_boa.innerHTML = `${metricasUmi[0].min_ok}% - ${metricasUmi[0].max_ok}%`
-          umi_cuidado_max.innerHTML = `${metricasUmi[0].max_atencao}%`
-          umi_urgente_max.innerHTML = `Mais de ${metricasUmi[0].max_atencao}%`
-        })
-      }
-    })
-}
-
-function atualizarStatusCaptura() {
-
-  let status = 0;
-  let mensagem = "";
-  let temp = "";
-  let umid = "";
-
-  var corpo = {
-    idRecinto: sessionStorage.getItem("ID_RECINTO_INDIVIDUAL"),
-  };
-
-  fetch("/recinto/atualizarStatusCaptura", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(corpo),
-  })
-    .then(function (resposta) {
-      if (resposta.ok) {
-        return resposta.json();
-      } else {
-        return resposta.text().then((msg) => {
-          throw new Error(msg);
-        });
-      }
-    })
-    .then(function (dados) {
-
-      let alertaTemp = document.getElementById("alertaTemp")
-      let alertaUmid = document.getElementById("alertaUmid")
-
-      let idCaptura = dados[0].idCaptura;
-
-      if (
-        (dados[0].temperatura >= dados[0].minOkTemp && dados[0].temperatura <= dados[0].maxOkTemp)
-        &&
-        (dados[0].umidade >= dados[0].minOkUmid && dados[0].umidade <= dados[0].maxOkUmid)
-      ) {
-        status = 0;
-        temp = "estável";
-        umid = "estável";
-        alertaTemp.src = "../assets/icons/certoVerde.png"
-        alertaUmid.src = "../assets/icons/certoVerde.png"
-      } else {
-
-        if ((dados[0].temperatura >= dados[0].minOkTemp && dados[0].temperatura <= dados[0].maxOkTemp)) {
-          temp = "estável";
-          alertaTemp.src = "../assets/icons/certoVerde.png";
-        } else if (dados[0].temperatura >= dados[0].minAtencaoTemp && dados[0].temperatura <= dados[0].maxAtencaoTemp) {
-          temp = "em nível de atenção"
-          status = 1;
-          alertaTemp.src = "../assets/icons/alertaAmarelo.png"
-        } else {
-          temp = "em nível de urgência"
-          status = 2
-          alertaTemp.src = "../assets/icons/alertaVermelho.png"
-        }
-
-        if ((dados[0].umidade >= dados[0].minOkUmid && dados[0].umidade <= dados[0].maxOkUmid)) {
-          umid = "estável";
-          alertaUmid.src = "../assets/icons/certoVerde.png";
-        } else if (dados[0].umidade >= dados[0].minAtencaoUmid && dados[0].umidade <= dados[0].maxAtencaoUmid) {
-          umid = "em nível de atenção"
-          alertaUmid.src = "../assets/icons/alertaAmarelo.png"
-
-          if (status < 1) {
-            status = 1;
-          }
-        }
-        else {
-          umid = "em nível de urgência"
-          alertaUmid.src = "../assets/icons/alertaVermelho.png"
-          status = 2;
-        }
-
-        mensagem = `Atenção! há um problema no recinto ${dados[0].idRecinto} - ${dados[0].nome_recinto}.
-          A temperatura está ${temp} e a umidade está ${umid}.
-        `;
-
-      }
-      var corpo2 = {
-        statusServer: status,
-        idCapturaServer: idCaptura,
-        mensagemServer: mensagem
-      };
-
-      fetch("/recinto/realizarUpdateTabelaCaptura", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(corpo2),
-      }).then(function (resposta) {
-        if (resposta.ok) {
-          return resposta.json();
-        } else {
-          return resposta.text().then((msg) => {
-            throw new Error(msg);
-          });
-        }
-      })
-    })
-    .catch(function (erro) {
-      console.error("Erro ao atualizar status da captura:", erro.message);
-    });
-};
 
 function alertas() {
   const idRecinto = sessionStorage.ID_RECINTO_INDIVIDUAL;
@@ -566,9 +378,6 @@ document.addEventListener("DOMContentLoaded", pegarTotalSensoresPorRecinto);
 document.addEventListener("DOMContentLoaded", pegarMaximoTemperatura);
 document.addEventListener("DOMContentLoaded", pegarMaximoUmidade);
 document.addEventListener("DOMContentLoaded", alertas);
-document.addEventListener("DOMContentLoaded", pegarMetricasTemperatura);
-document.addEventListener("DOMContentLoaded", pegarMetricasUmidade);
-document.addEventListener("DOMContentLoaded", atualizarStatusCaptura);
 document.addEventListener("DOMContentLoaded", botaoHistorico);
 botaoFiltrar.addEventListener("click", filtro);
 filterHistorico.addEventListener("click", abrirHistorico);
